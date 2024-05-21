@@ -1,3 +1,6 @@
+#local util
+ecr_auth.sh
+
 # Database
 application/docs/
 

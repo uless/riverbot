@@ -12,3 +12,8 @@ class EcrStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         repository = ecr.Repository(self, "waterbot")
+
+
+        self.exports = {
+            "repository": repository
+        }
