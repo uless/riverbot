@@ -108,14 +108,6 @@ class AppStack(Stack):
             )
         )
 
-        # Create a Fargate service
-        service = ecs.FargateService(
-            self, "WaterbotFargateService",
-            cluster=cluster,
-            task_definition=task_definition,
-            desired_count=1,
-        )
-
         # Create an Application Load Balancer
         alb = elbv2.ApplicationLoadBalancer(
             self, "FargateALB",
@@ -140,7 +132,7 @@ class AppStack(Stack):
                 self, "FargateService",
                 cluster=cluster,
                 task_definition=task_definition,
-                desired_count=1,
+                desired_count=2,
             )],
             health_check=elbv2.HealthCheck(
                 path="/",
@@ -148,6 +140,7 @@ class AppStack(Stack):
                 timeout=Duration.seconds(5)
             )
         )
+
 
         # overwrite default action implictly created above (will cause warning)
         listener.add_action(
