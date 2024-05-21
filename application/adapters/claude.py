@@ -32,8 +32,6 @@ class BedrockClaudeAdapter(ModelAdapter):
 
         system_prompt=system_prompt.format(kb_data=kb_data)
 
-        print(system_prompt)
-
         messages=[]
         for message in chat_history:
             messages.append(message)

@@ -65,23 +65,19 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()] ):
     user_query=user_query
 
     session = request.session
-
     session_uuid = session.get("uuid")
     if session_uuid is None:
         session_uuid = str(uuid.uuid4())
         session["uuid"] = session_uuid
-        message_count[session_uuid] = 0
+        session["message_count"] = 0
         memory.create_session(session_uuid)
-
-    if session_uuid not in message_count:
-        message_count[session_uuid] = 0
         
     moderation_result,intent_result = await ADAPTER.safety_checks(user_query)
     if( moderation_result or intent_result != "<b>SUCCESS</b>"):
         msg= "I am sorry, your request is inappropriate and I cannot answer it." if moderation_result else intent_result
         return {
             "resp":msg,
-            "msgID": message_count[session['uuid']]
+            "msgID": session["message_count"]
         }
 
     docs = vectordb.similarity_search(user_query)
@@ -98,11 +94,11 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()] ):
     response_content = await ADAPTER.generate_response(llm_body=llm_body)
 
     memory.add_message_to_session( session_id=session_uuid, message={"role":"assistant","content":response_content} )
-    message_count[session['uuid']] += 1
+    session["message_count"]+=1
 
     return {
         "resp":response_content,
-        "msgID": message_count[session['uuid']]
+        "msgID": session["message_count"] 
     }
 
 if __name__ == "__main__":
