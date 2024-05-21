@@ -1,0 +1,2 @@
+class ModelAdapter:
+    pass
