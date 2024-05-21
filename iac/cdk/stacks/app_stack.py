@@ -8,7 +8,9 @@ from aws_cdk import (
     aws_secretsmanager as secretsmanager,
     aws_iam as iam,
     SecretValue,
-    aws_elasticloadbalancingv2 as elbv2
+    aws_elasticloadbalancingv2 as elbv2,
+    aws_cloudfront as cloudfront,
+    aws_cloudfront_origins as origins
 )
 import os
 
@@ -23,6 +25,12 @@ class AppStack(Stack):
         if not secret_value:
             raise ValueError("OPENAI_API_KEY environment variable is not set")
         
+        # Get the secret value from an environment variable
+        secret_header_value = os.environ.get("SECRET_HEADER_KEY")
+        if not secret_value:
+            raise ValueError("SECRET_HEADER_KEY environment variable is not set")
+        
+
 
         # Create a VPC for the Fargate cluster
         vpc = ec2.Vpc(self, "WaterbotVPC", max_azs=2)
@@ -113,7 +121,7 @@ class AppStack(Stack):
             self, "FargateALB",
             vpc=vpc,
             internet_facing=True,
-            load_balancer_name="FargateALB"
+            load_balancer_name="FargateALB",
         )
 
         # Create a listener for the ALB
@@ -138,5 +146,39 @@ class AppStack(Stack):
                 interval=Duration.minutes(1),
                 timeout=Duration.seconds(5)
             )
+        )
+
+
+        # Create a CloudFront distribution with the ALB as the origin
+        cloudfront_distribution_wbot = cloudfront.Distribution(
+            self, "CloudFrontDistribution",
+            default_behavior=cloudfront.BehaviorOptions(
+                origin=origins.LoadBalancerV2Origin(
+                    alb,
+                    origin_path="/",
+                    protocol_policy=cloudfront.OriginProtocolPolicy.HTTP_ONLY,
+                    custom_headers={
+                        "X-Custom-Header": secret_header_value
+                    }
+                ),
+                viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                allowed_methods=cloudfront.AllowedMethods.ALLOW_ALL,
+            ),
+            enabled=True,
+            error_responses=[
+                cloudfront.ErrorResponse(
+                    http_status=403,
+                    response_http_status=403,
+                    response_page_path="/error.html",
+                    ttl=Duration.minutes(30),
+                ),
+                cloudfront.ErrorResponse(
+                    http_status=404,
+                    response_http_status=404,
+                    response_page_path="/error.html",
+                    ttl=Duration.minutes(30),
+                ),
+            ],
+            price_class=cloudfront.PriceClass.PRICE_CLASS_100,
         )
 
