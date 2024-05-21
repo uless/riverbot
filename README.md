@@ -22,7 +22,7 @@ https://waterbot-stream-bda64cf22bc1.herokuapp.com/
 4) ./docker_run.sh (to test)
 5) ./ecr_auth.sh
 6) https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
-----> docker tag
-----> docker push
+----> docker tag {container_id} {act_id}.dkr.ecr.us-east-1.amazonaws.com/{repo}:latest
+----> docker push {act_id}.dkr.ecr.us-east-1.amazonaws.com/{repo}:latest
 7) build rest of cdk stack
 ----> cdk deploy '*'
