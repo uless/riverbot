@@ -27,8 +27,13 @@ class AppStack(Stack):
         
         # Get the secret value from an environment variable
         secret_header_value = os.environ.get("SECRET_HEADER_KEY")
-        if not secret_value:
+        if not secret_header_value:
             raise ValueError("SECRET_HEADER_KEY environment variable is not set")
+        
+        # Get the secret value from an environment variable
+        basic_auth_secret = os.environ.get("BASIC_AUTH_SECRET")
+        if not basic_auth_secret:
+            raise ValueError("BASIC_AUTH_SECRET environment variable is not set -- base64 encode of uname:pw")
         
 
 
@@ -168,6 +173,50 @@ class AppStack(Stack):
             )
         )
 
+
+        # Define the CloudFront Function inline
+        # Note, secret will be exposed plaintext in CDK logs as well as
+        # edge function
+        #
+        # This is just a basic auth blocker to help prevent genai llm call misuse
+        basic_auth_function_code = """
+            function handler(event) {
+            var authHeaders = event.request.headers.authorization;
+            var expected = "Basic """ + basic_auth_secret
+        
+        basic_auth_function_code += """";
+
+            // If an Authorization header is supplied and it's an exact match, pass the
+            // request on through to CF/the origin without any modification.
+            if (authHeaders && authHeaders.value === expected) {
+                return event.request;
+            }
+
+            // But if we get here, we must either be missing the auth header or the
+            // credentials failed to match what we expected.
+            // Request the browser present the Basic Auth dialog.
+            var response = {
+                statusCode: 401,
+                statusDescription: "Unauthorized",
+                headers: {
+                "www-authenticate": {
+                    value: 'Basic realm="Enter credentials for this super secure site"',
+                },
+                },
+            };
+
+            return response;
+            }
+        """
+
+        basic_auth_function = cloudfront.Function(
+            self, "BasicAuthFunction",
+            code=cloudfront.FunctionCode.from_inline(basic_auth_function_code),
+            function_name="BasicAuthFunction",
+        )
+
+
+
         # Create a CloudFront distribution with the ALB as the origin
         cloudfront_distribution_wbot = cloudfront.Distribution(
             self, "CloudFrontDistribution",
@@ -178,8 +227,14 @@ class AppStack(Stack):
                     protocol_policy=cloudfront.OriginProtocolPolicy.HTTP_ONLY,
                     custom_headers={
                         "X-Custom-Header": secret_header_value
-                    }
+                    },
                 ),
+                function_associations=[
+                    cloudfront.FunctionAssociation(
+                        event_type=cloudfront.FunctionEventType.VIEWER_REQUEST,
+                        function=basic_auth_function,
+                    )
+                ],
                 viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 allowed_methods=cloudfront.AllowedMethods.ALLOW_ALL,
             ),
