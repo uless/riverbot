@@ -116,7 +116,7 @@ class AppStack(Stack):
             desired_count=1,
         )
 
-         # Create an Application Load Balancer
+        # Create an Application Load Balancer
         alb = elbv2.ApplicationLoadBalancer(
             self, "FargateALB",
             vpc=vpc,
@@ -130,6 +130,7 @@ class AppStack(Stack):
             port=80,
             open=True
         )
+
 
         # Create a target group for the Fargate service
         target_group = listener.add_targets(
@@ -148,6 +149,31 @@ class AppStack(Stack):
             )
         )
 
+        # overwrite default action implictly created above (will cause warning)
+        listener.add_action(
+            "Default",
+            action=elbv2.ListenerAction.fixed_response(
+                status_code=403,
+                content_type="text/plain",
+                message_body="Forbidden"
+            )
+        )
+
+        # Create a rule to check for the custom header
+        custom_header_rule = elbv2.ApplicationListenerRule(
+            self, "CustomHeaderRule",
+            listener=listener,
+            priority=1,
+            conditions=[
+                elbv2.ListenerCondition.http_header(
+                    name='X-Custom-Header',
+                    values=[secret_header_value],
+                )
+            ],
+            action=elbv2.ListenerAction.forward(
+                target_groups=[target_group]
+            )
+        )
 
         # Create a CloudFront distribution with the ALB as the origin
         cloudfront_distribution_wbot = cloudfront.Distribution(
