@@ -7,7 +7,8 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_secretsmanager as secretsmanager,
     aws_iam as iam,
-    SecretValue
+    SecretValue,
+    aws_elasticloadbalancingv2 as elbv2
 )
 import os
 
@@ -90,7 +91,13 @@ class AppStack(Stack):
             port_mappings=[ecs.PortMapping(container_port=8000)],
             secrets={
                 "OPENAI_API_KEY": ecs.Secret.from_secrets_manager(secret)
-            }
+            },
+            health_check=ecs.HealthCheck(
+                command=["CMD-SHELL", "curl -f http://localhost:8000/ || exit 1"],
+                interval=Duration.minutes(1),
+                timeout=Duration.seconds(5),
+                retries=3,
+            )
         )
 
         # Create a Fargate service
@@ -99,5 +106,37 @@ class AppStack(Stack):
             cluster=cluster,
             task_definition=task_definition,
             desired_count=1,
+        )
+
+         # Create an Application Load Balancer
+        alb = elbv2.ApplicationLoadBalancer(
+            self, "FargateALB",
+            vpc=vpc,
+            internet_facing=True,
+            load_balancer_name="FargateALB"
+        )
+
+        # Create a listener for the ALB
+        listener = alb.add_listener(
+            "FargateALBListener",
+            port=80,
+            open=True
+        )
+
+        # Create a target group for the Fargate service
+        target_group = listener.add_targets(
+            "FargateTargetGroup",
+            port=8000,
+            targets=[ecs.FargateService(
+                self, "FargateService",
+                cluster=cluster,
+                task_definition=task_definition,
+                desired_count=1,
+            )],
+            health_check=elbv2.HealthCheck(
+                path="/",
+                interval=Duration.minutes(1),
+                timeout=Duration.seconds(5)
+            )
         )
 
