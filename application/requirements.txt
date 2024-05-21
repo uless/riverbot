@@ -1,0 +1,10 @@
+chroma-hnswlib
+chromadb
+langchain
+langchain-openai
+langchain-community
+openai
+fastapi
+itsdangerous
+boto3
+botocore
