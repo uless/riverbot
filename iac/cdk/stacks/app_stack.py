@@ -52,8 +52,7 @@ class AppStack(Stack):
         # Create the Fargate cluster
         cluster = ecs.Cluster(
             self, "WaterbotFargateCluster",
-            vpc=vpc,
-            cluster_name="WaterbotFargateCluster"
+            vpc=vpc
         )
 
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #

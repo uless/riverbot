@@ -9,7 +9,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
-from memory_manager import MemoryManager
+from managers.memory_manager import MemoryManager
+from managers.dynamodb_manager import DynamoDBHandler
+
 
 from langchain_community.vectorstores import Chroma
 
@@ -21,8 +23,13 @@ from adapters.openai import OpenAIAdapter
 from dotenv import load_dotenv
 
 import os
+import boto3
 
 load_dotenv()  # take environment variables from .env.
+
+MESSAGES_TABLE=os.getenv("MESSAGES_TABLE")
+
+
 
 app = FastAPI()
 secret_key=secrets.token_urlsafe(32)
@@ -30,7 +37,7 @@ app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
 message_count = {}
 memory = MemoryManager()  # Assuming you have a MemoryManager class
-
+datastore = DynamoDBHandler(messages_table=MESSAGES_TABLE)
 
 templates = Jinja2Templates(directory='templates')
 app.mount("/static", StaticFiles(directory="static"), name="static")

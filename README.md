@@ -25,10 +25,11 @@ export AWS_SESSION_TOKEN=""
 export OPENAI_API_KEY=""
 export SECRET_HEADER_KEY=""
 export BASIC_AUTH_SECRET=""
+export MESSAGES_TABLE=""
 export CLUSTER_NAME=""
 export SERVICE_NAME=""
 ```
-_**Note:** You won't know CLUSTER_NAME & SERVICE_NAME until post deployment; these variables are only necessary for fargate_update_cluster.sh script_
+_**Note:** You won't know CLUSTER_NAME, SERVICE_NAME, MESSAGES_TABLE until post deployment; these variables are only necessary for fargate_update_cluster.sh script_
 
 # Choice: Run Locally (No Container)
 ```bash
@@ -38,6 +39,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 fastapi dev main.py
 ````
+_**Note:**   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, OPENAI_API_KEY, MESSAGES_TABLE must be set; you can place OPENAI_API_KEY and MESSAGES_TABLE in your .env file_
 
 # Choice: Run Locally (In Container)
 ```bash
@@ -62,3 +64,16 @@ _**Reference:**_ https://cdkworkshop.com/
 ----> cdk deploy '*'
 ```
 
+# Additional Information
+The stack has the ability to deploy out multiple instances if necessary.  By default, env is null and CDK will deploy out a "cdk-{name}-stack"; if context is set, a new instance with "cdk-{name}-stack-{env} will deploy out
+
+```bash
+# Deploy for dev environment
+cdk deploy --context env=dev
+
+# Deploy for staging environment
+cdk deploy --context env=staging
+
+# Deploy for production environment
+cdk deploy --context env=prod
+```
