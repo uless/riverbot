@@ -2,7 +2,7 @@ import boto3
 import datetime
 
 
-class DynamoDBHandler():
+class DynamoDBManager():
     def __init__(self, messages_table, *args, **kwargs):
         self.client = boto3.resource('dynamodb')
         self.messages_table=messages_table
