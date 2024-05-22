@@ -59,6 +59,7 @@ class OpenAIAdapter(ModelAdapter):
         )
 
         response_body = response.choices[0].message.content
+        print(response_body)
         response_content = re.sub(r'\n', '<br>', response_body)
 
         return response_content
