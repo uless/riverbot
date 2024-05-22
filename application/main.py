@@ -1,21 +1,21 @@
-from typing import Annotated
-from fastapi import FastAPI, Form
 import uvicorn
 import uuid
 import secrets
-from fastapi import Request
+
+from typing import Annotated
+
+from fastapi import FastAPI, BackgroundTasks
+from fastapi import Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+
 from starlette.middleware.sessions import SessionMiddleware
 
 from managers.memory_manager import MemoryManager
 from managers.dynamodb_manager import DynamoDBHandler
 
-
 from langchain_community.vectorstores import Chroma
-
-
 
 from adapters.claude import BedrockClaudeAdapter
 from adapters.openai import OpenAIAdapter
@@ -23,13 +23,10 @@ from adapters.openai import OpenAIAdapter
 from dotenv import load_dotenv
 
 import os
-import boto3
 
 load_dotenv()  # take environment variables from .env.
 
 MESSAGES_TABLE=os.getenv("MESSAGES_TABLE")
-
-
 
 app = FastAPI()
 secret_key=secrets.token_urlsafe(32)
@@ -68,7 +65,7 @@ async def next_steps_api_post(request: Request):
 
 # Route to handle chat interactions
 @app.post('/chat_api')
-async def chat_api_post(request: Request, user_query: Annotated[str, Form()] ):
+async def chat_api_post(request: Request, user_query: Annotated[str, Form()], background_tasks:BackgroundTasks ):
     user_query=user_query
 
     session = request.session
@@ -102,6 +99,15 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()] ):
 
     memory.add_message_to_session( session_id=session_uuid, message={"role":"assistant","content":response_content} )
     session["message_count"]+=1
+
+    source=""
+    background_tasks.add_task( datastore.write_msg,
+        session_uuid=session_uuid,
+        msg_id=session["message_count"], 
+        user_query=user_query, 
+        response_content=response_content,
+        source=source 
+    )
 
     return {
         "resp":response_content,
