@@ -12,6 +12,11 @@ aws ecr get-login-password --region {region} | docker login --username AWS --pas
 
 # Prerequisites
 
+**Grab additional software**
+```bash
+sudo apt-get install jq
+```
+
 **Set your environment variables**
 ```bash
 export AWS_ACCESS_KEY_ID=""
@@ -20,7 +25,10 @@ export AWS_SESSION_TOKEN=""
 export OPENAI_API_KEY=""
 export SECRET_HEADER_KEY=""
 export BASIC_AUTH_SECRET=""
+export CLUSTER_NAME=""
+export SERVICE_NAME=""
 ```
+_**Note:** You won't know CLUSTER_NAME & SERVICE_NAME until post deployment; these variables are only necessary for fargate_update_cluster.sh script_
 
 # Choice: Run Locally (No Container)
 ```bash
@@ -38,9 +46,9 @@ fastapi dev main.py
 ```
 
 # Choice: Deploy to AWS
-**Note: You will need CDK preqruisites.**
+_**Note:** You will need CDK preqruisites._
 
-_See https://cdkworkshop.com/_
+_**Reference:**_ https://cdkworkshop.com/
 ```
 1) Bootstrap CDK
 2) cdk deploy cdk-ecr-stack

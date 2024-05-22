@@ -10,7 +10,8 @@ from aws_cdk import (
     SecretValue,
     aws_elasticloadbalancingv2 as elbv2,
     aws_cloudfront as cloudfront,
-    aws_cloudfront_origins as origins
+    aws_cloudfront_origins as origins,
+    aws_dynamodb as dynamodb
 )
 import os
 
@@ -36,6 +37,11 @@ class AppStack(Stack):
             raise ValueError("BASIC_AUTH_SECRET environment variable is not set -- base64 encode of uname:pw")
         
 
+        dynamo_messages = dynamodb.Table(self,"cdk-waterbot-messages",
+            partition_key=dynamodb.Attribute(name="sessionId", type=dynamodb.AttributeType.STRING),
+            sort_key=dynamodb.Attribute(name="timestamp", type=dynamodb.AttributeType.STRING),
+            billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST
+        )
 
         # Create a VPC for the Fargate cluster
         vpc = ec2.Vpc(self, "WaterbotVPC", max_azs=2)
@@ -97,11 +103,31 @@ class AppStack(Stack):
             )
         )
 
+        # Grant the task permission to access dynamodb
+        task_definition.add_to_task_role_policy(
+            iam.PolicyStatement(
+                actions=[            
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:DeleteItem"
+                ],
+                resources=[dynamo_messages.table_arn], 
+            )
+        )
+
         # Create a container in the task definition & inject the secret into the container as an environment variable
         container = task_definition.add_container(
             "WaterbotAppContainer",
             image=ecs.ContainerImage.from_ecr_repository(repository, tag="latest"),
             port_mappings=[ecs.PortMapping(container_port=8000)],
+            environment={
+                "MESSAGES_TABLE": dynamo_messages.table_name
+            },
             secrets={
                 "OPENAI_API_KEY": ecs.Secret.from_secrets_manager(secret)
             },
