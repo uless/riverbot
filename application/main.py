@@ -61,6 +61,38 @@ message_count = {}
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+# User wants to see sources of previous message
+@app.post('/chat_sources_api')
+async def chat_sources(request: Request):
+    session = request.session
+
+    user_query,source_list=await memory.get_latest_source_list( session_id=session["uuid"] )
+    formatted_source_list=await memory.format_sources_as_html(source_list=source_list)
+
+    print(source_list)
+    user_query = "<SOURCE_REQUEST>"+user_query+"</SOURCE_REQUEST>"
+    print(user_query)
+    bot_response=formatted_source_list
+    print(bot_response)
+
+    await memory.add_message_to_session( 
+        session_id=session["uuid"], 
+        message={"role":"user","content":user_query},
+        source_list=[]
+    )
+    await memory.add_message_to_session( 
+        session_id=session["uuid"], 
+        message={"role":"assistant","content":bot_response},
+        source_list=[]
+    )
+    session["message_count"]+=1
+
+    return {
+        "resp":bot_response,
+        "msgID": session["message_count"]
+    }
+    
+
 # Route to handle next steps interactions
 @app.post('/next_steps_api')
 async def next_steps_api_post(request: Request):
@@ -77,7 +109,7 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
         session_uuid = str(uuid.uuid4())
         session["uuid"] = session_uuid
         session["message_count"] = 0
-        memory.create_session(session_uuid)
+        await memory.create_session(session_uuid)
         
     moderation_result,intent_result = await llm_adapter.safety_checks(user_query)
     if( moderation_result or intent_result != "<b>SUCCESS</b>"):
@@ -87,7 +119,7 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
             "msgID": session["message_count"]
         }
 
-    memory.add_message_to_session( 
+    await memory.add_message_to_session( 
         session_id=session_uuid, 
         message={"role":"user","content":user_query},
         source_list=[]
@@ -98,14 +130,14 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     doc_content_str = await vectordb.knowledge_to_string(docs)
     
     llm_body = await llm_adapter.get_llm_body( 
-        chat_history=memory.get_session_history_all(session_uuid), 
+        chat_history=await memory.get_session_history_all(session_uuid), 
         kb_data=doc_content_str,
         temperature=.5,
         max_tokens=500 )
 
     response_content = await llm_adapter.generate_response(llm_body=llm_body)
 
-    memory.add_message_to_session( 
+    await memory.add_message_to_session( 
         session_id=session_uuid, 
         message={"role":"assistant","content":response_content},
         source_list=docs
