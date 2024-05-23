@@ -34,7 +34,7 @@ class ChromaManager():
             }
             return payload
         
-    async def similarity_search(self, user_query):
+    async def ann_search(self, user_query):
         docs=self.vectordb.similarity_search(user_query)
         sources=[docs[i].metadata["source"] for i in range(len(docs))]
 
@@ -42,7 +42,7 @@ class ChromaManager():
         sources_parsed = [self.parse_source(source) for source in sources]
 
         return {
-            "documents":self.vectordb.similarity_search(user_query),
+            "documents":docs,
             "sources":sources_parsed
         }
 

@@ -23,15 +23,22 @@ class MemoryManager:
             return []
     
     # Look at sessions[session_id], get latest payload, and return source_list
-    async def get_latest_source_list(self, session_id, source_field="source_list",message_field="message"):
+    async def get_latest_memory(self, session_id, read):
         try:
+            options = {
+                "content":("message","content"),
+                "documents":("source_list","documents"),
+                "sources":("source_list","sources")
+            }
+        
             latest_memory_entry=self.sessions[session_id][-1]
-            user_query=latest_memory_entry[message_field]["content"]
-            source_list=latest_memory_entry[source_field]["sources"]
+            level_a=options[read][0]
+            level_b=options[read][1]
+            requested_data=latest_memory_entry[level_a][level_b]
 
-            return user_query,source_list
+            return requested_data
         except:
-            return "",[]
+            return ""
     
 
     async def format_sources_as_html(self, source_list):
