@@ -58,34 +58,43 @@ message_count = {}
 
 
 @app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
+async def home(request: Request,):
     return templates.TemplateResponse("index.html", {"request": request})
 
 # User wants to see sources of previous message
 @app.post('/chat_sources_api')
-async def chat_sources(request: Request):
+async def chat_sources(request: Request, background_tasks:BackgroundTasks):
     session = request.session
+    session_uuid = session.get("uuid")
 
     user_query,source_list=await memory.get_latest_source_list( session_id=session["uuid"] )
     formatted_source_list=await memory.format_sources_as_html(source_list=source_list)
 
-    print(source_list)
-    user_query = "<SOURCE_REQUEST>"+user_query+"</SOURCE_REQUEST>"
-    print(user_query)
-    bot_response=formatted_source_list
-    print(bot_response)
 
+    user_query = "<SOURCE_REQUEST>"+user_query+"</SOURCE_REQUEST>"
+    bot_response=formatted_source_list
+
+
+    # Note, we know the sources so we do not do an actual LLM call here. Saves latency/costs.
     await memory.add_message_to_session( 
-        session_id=session["uuid"], 
+        session_id=session_uuid, 
         message={"role":"user","content":user_query},
         source_list=[]
     )
     await memory.add_message_to_session( 
-        session_id=session["uuid"], 
+        session_id=session_uuid, 
         message={"role":"assistant","content":bot_response},
         source_list=[]
     )
     session["message_count"]+=1
+
+    background_tasks.add_task( datastore.write_msg,
+        session_uuid=session_uuid,
+        msg_id=session["message_count"], 
+        user_query=user_query, 
+        response_content=bot_response,
+        source=[] 
+    )
 
     return {
         "resp":bot_response,
@@ -145,13 +154,12 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
 
     session["message_count"]+=1
 
-    source=""
     background_tasks.add_task( datastore.write_msg,
         session_uuid=session_uuid,
         msg_id=session["message_count"], 
         user_query=user_query, 
         response_content=response_content,
-        source=source 
+        source=docs["sources"]
     )
 
     return {
