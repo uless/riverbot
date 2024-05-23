@@ -6,8 +6,6 @@ class MemoryManager:
         self.sessions[session_id] = []
 
     async def add_message_to_session(self, session_id, message, source_list):
-        print("+++++++++++++adding message+++++++++++++++")
-        print(message)
         if session_id not in self.sessions:
             await self.create_session(session_id)
 

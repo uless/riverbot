@@ -14,10 +14,7 @@ class BedrockClaudeAdapter(ModelAdapter):
     def get_embeddings( self ):
         return self.embeddings
     
-    async def generate_llm_payload(self, system_prompt, max_tokens, messages, temperature, anthropic_version="bedrock-2023-05-31"):
-        print("~~~llm_payload~~~~~~~")
-        print(messages)
-        
+    async def generate_llm_payload(self, system_prompt, max_tokens, messages, temperature, anthropic_version="bedrock-2023-05-31"):       
         return json.dumps(
             {
                 "anthropic_version": "bedrock-2023-05-31",
@@ -33,8 +30,6 @@ class BedrockClaudeAdapter(ModelAdapter):
         
         inject_user_query="<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
         messages=await self.build_message_chain_for_action(user_query=user_query,bot_response=bot_response,inject_user_query=inject_user_query)
-        print("~~~BUILD NEXTSTEPS~~~~~~~")
-        print(messages)
 
         bedrock_payload=await self.generate_llm_payload(system_prompt=system_prompt, max_tokens=max_tokens, messages=messages, temperature=temperature)
 
@@ -45,8 +40,6 @@ class BedrockClaudeAdapter(ModelAdapter):
 
         inject_user_query="<MOREDETAIL_REQUEST>Provide me a more detailed response</MOREDETAIL_REQUEST>"
         messages=await self.build_message_chain_for_action(user_query=user_query,bot_response=bot_response,inject_user_query=inject_user_query)
-        print("~~~BUILD DETAILED~~~~~~~")
-        print(messages)
 
         bedrock_payload=await self.generate_llm_payload(system_prompt=system_prompt, max_tokens=max_tokens, messages=messages, temperature=temperature)
 

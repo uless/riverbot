@@ -1,5 +1,8 @@
 class ModelAdapter:
-    async def build_message_chain_for_action(self,user_query,bot_response,inject_user_query,messages=[]):
+    async def build_message_chain_for_action(self,user_query,bot_response,inject_user_query,messages=None):
+        if messages is None:
+            messages = []
+        
         messages.append(
             {
                 'role':'user',
