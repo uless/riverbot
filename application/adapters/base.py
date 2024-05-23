@@ -36,8 +36,34 @@ class ModelAdapter:
     async def get_action_item_prompt(self,kb_data):
         system_prompt = """
         Provide three action items that the user can implement in relation to the previous question, 
-        explaining each step by step. Use the following information to answer in a friendly tone {docs}"""
+        explaining each step by step. 
+        
+        <formatting>
+            <instructions>
+                1. Format your output so that it easily read.
+                2. Use a numbered list.
+                3. Provide substeps for each top level item.
+                4. Wrap any numbered item and associated text in a <b> and </b> tag.
+                5. You absolutely have to include two <br> tags prior to any number in the list you generate.
+                6. You absolutely have to include a <br> preceding a substep in the list you generate.
+                7. You may utilize whitespace with multiple <br> in a row to enhance readability.
+                8. Reference example for an example of formatting expectations.
+            </instructions>
+            <example>
+                Here are three action items that you can implement regarding Lorem Ipsum:
 
-        system_prompt=system_prompt.format(delimiter=kb_data)
+                <br><br><b>1. Lorem Ipsum</b>
+                <br>-Substep Lorem Ipsum
+                <br>-Substep Lorem Ipsum
+                <br><br><b>2. Lorem Ipsum</b>
+                <br>-Substep Lorem Ipsum
+                <br>-Substep Lorem Ipsum
+                <br>-Substep Lorem Ipsum
+            </example>
+        </formatting>
+
+        Use the following information to answer in a friendly tone {kb_data}"""
+
+        system_prompt=system_prompt.format(kb_data=kb_data)
         
         return system_prompt

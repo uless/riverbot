@@ -18,7 +18,7 @@
 
 (b) not suitable for production environments
 
-(d) to include shortcuts in order to support rapid prototyping such as, but not limitted to, relaxed authentication and authorization processes
+(d) to include shortcuts in order to support rapid prototyping such as, but not limited to, relaxed authentication and authorization processes
 
 **All work produced is open source. More information can be found in the GitHub repo.**
 

@@ -14,6 +14,40 @@ class BedrockClaudeAdapter(ModelAdapter):
     def get_embeddings( self ):
         return self.embeddings
     
+    async def get_llm_nextsteps_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
+        system_prompt=await self.get_action_item_prompt(kb_data)
+        messages=[]
+        messages.append(
+            {
+                'role':'user',
+                'content':user_query
+            }
+        )
+        messages.append(
+            {
+                'role':'assistant',
+                'content':bot_response
+            }
+        )
+        messages.append(
+            {
+                'role':'user',
+                'content':"<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
+            }
+        )
+        bedrock_payload = json.dumps(
+            {
+                "anthropic_version": "bedrock-2023-05-31",
+                "system":system_prompt,
+                "max_tokens": max_tokens,
+                "messages":messages,
+                "temperature": temperature,
+            }
+        )  
+
+
+        return bedrock_payload
+
     async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5 ):
         system_prompt = """
         You are a helpful assistant named Blue that provides information about water in Arizona.
