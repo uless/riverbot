@@ -1,4 +1,26 @@
 class ModelAdapter:
+    async def build_message_chain_for_action(self,user_query,bot_response,inject_user_query,messages=[]):
+        messages.append(
+            {
+                'role':'user',
+                'content':user_query
+            }
+        )
+        messages.append(
+            {
+                'role':'assistant',
+                'content':bot_response
+            }
+        )
+        messages.append(
+            {
+                'role':'user',
+                'content':inject_user_query
+            }
+        )
+
+        return messages
+    
     async def get_intent_system_prompt(self):
         delimiter = "####"
 
@@ -48,6 +70,7 @@ class ModelAdapter:
                 6. You absolutely have to include a <br> preceding a substep in the list you generate.
                 7. You may utilize whitespace with multiple <br> in a row to enhance readability.
                 8. Reference example for an example of formatting expectations.
+                9. Must be less than 512 characters total
             </instructions>
             <example>
                 Here are three action items that you can implement regarding Lorem Ipsum:
@@ -62,6 +85,21 @@ class ModelAdapter:
             </example>
         </formatting>
 
+        Use the following information to answer in a friendly tone {kb_data}"""
+
+        system_prompt=system_prompt.format(kb_data=kb_data)
+        
+        return system_prompt
+
+    async def get_chat_detailed_prompt(self,kb_data):
+        system_prompt = """
+        Take a breath and provide a more detailed answer to the previous question providing more explanation and reasoning, using statistics, 
+        examples, and proper nouns. 
+        
+        <instructions>
+            1. Must be less than 512 characters total
+        </instructions>     
+        
         Use the following information to answer in a friendly tone {kb_data}"""
 
         system_prompt=system_prompt.format(kb_data=kb_data)

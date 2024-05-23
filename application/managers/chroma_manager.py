@@ -38,8 +38,10 @@ class ChromaManager():
         docs=self.vectordb.similarity_search(user_query)
         sources=[docs[i].metadata["source"] for i in range(len(docs))]
 
+
         # Map to human readable; if source is not in the mapping use source name
-        sources_parsed = [self.parse_source(source) for source in sources]
+        sources_parsed = [self.parse_source(source) for source in list(set(sources))]
+
 
         return {
             "documents":docs,
@@ -47,4 +49,5 @@ class ChromaManager():
         }
 
     async def knowledge_to_string(self, docs, doc_field="documents"):
-        return " ".join([docs[doc_field][i].page_content for i in range(len(docs))])
+        target=docs[doc_field]
+        return " ".join([target[i].page_content for i in range(len(target))])
