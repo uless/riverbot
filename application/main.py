@@ -51,7 +51,7 @@ embeddings = llm_adapter.get_embeddings()
 # Manager classes
 memory = MemoryManager()  # Assuming you have a MemoryManager class
 datastore = DynamoDBManager(messages_table=MESSAGES_TABLE)
-vectordb = ChromaManager(persist_directory="docs/chroma/", embedding_function=embeddings)
+knowledge_base = ChromaManager(persist_directory="docs/chroma/", embedding_function=embeddings)
 
 message_count = {}
 
@@ -63,11 +63,12 @@ async def home(request: Request,):
 
 # User wants to see sources of previous message
 @app.post('/chat_sources_api')
-async def chat_sources(request: Request, background_tasks:BackgroundTasks):
+async def chat_sources_post(request: Request, background_tasks:BackgroundTasks):
     session = request.session
     session_uuid = session.get("uuid")
 
-    user_query,source_list=await memory.get_latest_source_list( session_id=session["uuid"] )
+    user_query=await memory.get_latest_memory( session_id=session_uuid, read="content")
+    source_list=await memory.get_latest_memory( session_id=session_uuid, read="sources")
     formatted_source_list=await memory.format_sources_as_html(source_list=source_list)
 
 
@@ -103,9 +104,19 @@ async def chat_sources(request: Request, background_tasks:BackgroundTasks):
     
 
 # Route to handle next steps interactions
-@app.post('/next_steps_api')
-async def next_steps_api_post(request: Request):
-    pass
+@app.post('/chat_actionItems_api')
+async def chat_action_items_api_post(request: Request):
+    session = request.session
+    session_uuid = session.get("uuid")
+
+    docs=await memory.get_latest_memory( session_id=session_uuid, read="documents")
+    print(docs)
+    doc_content_str = await knowledge_base.knowledge_to_string({"documents":docs})
+    print(doc_content_str)
+    return {
+        "resp":"",
+        "msgID": session["message_count"] 
+    }
 
 # Route to handle chat interactions
 @app.post('/chat_api')
@@ -135,8 +146,8 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     )
     
 
-    docs = await vectordb.similarity_search(user_query)
-    doc_content_str = await vectordb.knowledge_to_string(docs)
+    docs = await knowledge_base.ann_search(user_query)
+    doc_content_str = await knowledge_base.knowledge_to_string(docs)
     
     llm_body = await llm_adapter.get_llm_body( 
         chat_history=await memory.get_session_history_all(session_uuid), 
