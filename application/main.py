@@ -56,10 +56,29 @@ knowledge_base = ChromaManager(persist_directory="docs/chroma/", embedding_funct
 message_count = {}
 
 
-
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request,):
     return templates.TemplateResponse("index.html", {"request": request})
+
+# Route to handle ratings
+@app.post('/submit_rating_api')
+async def submit_rating_api_post(
+        request: Request,
+        message_id: str = Form(..., description="The ID of the message"),
+        reaction: str = Form(None, description="Optional reaction to the message"),
+        userComment: str = Form(None, description="Optional user comment")
+    ):
+
+    session = request.session
+    session_uuid = session.get("uuid")
+
+    await datastore.update_rating_fields(
+        session_uuid=session_uuid,
+        message_id=message_id,
+        reaction=reaction,
+        userComment=userComment
+    )
+    
 
 # User wants to see sources of previous message
 @app.post('/chat_sources_api')
