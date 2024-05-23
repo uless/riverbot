@@ -31,7 +31,7 @@ class MemoryManager:
 
             return user_query,source_list
         except:
-            return None,None
+            return "",[]
     
 
     async def format_sources_as_html(self, source_list):
