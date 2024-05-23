@@ -1,6 +1,7 @@
 import boto3
 import datetime
 
+from boto3.dynamodb.conditions import Key, Attr
 
 class DynamoDBManager():
     def __init__(self, messages_table, *args, **kwargs):
@@ -37,3 +38,42 @@ class DynamoDBManager():
                 'comment': comment
             }
         )
+
+    async def update_rating_fields(self, session_uuid, message_id, reaction, userComment):
+        messages_table = self.client.Table(self.messages_table)
+        
+        if reaction is not None:
+            try:
+                response = messages_table.update_item(
+                    Key={
+                        'sessionId': session_uuid,
+                        'msgId': message_id
+                    },
+                    UpdateExpression='SET reaction = :r',
+                    ExpressionAttributeValues={
+                        ':r': reaction,
+                    },
+                    ReturnValues='UPDATED_NEW'
+                )
+                return response
+            except Exception as e:
+                print(f"Error updating rating fields: {e}")
+                return None
+            
+        if userComment is not None:
+            try:
+                response = messages_table.update_item(
+                    Key={
+                        'sessionId': session_uuid,
+                        'msgId': message_id
+                    },
+                    UpdateExpression='SET userComment = :r',
+                    ExpressionAttributeValues={
+                        ':r': userComment
+                    },
+                    ReturnValues='UPDATED_NEW'
+                )
+                return response
+            except Exception as e:
+                print(f"Error updating rating fields: {e}")
+                return None
