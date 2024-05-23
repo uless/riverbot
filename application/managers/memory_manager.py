@@ -6,6 +6,8 @@ class MemoryManager:
         self.sessions[session_id] = []
 
     async def add_message_to_session(self, session_id, message, source_list):
+        print("+++++++++++++adding message+++++++++++++++")
+        print(message)
         if session_id not in self.sessions:
             await self.create_session(session_id)
 
@@ -24,7 +26,7 @@ class MemoryManager:
     
     # Get history
     # default last bot response
-    async def get_latest_memory(self, session_id, read, travel=-1):
+    async def get_latest_memory(self, session_id, read, travel=-1, layers=2):
         try:
             options = {
                 "content":("message","content"),
@@ -36,7 +38,13 @@ class MemoryManager:
 
             level_a=options[read][0]
             level_b=options[read][1]
-            requested_data=latest_memory_entry[level_a][level_b]
+
+            if( layers == 2 ):
+                requested_data=latest_memory_entry[level_a][level_b]
+            elif( layers == 1):
+                requested_data=latest_memory_entry[level_a]
+            elif( layers == 0 ):
+                requested_data=latest_memory_entry
 
             return requested_data
         except:

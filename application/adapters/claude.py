@@ -14,28 +14,11 @@ class BedrockClaudeAdapter(ModelAdapter):
     def get_embeddings( self ):
         return self.embeddings
     
-    async def get_llm_nextsteps_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
-        system_prompt=await self.get_action_item_prompt(kb_data)
-        messages=[]
-        messages.append(
-            {
-                'role':'user',
-                'content':user_query
-            }
-        )
-        messages.append(
-            {
-                'role':'assistant',
-                'content':bot_response
-            }
-        )
-        messages.append(
-            {
-                'role':'user',
-                'content':"<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
-            }
-        )
-        bedrock_payload = json.dumps(
+    async def generate_llm_payload(self, system_prompt, max_tokens, messages, temperature, anthropic_version="bedrock-2023-05-31"):
+        print("~~~llm_payload~~~~~~~")
+        print(messages)
+        
+        return json.dumps(
             {
                 "anthropic_version": "bedrock-2023-05-31",
                 "system":system_prompt,
@@ -45,9 +28,31 @@ class BedrockClaudeAdapter(ModelAdapter):
             }
         )  
 
+    async def get_llm_nextsteps_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
+        system_prompt=await self.get_action_item_prompt(kb_data)
+        
+        inject_user_query="<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
+        messages=await self.build_message_chain_for_action(user_query=user_query,bot_response=bot_response,inject_user_query=inject_user_query)
+        print("~~~BUILD NEXTSTEPS~~~~~~~")
+        print(messages)
+
+        bedrock_payload=await self.generate_llm_payload(system_prompt=system_prompt, max_tokens=max_tokens, messages=messages, temperature=temperature)
 
         return bedrock_payload
+    
+    async def get_llm_detailed_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
+        system_prompt=await self.get_chat_detailed_prompt(kb_data)
 
+        inject_user_query="<MOREDETAIL_REQUEST>Provide me a more detailed response</MOREDETAIL_REQUEST>"
+        messages=await self.build_message_chain_for_action(user_query=user_query,bot_response=bot_response,inject_user_query=inject_user_query)
+        print("~~~BUILD DETAILED~~~~~~~")
+        print(messages)
+
+        bedrock_payload=await self.generate_llm_payload(system_prompt=system_prompt, max_tokens=max_tokens, messages=messages, temperature=temperature)
+
+
+        return bedrock_payload
+    
     async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5 ):
         system_prompt = """
         You are a helpful assistant named Blue that provides information about water in Arizona.
@@ -70,15 +75,7 @@ class BedrockClaudeAdapter(ModelAdapter):
         for message in chat_history:
             messages.append(message)
         
-        bedrock_payload = json.dumps(
-            {
-                "anthropic_version": "bedrock-2023-05-31",
-                "system":system_prompt,
-                "max_tokens": max_tokens,
-                "messages":messages,
-                "temperature": temperature,
-            }
-        )  
+        bedrock_payload=await self.generate_llm_payload(system_prompt=system_prompt, max_tokens=max_tokens, messages=messages, temperature=temperature)
 
 
         return bedrock_payload
@@ -105,15 +102,8 @@ class BedrockClaudeAdapter(ModelAdapter):
                 }
             )
             
-            bedrock_payload = json.dumps(
-                {
-                    "anthropic_version": "bedrock-2023-05-31",
-                    "system":system_prompt,
-                    "max_tokens": max_tokens,
-                    "messages":messages,
-                    "temperature": temperature,
-                }
-            )  
+            bedrock_payload=await self.generate_llm_payload(system_prompt=system_prompt, max_tokens=max_tokens, messages=messages, temperature=temperature)
+
 
             return await self.generate_response(bedrock_payload)
     

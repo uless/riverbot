@@ -17,8 +17,17 @@ class OpenAIAdapter(ModelAdapter):
     def get_embeddings( self ):
         return self.embeddings
 
-    async def get_llm_nextsteps_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
-        system_prompt=await self.get_action_item_prompt(kb_data)
+    async def generate_llm_payload(self, messages, temperature ):
+        return json.dumps(
+            {
+                "messages":messages,
+                "temperature": temperature,
+            }
+        )  
+    
+
+    async def get_llm_detailed_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
+        system_prompt=await self.get_chat_detailed_prompt(kb_data)
         messages=[]
         messages.append(
             {
@@ -26,31 +35,29 @@ class OpenAIAdapter(ModelAdapter):
                 'content':system_prompt
             }
         )
-        messages.append(
-            {
-                'role':'user',
-                'content':user_query
-            }
-        )
-        messages.append(
-            {
-                'role':'assistant',
-                'content':bot_response
-            }
-        )
-        messages.append(
-            {
-                'role':'user',
-                'content':"<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
-            }
-        )
-        openai_payload = json.dumps(
-            {
-                "messages":messages,
-                "temperature": temperature,
-            }
-        )  
+        inject_user_query="<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
+        messages=await self.build_message_chain_for_action(user_query=user_query,bot_response=bot_response,inject_user_query=inject_user_query,messages=messages)
 
+        openai_payload = await self.generate_llm_payload(messages=messages, temperature=temperature)
+
+        return openai_payload
+    
+
+    async def get_llm_nextsteps_body( self, kb_data, user_query,bot_response, max_tokens=512, temperature=.5 ):
+        system_prompt=await self.get_action_item_prompt(kb_data)
+
+
+        messages=[]
+        messages.append(
+            {
+                'role':'system',
+                'content':system_prompt
+            }
+        )
+        inject_user_query="<NEXTSTEPS_REQUEST>Provide me the action items<NEXTSTEPS_REQUEST>"
+        messages=await self.build_message_chain_for_action(user_query=user_query,bot_response=bot_response,inject_user_query=inject_user_query,messages=messages)
+        
+        openai_payload = await self.generate_llm_payload(messages=messages, temperature=temperature)
 
         return openai_payload
     
@@ -76,13 +83,7 @@ class OpenAIAdapter(ModelAdapter):
         for message in chat_history:
             messages.append(message)
         
-        openai_payload = json.dumps(
-            {
-                "messages":messages,
-                "temperature": temperature,
-            }
-        )  
-
+        openai_payload = await self.generate_llm_payload(messages=messages, temperature=temperature)
 
         return openai_payload
 
@@ -131,7 +132,7 @@ class OpenAIAdapter(ModelAdapter):
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                stream=False  # we set stream=True
+                stream=False 
             )
 
             return response.choices[0].message.content
