@@ -22,8 +22,9 @@ class MemoryManager:
         else:
             return []
     
-    # Look at sessions[session_id], get latest payload, and return source_list
-    async def get_latest_memory(self, session_id, read):
+    # Get history
+    # default last bot response
+    async def get_latest_memory(self, session_id, read, travel=-1):
         try:
             options = {
                 "content":("message","content"),
@@ -31,7 +32,8 @@ class MemoryManager:
                 "sources":("source_list","sources")
             }
         
-            latest_memory_entry=self.sessions[session_id][-1]
+            latest_memory_entry=self.sessions[session_id][travel]
+
             level_a=options[read][0]
             level_b=options[read][1]
             requested_data=latest_memory_entry[level_a][level_b]
