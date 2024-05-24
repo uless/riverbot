@@ -98,22 +98,22 @@ class OpenAIAdapter(ModelAdapter):
         )
 
         response_body = response.choices[0].message.content
-        print(response_body)
+        
         response_content = re.sub(r'\n', '<br>', response_body)
 
         return response_content
     
     async def safety_checks(self, user_query):
         async def ModerationCheck(user_query):
-            print('timestamp starting moderation check: ',datetime.now().strftime(' %H:%M:%S'))
+            #print('timestamp starting moderation check: ',datetime.now().strftime(' %H:%M:%S'))
             response = self.client.moderations.create(input=user_query)
             moderation_output = response.results[0].flagged
-            print('timestamp exiting moderation check: ',datetime.now().strftime(' %H:%M:%S'))
-            print(moderation_output)
+            #print('timestamp exiting moderation check: ',datetime.now().strftime(' %H:%M:%S'))
+            #print(moderation_output)
             return moderation_output
-        async def UserIntentCheck(user_query,temperature=.5,max_tokens=500):
+        async def UserIntentCheck(user_query,temperature=.5,max_tokens=512):
             system_prompt=await self.get_intent_system_prompt()
-
+            
             messages=[
                 {
                     "role":"system",
@@ -126,6 +126,7 @@ class OpenAIAdapter(ModelAdapter):
                     'content':user_query
                 }
             )
+
             
             response = self.client.chat.completions.create(
                 model=self.model_id,
@@ -135,6 +136,7 @@ class OpenAIAdapter(ModelAdapter):
                 stream=False 
             )
 
+
             return response.choices[0].message.content
     
         # Run both coroutines concurrently
@@ -142,5 +144,6 @@ class OpenAIAdapter(ModelAdapter):
             ModerationCheck(user_query),
             UserIntentCheck(user_query)
         )
+
 
         return moderation_result,intent_result
