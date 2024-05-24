@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 import os
 
 # Take environment variables from .env
-load_dotenv()  
+load_dotenv(override=True)  
 
 # FastaAPI startup
 app = FastAPI()
