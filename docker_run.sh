@@ -6,6 +6,11 @@ if [ -z "$AWS_ACCESS_KEY_ID" ]; then
     exit 1
 fi
 
+# Check if AWS_ACCESS_KEY_ID is set
+if [ -z "$AWS_DEFAULT_REGION" ]; then
+    export AWS_DEFAULT_REGION="us-east-1"
+fi
+
 # Check if AWS_SECRET_ACCESS_KEY is set
 if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
     echo "AWS_SECRET_ACCESS_KEY is not set"
@@ -34,6 +39,7 @@ fi
 docker run -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
            -e AWS_SESSION_TOKEN="$AWS_SESSION_TOKEN" \
+           -e AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION" \
            -e OPENAI_API_KEY="$OPENAI_API_KEY" \
            -e MESSAGES_TABLE="$MESSAGES_TABLE" \
            -p 8000:8000 waterbot

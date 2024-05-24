@@ -19,6 +19,7 @@ class DynamoDBManager():
                         rating=None, 
                         comment=None ):
         messages_table = self.client.Table(self.messages_table)
+        msg_id=str(msg_id )
 
         # Get the current timestamp
         timestamp = datetime.datetime.now()
@@ -34,13 +35,14 @@ class DynamoDBManager():
                 'userQuery': user_query,
                 'responseContent': response_content,
                 'source': source,
-                'rating': rating,
-                'comment': comment
+                'reaction': rating,
+                'userComment': comment
             }
         )
 
     async def update_rating_fields(self, session_uuid, message_id, reaction, userComment):
         messages_table = self.client.Table(self.messages_table)
+        message_id=str(message_id )
         
         if reaction is not None:
             try:
