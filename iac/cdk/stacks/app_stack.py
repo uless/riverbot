@@ -3,7 +3,6 @@ from aws_cdk import (
     Duration,
     Stack,
     aws_ecs as ecs,
-    aws_ecr as ecr,
     aws_ec2 as ec2,
     aws_secretsmanager as secretsmanager,
     aws_iam as iam,
@@ -262,6 +261,8 @@ class AppStack(Stack):
                 ],
                 viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 allowed_methods=cloudfront.AllowedMethods.ALLOW_ALL,
+                cache_policy=cloudfront.CachePolicy.CACHING_OPTIMIZED,
+                origin_request_policy=cloudfront.OriginRequestPolicy.ALL_VIEWER,
             ),
             enabled=True,
             error_responses=[
