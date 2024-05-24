@@ -45,6 +45,8 @@ ADAPTERS = {
 
 # Set adapter choice
 llm_adapter=ADAPTERS["claude.haiku"]
+#llm_adapter=ADAPTERS["openai-gpt3.5"]
+
 embeddings = llm_adapter.get_embeddings()
 
 
