@@ -39,7 +39,7 @@ class AppStack(Stack):
 
         dynamo_messages = dynamodb.Table(self,"cdk-waterbot-messages",
             partition_key=dynamodb.Attribute(name="sessionId", type=dynamodb.AttributeType.STRING),
-            sort_key=dynamodb.Attribute(name="timestamp", type=dynamodb.AttributeType.STRING),
+            sort_key=dynamodb.Attribute(name="msgId", type=dynamodb.AttributeType.STRING),
             billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST
         )
 
@@ -162,7 +162,7 @@ class AppStack(Stack):
                 self, "FargateService",
                 cluster=cluster,
                 task_definition=task_definition,
-                desired_count=2,
+                desired_count=1,
             )],
             health_check=elbv2.HealthCheck(
                 path="/",
