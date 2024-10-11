@@ -37,9 +37,7 @@ class ChromaManager():
             return payload
         
     async def ann_search(self, user_query):
-        # logging.debug(f"User query: {user_query}")
         docs=self.vectordb.similarity_search(user_query)
-        # logging.debug(f"Documents retrieved: {docs}")
         sources=[docs[i].metadata["source"] for i in range(len(docs))]
 
 

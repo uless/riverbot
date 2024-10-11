@@ -743,127 +743,127 @@ knowledge_sources = {
         "url": "https://www.austintexas.gov/sites/default/files/files/Water/Water%20Conservation/2024%20DCP%20Final.pdf",
         "description": "Houston Advanced Research Center"
     },
-    "Groundwater Quality in Arizona 1995-2015": {
+    "Groundwater Quality in Arizona 1995-2015.pdf": {
         "url": "https://static.azdeq.gov/wqd/gw/fs/16-02_20year_final_ofr.pdf",
         "description": "Groundwater Quality in Arizona 1995-2015"
     },
-    "Glossary of Terms": {
+    "Glossary of Terms.pdf": {
         "url": "https://legacy.azdeq.gov/function/help/glossary_drupal.html",
         "description": "Glossary of Terms"
     },
-    "Recycled Water": {
+    "Recycled Water.pdf": {
         "url": "https://azdeq.gov/recycled-water",
         "description": "Recycled Water"
     },
-    "Arizona Department of Environmental Quality Recycled Water Work Groups Final Report": {
+    "Arizona Department of Environmental Quality Recycled Water Work Groups Final Report.pdf": {
         "url": "https://static.azdeq.gov/wqd/combined_workgroup_final_report.pdf",
         "description": "Arizona Department of Environmental Quality Recycled Water Work Groups Final Report"
     },
-    "Arizona Drought Preparedness Report 2023": {
+    "Arizona Drought Preparedness Report 2023.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/2023-12/ADPAR_2023_FINAL.pdf",
         "description": "Arizona Drought Preparedness Report 2023"
     },
-    "Conservation: Agriculture": {
+    "Conservation: Agriculture.pdf": {
         "url": "https://www.azwater.gov/conservation/agriculture",
         "description": "Conservation: Agriculture"
     },
-    "Phoenix Fifth Active Management Plan": {
+    "Phoenix Fifth Active Management Plan.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/media/Phx5MP.pdf",
         "description": "Phoenix Fifth Active Management Plan"
     },
-    "Pinal Fifth Active Management Plan": {
+    "Pinal Fifth Active Management Plan.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/media/PAMA5MP.pdf",
         "description": "Pinal Fifth Active Management Plan"
     },
-    "Prescott Fifth Active Management Plan": {
+    "Prescott Fifth Active Management Plan.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/media/PrAMA5MP.pdf",
         "description": "Prescott Fifth Active Management Plan"
     },
-    "Santa Cruz Fifth Active Management Plan": {
+    "Santa Cruz Fifth Active Management Plan.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/media/SCAMA5MP.pdf",
         "description": "Santa Cruz Fifth Active Management Plan"
     },
-    "Tucson Fifth Active Management Plan": {
+    "Tucson Fifth Active Management Plan.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/media/TAMA5MP.pdf",
         "description": "Tucson Fifth Active Management Plan"
     },
-    "Community Water Systems FAQs": {
+    "Community Water Systems FAQs.pdf": {
         "url": "https://www.azwater.gov/cws/cws-frequently-asked-questions",
         "description": "Community Water Systems FAQs"
     },
-    "Hardest Working River": {
+    "Hardest Working River.pdf": {
         "url": "https://storymaps.arcgis.com/stories/2efeafc8613440dba5b56cb83cd790ba/print",
         "description": "Hardest Working River"
     },
-    "California's Water Supply Strategy": {
+    "California's Water Supply Strategy.pdf": {
         "url": "https://resources.ca.gov/-/media/CNRA-Website/Files/Initiatives/Water-Resilience/CA-Water-Supply-Strategy.pdf",
         "description": "California's Water Supply Strategy"
     },
-    "Calwater": {
+    "Calwater.pdf": {
         "url": "https://drought.calwater.com/faqs",
         "description": "Calwater"
     },
-    "Colorado River Shortage FAQ": {
+    "Colorado River Shortage FAQ.pdf": {
         "url": "https://library.cap-az.com/documents/departments/planning/colorado-river-programs/2024-02-colorado-river-shortage-faq.pdf",
         "description": "Colorado River Shortage FAQ"
     },
-    "CAWCD Property Taxes": {
+    "CAWCD Property Taxes.pdf": {
         "url": "https://library.cap-az.com/documents/departments/finance/CAP-Doc-CAWCDPropertyTaxesQA-121621.pdf",
         "description": "CAWCD Property Taxes"
     },
-    "Items that Directly Affect the Price of Water in Carefree": {
+    "Items that Directly Affect the Price of Water in Carefree.pdf": {
         "url": "https://carefreewaterco.com/documents/1621/Items_that_Affect_the_Price_of_Water_in_Carefree.pdf",
         "description": "Items that Directly Affect the Price of Water in Carefree"
     },
-    "Water Resources | Chino Valley, AZ": {
+    "Water Resources | Chino Valley, AZ.pdf": {
         "url": "https://www.chinoaz.net/176/Water-Resources",
         "description": "Water Resources | Chino Valley, AZ"
     },
-    "Drought Contingency Plan": {
+    "Drought Contingency Plan.pdf": {
         "url": "https://www.austintexas.gov/sites/default/files/files/Water/Water%20Conservation/2024%20DCP%20Final.pdf",
         "description": "Drought Contingency Plan"
     },
-    "Tribal Water Uses in Colorado River Basin": {
+    "Tribal Water Uses in Colorado River Basin.pdf": {
         "url": "http://www.tribalwateruse.org/?page_id=101",
         "description": "Tribal Water Uses in Colorado River Basin"
     },
-    "University of Colorado Boulder": {
+    "University of Colorado Boulder.pdf": {
         "url": "https://wwa.colorado.edu/resources/intermountain-west-climate-dashboard/briefing/water-year-2021-summary",
         "description": "University of Colorado Boulder"
     },
-    "General Plan - Water Resources": {
+    "General Plan - Water Resources.pdf": {
         "url": "https://www.coolidgeaz.com/vertical/sites/%7BAE188E70-DD7F-47BE-99EF-B58B70641DF9%7D/uploads/Chapter_7-Water_Resources_06192014.pdf",
         "description": "General Plan - Water Resources"
     },
-    "Small Community Environmental Protection Plan": {
+    "Small Community Environmental Protection Plan.pdf": {
         "url": "https://www.eagaraz.gov/media/491",
         "description": "Small Community Environmental Protection Plan"
     },
-    "CCRs": {
+    "CCRs.pdf": {
         "url": "https://www.epa.gov/sites/default/files/2018-02/documents/epa-ogwdw-ccr-infographic-v5_508.pdf",
         "description": "CCRs"
     },
-    "General Plan - Water Resources-2": {
+    "General Plan - Water Resources-2.pdf": {
         "url": "https://flagstaff.az.gov/DocumentCenter/View/41532/VIII---Water-Resources-021113?bidId=",
         "description": "General Plan - Water Resources-2"
     },
-    "Town of Florence Water Resources": {
+    "Town of Florence Water Resources.pdf": {
         "url": "https://www.florenceaz.gov/water-resource/",
         "description": "Town of Florence Water Resources"
     },
-    "Water Settlement": {
+    "Water Settlement.pdf": {
         "url": "https://www.gilariver.org/index.php/about/water-settlement",
         "description": "Water Settlement"
     },
-    "Regain our Water": {
+    "Regain our Water.pdf": {
         "url": "https://waterdesk.org/2021/11/a-generational-historic-struggle-to-regain-our-water/",
         "description": "Regain our Water"
     },
-    "Water Rights": {
+    "Water Rights.pdf": {
         "url": "https://ensia.com/features/water-rights-gila-river-indian-community-native-american-american-west",
         "description": "Water Rights"
     },
-    "Gilbert Water Supply": {
+    "Gilbert Water Supply.pdf": {
         "url": "https://www.gilbertaz.gov/departments/public-works/water/water-resources/water-supply",
         "description": "Gilbert Water Supply"
     },
@@ -871,195 +871,195 @@ knowledge_sources = {
         "url": "https://www.glendaleaz.com/live/city_services/water_services/your_water",
         "description": "Glendale \"Your Water\""
     },
-    "Arizona Water Company (Fact Sheet)": {
+    "Arizona Water Company (Fact Sheet).pdf": {
         "url": "https://www.globeaz.gov/sites/g/files/vyhlif5376/f/uploads/fact-sheet.pdf",
         "description": "Arizona Water Company (Fact Sheet)"
     },
-    "GWPC Executive Order": {
+    "GWPC Executive Order.pdf": {
         "url": "https://azgovernor.gov/sites/default/files/eo4.pdf",
         "description": "GWPC Executive Order"
     },
-    "Stormwater Management Plan": {
+    "Stormwater Management Plan.pdf": {
         "url": "https://www.guadalupeaz.org/sites/g/files/vyhlif6711/f/uploads/stormwater_management_program_swmp_2024.pdf",
         "description": "Stormwater Management Plan"
     },
-    "Tribal Water Uses in Colorado River Basin-2": {
+    "Tribal Water Uses in Colorado River Basin-2.pdf": {
         "url": "http://www.tribalwateruse.org/?page_id=189",
         "description": "Tribal Water Uses in Colorado River Basin-2"
     },
-    "Water Rate Study": {
+    "Water Rate Study.pdf": {
         "url": "https://townofhaydenaz.gov/wp-content/uploads/2024/04/23_Water_Rate_Study.pdf",
         "description": "Water Rate Study"
     },
-    "Tribal Water Uses in Colorado River Basin-3": {
+    "Tribal Water Uses in Colorado River Basin-3.pdf": {
         "url": "http://www.tribalwateruse.org/?page_id=149",
         "description": "Tribal Water Uses in Colorado River Basin-3"
     },
-    "City Code (Water Conservation)": {
+    "City Code (Water Conservation).pdf": {
         "url": "https://www.codepublishing.com/AZ/HuachucaCity/#!/html/HuachucaCity13/HuachucaCity1355.html",
         "description": "City Code (Water Conservation)"
     },
-    "DOI Water Rights Settlement": {
+    "DOI Water Rights Settlement.pdf": {
         "url": "https://www.doi.gov/pressreleases/interior-department-welcomes-significant-progress-indian-water-rights-settlements",
         "description": "DOI Water Rights Settlement"
     },
-    "Tribal Water Uses in Colorado River Basin-4": {
+    "Tribal Water Uses in Colorado River Basin-4.pdf": {
         "url": "http://www.tribalwateruse.org/?page_id=198",
         "description": "Tribal Water Uses in Colorado River Basin-4"
     },
-    "Colorado River Shortage Story Map": {
+    "Colorado River Shortage Story Map.pdf": {
         "url": "https://storymaps.arcgis.com/stories/a1a782ce054d4ad28a0d7d0845e6c03d",
         "description": "Colorado River Shortage Story Map"
     },
-    "Arizona's Water Story": {
+    "Arizona's Water Story.pdf": {
         "url": "https://asu.maps.arcgis.com/apps/Cascade/index.html?appid=a44299ef542a479d8a63b72c348dd1ba",
         "description": "Arizona's Water Story"
     },
-    "Big Picture": {
+    "Big Picture.pdf": {
         "url": "https://storymaps.arcgis.com/stories/0f244e635ef5479394d3eefc81032a79",
         "description": "Big Picture"
     },
-    "Arizona's Stream Adjudications": {
+    "Arizona's Stream Adjudications.pdf": {
         "url": "https://storymaps.arcgis.com/stories/48e6754b99a74d398783b732c6254aeb",
         "description": "Arizona's Stream Adjudications"
     },
-    "Colorado River Basin Coal Facility": {
+    "Colorado River Basin Coal Facility.pdf": {
         "url": "https://storymaps.arcgis.com/stories/1ad192703c79442b94328f24e5bb6510/print",
         "description": "Colorado River Basin Coal Facility"
     },
-    "Long-term Storage Credits": {
+    "Long-term Storage Credits.pdf": {
         "url": "https://storymaps.arcgis.com/stories/61c95c2245e549fbb51fb94e7e0070bb",
         "description": "Long-term Storage Credits"
     },
-    "Water and Land Use in Central Arizona": {
+    "Water and Land Use in Central Arizona.pdf": {
         "url": "https://storymaps.arcgis.com/stories/eb51183c1305428187c699d004cbf77b",
         "description": "Water and Land Use in Central Arizona"
     },
-    "Public Works": {
+    "Public Works.pdf": {
         "url": "https://townofmammoth.us/public-works-2/",
         "description": "Public Works"
     },
-    "Marana Water FAQs": {
+    "Marana Water FAQs.pdf": {
         "url": "https://www.maranaaz.gov/water-faq",
         "description": "Marana Water FAQs"
     },
-    "Maricopa Water Resource Element": {
+    "Maricopa Water Resource Element.pdf": {
         "url": "https://www.maricopa-az.gov/departments/development-services/planning-maricopa-general-plan/general-plan-elements/public-buildings-facilities-services-element",
         "description": "Maricopa Water Resource Element"
     },
-    "City of Mesa Water FAQs": {
+    "City of Mesa Water FAQs.pdf": {
         "url": "https://www.mesaaz.gov/residents/water/water-resources-faqs",
         "description": "City of Mesa Water FAQs"
     },
-    "Flood Damage Prevention Regulations": {
+    "Flood Damage Prevention Regulations.pdf": {
         "url": "https://miamiaz.gov/wp-content/uploads/2022/10/Title-15-Buildings-and-Construction-11-2021-1.pdf",
         "description": "Flood Damage Prevention Regulations"
     },
-    "Water Rights and Water Use of Coal Facilities": {
+    "Water Rights and Water Use of Coal Facilities.pdf": {
         "url": "https://morrisoninstitute.asu.edu/sites/default/files/asu-kc-coalrprt-nov22.pdf",
         "description": "Water Rights and Water Use of Coal Facilities"
     },
-    "Toward a Sense of the Basin": {
+    "Toward a Sense of the Basin.pdf": {
         "url": "https://www.naturalresourcespolicy.org/docs/colorado-river-basin/basin-report-2020.pdf",
         "description": "Toward a Sense of the Basin"
     },
-    "Tri-University Water Recharge Collaboration": {
+    "Tri-University Water Recharge Collaboration.pdf": {
         "url": "https://news.nau.edu/got-water-nau-researchers-a-part-of-a-tri-university-collaboration-to-enhance-water-recharge-in-arizona/",
         "description": "Tri-University Water Recharge Collaboration"
     },
-    "Department of Water Resources": {
+    "Department of Water Resources.pdf": {
         "url": "https://nndwr.navajo-nsn.gov/",
         "description": "Department of Water Resources"
     },
-    "Nogales Water": {
+    "Nogales Water.pdf": {
         "url": "https://nogalesaz.gov/wp-content/uploads/2020/12/City_of_Nogales_Stormwater_Management_Plan.pdf",
         "description": "Nogales Water"
     },
-    "Guidance Framework for Direct Potable Reuse in Arizona": {
+    "Guidance Framework for Direct Potable Reuse in Arizona.pdf": {
         "url": "https://www.nwri-usa.org/_files/ugd/632dc3_0bd8e67cef55446f8c3f7759a37512ce.pdf?index=true",
         "description": "Guidance Framework for Direct Potable Reuse in Arizona"
     },
-    "Water Quality Control Plan": {
+    "Water Quality Control Plan.pdf": {
         "url": "http://paiutewater.us/WQS%20Jan%202019.pdf",
         "description": "Water Quality Control Plan"
     },
-    "Water management innovation": {
+    "Water management innovation.pdf": {
         "url": "https://knowyourwaternews.com/pascua-yaqui-tribe-thrives-on-water-management-innovation/",
         "description": "Water management innovation"
     },
-    "NAU Water-Energy Nexus Study": {
+    "NAU Water-Energy Nexus Study.pdf": {
         "url": "http://www.waterenergy.nau.edu/patagonia.html",
         "description": "NAU Water-Energy Nexus Study"
     },
-    "Patagonia": {
+    "Patagonia.pdf": {
         "url": "https://patagonia-az.gov/wp-content/uploads/2011/07/Patagonia-Town-Code-Ch12-w-amendments-from-2012-1.pdf",
         "description": "Patagonia"
     },
-    "City of Phoenix Water Conservation": {
+    "City of Phoenix Water Conservation.pdf": {
         "url": "https://www.phoenix.gov/waterservices/resourcesconservation/faqs",
         "description": "City of Phoenix Water Conservation"
     },
-    "City of Phoenix Drinking Water": {
+    "City of Phoenix Drinking Water.pdf": {
         "url": "https://www.phoenix.gov/waterservices/envservices/drinking-water/faqs",
         "description": "City of Phoenix Drinking Water"
     },
-    "Irrigation project": {
+    "Irrigation project.pdf": {
         "url": "https://irrigationleadermagazine.com/the-pima-maricopa-irrigation-project/",
         "description": "Irrigation project"
     },
-    "A Vision Statement for P-MIP": {
+    "A Vision Statement for P-MIP.pdf": {
         "url": "https://www.gilariver.com/new-vision.html",
         "description": "A Vision Statement for P-MIP"
     },
-    "ADWR": {
+    "ADWR.pdf": {
         "url": "https://www.pinetoplakesideaz.gov/DocumentCenter/View/855/2015-General-Plan---",
         "description": "ADWR"
     },
-    "Pinetop Water": {
+    "Pinetop Water.pdf": {
         "url": "https://www.pinetopwatercfd.com/conservation-tips",
         "description": "Pinetop Water"
     },
-    "Pinetop Water-2": {
+    "Pinetop Water-2.pdf": {
         "url": "https://www.pinetopwatercfd.com/documents/581/res2007-2.pdf",
         "description": "Pinetop Water-2"
     },
-    "Water Resources-3": {
+    "Water Resources-3.pdf": {
         "url": "https://planprescott.com/wp-content/uploads/2023/01/10-Water-Resources-Element.pdf",
         "description": "Water Resources"
     },
-    "Backflow Code": {
+    "Backflow Code.pdf": {
         "url": "https://cms8.revize.com/revize/quartzsite/Document_Center/Department/Utility/Backflow%20Code.pdf",
         "description": "Backflow Code"
     },
-    "Tribal Water Uses in Colorado River Basin-5": {
+    "Tribal Water Uses in Colorado River Basin-5.pdf": {
         "url": "http://www.tribalwateruse.org/?page_id=123",
         "description": "Tribal Water Uses in Colorado River Basin-5"
     },
-    "FAQs": {
+    "FAQs.pdf": {
         "url": "https://rippleeffectsedona.com/faqs/",
         "description": "FAQs"
     },
-    "General Plan": {
+    "General Plan.pdf": {
         "url": "https://www.sierravistaaz.gov/home/showpublisheddocument/3356/637876863574970000",
         "description": "General Plan"
     },
-    "Conservation Plan": {
+    "Conservation Plan.pdf": {
         "url": "https://www.snowflakeaz.gov/departments/public-works/water-division/conservation-plan/",
         "description": "Conservation Plan"
     },
-    "Flood Irrigation": {
+    "Flood Irrigation.pdf": {
         "url": "https://www.srpnet.com/grid-water-management/water-management/how-irrigation-works",
         "description": "Flood Irrigation"
     },
-    "PUBLIC WORKS (WATER AND SEWER)": {
+    "PUBLIC WORKS (WATER AND SEWER).pdf": {
         "url": "https://www.sjaz.us/public-works-water-and-sewer/",
         "description": "PUBLIC WORKS (WATER AND SEWER)"
     },
-    "Water Department": {
+    "Water Department.pdf": {
         "url": "https://starvalleyaz.com/waterdepartment/",
         "description": "Water Department"
     },
-    "Water Resource Management": {
+    "Water Resource Management.pdf": {
         "url": "https://surpriseaz.gov/603/Water-Resource-Management",
         "description": "Water Resource Management"
     },
@@ -1071,104 +1071,104 @@ knowledge_sources = {
         "url": "http://www.tribalwateruse.org/?page_id=189",
         "description": "Tribal Water Uses in Colorado River Basin"
     },
-    "Brief History of Tohono O'odham Water": {
+    "Brief History of Tohono O'odham Water.pdf": {
         "url": "http://www.tonation-nsn.gov/water-resources/brief-history/",
         "description": "Brief History of Tohono O'odham Water"
     },
-    "Tribal Water Study Overview": {
+    "Tribal Water Study Overview.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/1c5bb7_ee6dd174b3524eac82c750300c8ba139.pdf",
         "description": "Tribal Water Study Overview"
     },
-    "Inventory in the Colorado River Basin": {
+    "Inventory in the Colorado River Basin.pdf": {
         "url": "https://www.tribalwateruse.org/?page_id=569",
         "description": "Inventory in the Colorado River Basin"
     },
-    "Tucson One Water": {
+    "Tucson One Water.pdf": {
         "url": "https://tucsononewater.com/wp-content/uploads/2024/04/Tucson_Water_One_Water_2100_Plan_Print_Ready-1.pdf",
         "description": "Tucson One Water"
     },
-    "Tucson Water": {
+    "Tucson Water.pdf": {
         "url": "https://www.tucsonaz.gov/Departments/Water",
         "description": "Tucson Water"
     },
-    "Tucson One Water-2": {
+    "Tucson One Water-2.pdf": {
         "url": "https://tucsononewater.com/wp-content/uploads/2024/04/Tucson_Water_One_Water_2100_Plan_Print_Ready-1.pdf",
         "description": "Tucson One Water-2"
     },
-    "A Common Vision": {
+    "A Common Vision.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/17c3c8_f1d896681b9c488f86bd2a34754d7e5d.pdf",
         "description": "A Common Vision"
     },
-    "Developing the Next Framework": {
+    "Developing the Next Framework.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/1c5bb7_c6557dd8e23c4c5d848590e7d36efe96.pdf",
         "description": "Developing the Next Framework"
     },
-    "Status of Tribal Water Rights": {
+    "Status of Tribal Water Rights.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/17c3c8_1fa6790c664842249959f156b927d10d.pdf",
         "description": "Status of Tribal Water Rights"
     },
-    "The Enduring Role": {
+    "The Enduring Role.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/17c3c8_7705fac3008e4bdf806e268271d187e2.pdf",
         "description": "The Enduring Role"
     },
-    "Water and Tribes Initiative": {
+    "Water and Tribes Initiative.pdf": {
         "url": "https://www.waterandtribes.org/",
         "description": "Water and Tribes Initiative"
     },
-    "Developing the Next Framework-1": {
+    "Developing the Next Framework-1.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/1c5bb7_c6557dd8e23c4c5d848590e7d36efe96.pdf",
         "description": "Developing the Next Framework-1"
     },
-    "Status of Tribal Water Rights-1": {
+    "Status of Tribal Water Rights-1.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/17c3c8_1fa6790c664842249959f156b927d10d.pdf",
         "description": "Status of Tribal Water Rights-1"
     },
-    "Pinal Active Management Area": {
+    "Pinal Active Management Area.pdf": {
         "url": "https://wrrc.arizona.edu/sites/wrrc.arizona.edu/files/2023-02/final_june-12-2020_wrrc_pinal_ama_water_report.pdf",
         "description": "Pinal Active Management Area"
     },
-    "Desert Flows Methodology": {
+    "Desert Flows Methodology.pdf": {
         "url": "https://wrrc.arizona.edu/sites/wrrc.arizona.edu/files/attachment/Desert%2520Flows%2520Methodology%2520Guidebook_2017.pdf",
         "description": "Desert Flows Methodology"
     },
-    "Water Advisory Committee": {
+    "Water Advisory Committee.pdf": {
         "url": "https://www.yavapaiaz.gov/County-Government/Board-of-Supervisors/Boards-and-Commissions/Water-Advisory-Committee",
         "description": "Water Advisory Committee"
     },
-    "Central Yavapai Water Resource Study": {
+    "Central Yavapai Water Resource Study.pdf": {
         "url": "https://www.yavapaiaz.gov/files/sharedassets/public/v/1/resident-services/environmental-safety/documents/environmental_issues_assessment_and_alternative_descriptions_final_v4-4.pdf",
         "description": "Central Yavapai Water Resource Study"
     },
-    "Zuni Youth Enrichment Project - Water is Life": {
+    "Zuni Youth Enrichment Project - Water is Life.pdf": {
         "url": "https://www.zyep.org/zuni-families-conserve-water-and-save-money-through-the-zuni-youth-enrichment-projects-support-of-rain-harvest/",
         "description": "Zuni Youth Enrichment Project - Water is Life"
     },
     
-  "Enhancing Tribal Water Management Capacity in the Colorado River Basin: A Baseline Assessment": {
+  "Enhancing Tribal Water Management Capacity in the Colorado River Basin: A Baseline Assessment.pdf": {
         "url": "https://www.waterandtribes.org/_files/ugd/1c5bb7_c3b7d7dbc21c4ceb9aacf49d23e6642e.pdf",
         "description": "Enhancing Tribal Water Management Capacity in the Colorado River Basin: A Baseline Assessment"
     },
-    "General Plan-1": {
+    "General Plan-1.pdf": {
         "url": "https://www.apachejunctionaz.gov/DocumentCenter/View/20772/-Apache-Junction-GPU-2020-DIGITAL",
         "description": "General Plan-1"
     },
-    "General Plan-2": {
+    "General Plan-2.pdf": {
         "url": "https://webgen1files1.revize.com/cityofbensonaz/Document%20Center/Department/Planning%20and%20Zoning/General%20Plan/2015_Final_Draft.pdf",
         "description": "General Plan-2"
     },
-    "General Plan-3": {
+    "General Plan-3.pdf": {
         "url": "https://www.bisbeeaz.gov/DocumentCenter/View/1141/2015GeneralPlanUpdateVolume1Final_001June-2014?bidId=",
         "description": "General Plan-3"
     },
-    "Know Your Water Factsheet": {
+    "Know Your Water Factsheet.pdf": {
         "url": "https://knowyourwaternews.com/wp-content/uploads/2020/12/CAP-Fact-Sheet-Know-Your-Water.pdf",
         "description": "Know Your Water Factsheet"
     },
-    "Public Facilities": {
+    "Public Facilities.pdf": {
         "url": "https://eloyaz.gov/DocumentCenter/View/4935/38-Public-Facilities-Element",
         "description": "Public Facilities"
     },
-    "Pinal Creek Wastewater Treatment Facility": {
+    "Pinal Creek Wastewater Treatment Facility.pdf": {
         "url": "https://www.globeaz.gov/public-works/pages/pinal-creek-wastewater-treatment-facility",
         "description": "Pinal Creek Wastewater Treatment Facility"
     },
@@ -1176,315 +1176,315 @@ knowledge_sources = {
         "url": "https://www.globeaz.gov/public-works/pages/water",
         "description": "Water"
     },
-    "General Plan-5": {
+    "General Plan-5.pdf": {
         "url": "https://assets.website-files.com/5d110e58c64b3a3c65215b35/642b5c925902ed39c43ccf07_General%20Plan%208-9-05.pdf",
         "description": "General Plan-5"
     },
-    "General Plan-6": {
+    "General Plan-6.pdf": {
         "url": "https://www.cityofkingman.gov/home/showdocument?id=292",
         "description": "General Plan-6"
     },
-    "General Plan-7": {
+    "General Plan-7.pdf": {
         "url": "https://www.litchfieldpark.gov/DocumentCenter/View/11618/2022-General-Plan-033022-Approved-Final",
         "description": "General Plan-7"
     },
-    "Pima Water Resources Unit": {
+    "Pima Water Resources Unit.pdf": {
         "url": "https://webgen1files1.revize.com/pimaaz/PIMA_GP%20(1).pdf",
         "description": "Pima Water Resources Unit"
     },
-    "General Plan-9": {
+    "General Plan-9.pdf": {
         "url": "https://www.prescottvalley-az.gov/DocumentCenter/View/14355/Approved-General-Plan-2035",
         "description": "General Plan-9"
     },
-    "General Plan-10": {
+    "General Plan-10.pdf": {
         "url": "https://sahuaritaaz.gov/DocumentCenter/View/1169/Aspire-2035-Sahuaritas-General-Plan-Amended-2022?bidId=",
         "description": "General Plan-10"
     },
-    "General Plan-11": {
+    "General Plan-11.pdf": {
         "url": "https://www.sanluisaz.gov/DocumentCenter/View/10150/City-of-San-Luis-GP-2040",
         "description": "General Plan-11"
     },
-    "General Plan-13": {
+    "General Plan-13.pdf": {
         "url": "https://core-docs.s3.us-east-1.amazonaws.com/documents/asset/uploaded_file/4677/COSL/4023765/2018_GENERAL_PLAN_FINAL_201909101144128160__2_.pdf",
         "description": "General Plan-13"
     },
-    "General Plan-14": {
+    "General Plan-14.pdf": {
         "url": "https://cms2.revize.com/revize/somertonaz/document_center/Community%20Development/SGP_CouncilAdopted_060220.pdf",
         "description": "General Plan-14"
     },
-    "General Plan-15": {
+    "General Plan-15.pdf": {
         "url": "https://www.southtucsonaz.gov/sites/default/files/fileattachments/city_clerk/page/4753/city_of_south_tucson_chapter_22-_floodplain_pc.pdf",
         "description": "General Plan-15"
     },
-    "General Plan - Water Resources-3": {
+    "General Plan - Water Resources-3.pdf": {
         "url": "https://content.civicplus.com/api/assets/92746936-baf3-4b14-a50e-204c418083da?cache=1800",
         "description": "General Plan - Water Resources"
     },
-    "General Plan-17": {
+    "General Plan-17.pdf": {
         "url": "https://www.tayloraz.gov/wp-content/uploads/2014/01/2025-General-Plan.pdf",
         "description": "General Plan-17"
     },
-    "General Plan-18": {
+    "General Plan-18.pdf": {
         "url": "https://www.thatcher.az.gov/home/showpublisheddocument/1008/637901936330630000",
         "description": "General Plan-18"
     },
-    "General Plan-19": {
+    "General Plan-19.pdf": {
         "url": "https://www.tolleson.az.gov/DocumentCenter/View/2491/General-Plan-2024?bidId=",
         "description": "General Plan-19"
     },
-    "General Plan-20": {
+    "General Plan-20.pdf": {
         "url": "https://www.welltonaz.gov/sites/g/files/vyhlif8076/f/uploads/231214_final_adopted_wellton_2023_general_plan.pdf",
         "description": "General Plan-20"
     },
-    "General Plan-22": {
+    "General Plan-22.pdf": {
         "url": "https://tusayan-az.gov/wp-content/uploads/2023/06/2014-04-23-Tusayan-General-Plan-2024.pdf",
         "description": "General Plan-22"
     },
-    "General Plan-23": {
+    "General Plan-23.pdf": {
         "url": "https://cdnsm5-hosted.civiclive.com/UserFiles/Servers/Server_12608991/File/Our%20Services/Community%20Development/Directory%20of%20Regulatory%20Documents/6-24-14%20General%20Plan%202025%20-%20Final.pdf",
         "description": "General Plan-23"
     },
-    "General Plan-24": {
+    "General Plan-24.pdf": {
         "url": "https://www.yumaaz.gov/home/showpublisheddocument/5172/637939261174930000",
         "description": "General Plan-24"
     },
-    "Securing Our Water Future Through Advanced Water Purification": {
+    "Securing Our Water Future Through Advanced Water Purification.pdf": {
         "url": "https://www.amwua.org/blog/securing-our-water-future-through-advanced-water-purification",
         "description": "Securing Our Water Future Through Advanced Water Purification"
     },
-    "General Plan-4": {
+    "General Plan-4.pdf": {
         "url": "https://cottonwoodaz.gov/DocumentCenter/View/606/Water-Resources-PDF",
         "description": "General Plan-4"
     },
-    "General Plan (2009, most recent)": {
+    "General Plan (2009, most recent).pdf": {
         "url": "https://drive.google.com/file/d/1A1SeL48R48CNZEX17T4RaeHAWAZIaOpf/view",
         "description": "General Plan (2009, most recent)"
     },
-    "General Plan-8": {
+    "General Plan-8.pdf": {
         "url": "https://drive.google.com/file/d/1CT7-L12DWcvZkGNG9eMq3fesVdsLtfx8/view?usp=drive_link",
         "description": "General Plan-8"
     },
-    "A Water / Energy Best Practices Guide for Rural Arizona’s Water & Wastewater Systems": {
+    "A Water / Energy Best Practices Guide for Rural Arizona’s Water & Wastewater Systems.pdf": {
         "url": "https://drive.google.com/file/d/1NzED78d48CE4NIv7qdWzSmAivkEPF8Fx/view?usp=drive_link",
         "description": "A Water / Energy Best Practices Guide for Rural Arizona’s Water & Wastewater Systems"
     },
-    "Nogales Water-2": {
+    "Nogales Water-2.pdf": {
         "url": "https://drive.google.com/file/d/1O0yA4PZTBGoPnfNJ7Jrg1BvBQCAV5SwQ/view?usp=drive_link",
         "description": "Nogales Water-2"
     },
-    "Public Works-3": {
+    "Public Works-3.pdf": {
         "url": "https://drive.google.com/file/d/1wXO7f0jalBPGgUSapGNGfYOvXKrYAZJJ/view?usp=drive_link",
         "description": "Public Works"
     },
-    "General Plan-12": {
+    "General Plan-12.pdf": {
         "url": "https://drive.google.com/file/d/1Bw2aY7H9En2wI_E8OB4AAPkANghKKOqB/view?usp=drive_link",
         "description": "General Plan-12"
     },
-    "General Plan-16": {
+    "General Plan-16.pdf": {
         "url": "https://content.civicplus.com/api/assets/92746936-baf3-4b14-a50e-204c418083da?cache=1800",
         "description": "General Plan-16"
     },
-    "General Plan-21": {
+    "General Plan-21.pdf": {
         "url": "https://drive.google.com/file/d/1cQenUYqsMbpenhaVquAjHW_S9wawJ-e2/view?usp=drive_link",
         "description": "General Plan-21"
     },
-    "Willcox Utilities": {
+    "Willcox Utilities.pdf": {
         "url": "https://drive.google.com/file/d/1PpawNSHapIuisHSc3juM8UWEPh2-RzHO/view?usp=drive_link",
         "description": "Willcox Utilities"
     },
-    "2024 Scottsdale Water Quality Report": {
+    "2024 Scottsdale Water Quality Report.pdf": {
         "url": "https://drive.google.com/file/d/1TC9N1dlqmcG9Au1Xy8b3k-ZLVjUy6JcN/view?usp=drive_link",
         "description": "2024 Scottsdale Water Quality Report"
     },
-    "Rural Water in Arizona": {
+    "Rural Water in Arizona.pdf": {
         "url": "https://docs.google.com/document/d/1TgddnnDf4SVyx59vOIy6UIYfs30FN_Cz/edit?usp=drive_link&ouid=105796556670555250653&rtpof=true&sd=true",
         "description": "Rural Water in Arizona"
     },
-    "Augmentation Concepts": {
+    "Augmentation Concepts.pdf": {
         "url": "https://docs.google.com/document/d/10KrtHXDQw8w95rh1c0Yi7fYXLTurtdSj/edit?usp=drive_link&ouid=105796556670555250653&rtpof=true&sd=true",
         "description": "Augmentation Concepts"
     },
-    "Brief History of Water Resources-2": {
+    "Brief History of Water Resources-2.pdf": {
         "url": "http://www.tonation-nsn.gov/water-resources/brief-history/",
         "description": "Brief History of Water Resources-2"
     },
-    "OVERVIEW OF THE ARIZONA GROUNDWATER MANAGEMENT CODE-2": {
+    "OVERVIEW OF THE ARIZONA GROUNDWATER MANAGEMENT CODE-2.pdf": {
         "url": "https://www.azwater.gov/sites/default/files/media/Arizona%20Groundwater_Code_1.pdf",
         "description": "OVERVIEW OF THE ARIZONA GROUNDWATER MANAGEMENT CODE-2"
     },
-    "HCC Water Master Plan Memo": {
+    "HCC Water Master Plan Memo.pdf": {
         "url": "https://drive.google.com/file/d/1P9WXKbSfrGWJ9o4ML9lrHWTzW6WyaZD9/view",
         "description": "HCC Water Master Plan Memo"
     },
-    "General Plan-25": {
+    "General Plan-25.pdf": {
         "url": "https://img1.wsimg.com/blobby/go/5f14fb93-ed4c-41ba-b8c4-d5ccaa1bf7c8/downloads/3%20Clifton%20General%20Plan%20Policy%20Plan%20-%20Final%208%201.pdf?ver=1720819747718",
         "description": "General Plan-25"
     },
-    "General Plan-26": {
+    "General Plan-26.pdf": {
         "url": "https://www.clarkdale.az.gov/DocumentCenter/View/997/Town-of-Clarkdale-2021-General-Plan-",
         "description": "General Plan-26"
     },
-    "General Plan-27": {
+    "General Plan-27.pdf": {
         "url": "https://www.cavecreekaz.gov/DocumentCenter/View/4413/2021-General-Plan---Cave-Creek?bidId=",
         "description": "General Plan-27"
     },
-    "COLORADO RIVER INDIAN TRIBES WATER RESILIENCY ACT OF 2022": {
+    "COLORADO RIVER INDIAN TRIBES WATER RESILIENCY ACT OF 2022.pdf": {
         "url": "https://www.crit-nsn.gov/PLAW-117publ343.pdf",
         "description": "COLORADO RIVER INDIAN TRIBES WATER RESILIENCY ACT OF 2022"
     },
-    "Water Conservation Brochure": {
+    "Water Conservation Brochure.pdf": {
         "url": "https://www.srpmic-nsn.gov/wp-content/uploads/2021/06/PW-WC2019Brochure.pdf",
         "description": "Water Conservation Brochure"
     },
-    "Water Conservation Page": {
+    "Water Conservation Page.pdf": {
         "url": "https://www.srpmic-nsn.gov/government/public-works/water-conservation/",
         "description": "Water Conservation Page"
     },
-    "Water Adjudication": {
+    "Water Adjudication.pdf": {
         "url": "https://digitalrepository.unm.edu/cgi/viewcontent.cgi?article=1053&context=nawrs",
         "description": "Water Adjudication"
     },
-    "Ak-Chin Indian Water Rights Settlement Act of 1978": {
+    "Ak-Chin Indian Water Rights Settlement Act of 1978.pdf": {
         "url": "https://drive.google.com/file/d/1PQ11ev2Xn3rkYcwU1d6DFs4GhG2jvo9z/view?usp=drive_link",
         "description": "Ak-Chin Indian Water Rights Settlement Act of 1978"
     },
-    "Tohono Oodham Water Rights Settlement Act of 1982 Title III": {
+    "Tohono Oodham Water Rights Settlement Act of 1982 Title III.pdf": {
         "url": "https://drive.google.com/file/d/1MTct8u0SYtoVwX2U8aF-Lvu857ljBTUq/view?usp=drive_link",
         "description": "Tohono Oodham Water Rights Settlement Act of 1982 Title III"
     },
-    "1983 Agreement in Principle to Revise Ak-Chin Water Settlement": {
+    "1983 Agreement in Principle to Revise Ak-Chin Water Settlement.pdf": {
         "url": "https://drive.google.com/file/d/1H7zGAupEm7XU0si4fM9gwbq20dTOortx/view?usp=drive_link",
         "description": "1983 Agreement in Principle to Revise Ak-Chin Water Settlement"
     },
-    "Salt River Pima-Maricopa Indian Community Water Rights Settlement (2)": {
+    "Salt River Pima-Maricopa Indian Community Water Rights Settlement (2).pdf": {
         "url": "https://drive.google.com/file/d/1gOUecOdk3BLpfyYIQfo4rtJxavPvqgnM/view?usp=drive_link",
         "description": "Salt River Pima-Maricopa Indian Community Water Rights Settlement (2)"
     },
-    "Salt River Pima-Maricopa Indian Community Water Rights Settlement (1)": {
+    "Salt River Pima-Maricopa Indian Community Water Rights Settlement (1).pdf": {
         "url": "https://drive.google.com/file/d/1bK1_JOx0xFX90wZZ6oxk42WHelYtS7jO/view?usp=drive_link",
         "description": "Salt River Pima-Maricopa Indian Community Water Rights Settlement (1)"
     },
-    "Fort McDowell Indian Community Water Rights Settlement of 1990 Ac": {
+    "Fort McDowell Indian Community Water Rights Settlement of 1990 Ac.pdf": {
         "url": "https://drive.google.com/file/d/12KZY9NNhrjl7XlPnqXj4lG7-s-yrBdcP/view?usp=drive_link",
         "description": "Fort McDowell Indian Community Water Rights Settlement of 1990 Ac"
     },
-    "Salt River Pima-Maricopa Indian Community Water Rights Settlement of 1991": {
+    "Salt River Pima-Maricopa Indian Community Water Rights Settlement of 1991.pdf": {
         "url": "https://drive.google.com/file/d/14IjlbMeF8wPALBB1zOm6yZgcBmpA3n-u/view?usp=drive_link",
         "description": "Salt River Pima-Maricopa Indian Community Water Rights Settlement of 1991"
     },
-    "Technical Amendments to Southern Arizona Water Rights Settlement": {
+    "Technical Amendments to Southern Arizona Water Rights Settlement.pdf": {
         "url": "https://drive.google.com/file/d/1-UFJb9Vuc5evBOCWoBm0pI89zZIvQqv7/view?usp=drive_link",
         "description": "Technical Amendments to Southern Arizona Water Rights Settlement"
     },
-    "San Carlos Apache Tribe Water Rights Settlement Act of 1992 San": {
+    "San Carlos Apache Tribe Water Rights Settlement Act of 1992 San.pdf": {
         "url": "https://drive.google.com/file/d/1aUVlDzzSqQx1AFObylOSc4CIsmXN_Go4/view?usp=drive_link",
         "description": "San Carlos Apache Tribe Water Rights Settlement Act of 1992 San"
     },
-    "1992 Amendments 1984 Ak-Chin Water Act (1)": {
+    "1992 Amendments 1984 Ak-Chin Water Act (1).pdf": {
         "url": "https://drive.google.com/file/d/1y0eyKjxTTfTPIlIyCWoccIL-tGcrvoV5/view?usp=sharing",
         "description": "1992 Amendments 1984 Ak-Chin Water Act (1)"
     },
-    "Fort McDowell Indian Community Water Settlement (Yavapai Nation)": {
+    "Fort McDowell Indian Community Water Settlement (Yavapai Nation).pdf": {
         "url": "https://drive.google.com/file/d/10l9or1hc2T-s_EbW258FtV7uCYhQ4Huf/view?usp=drive_link",
         "description": "Fort McDowell Indian Community Water Settlement (Yavapai Nation)"
     },
-    "Yavapai-Prescott Indian Water Rights Settlement Act of 1994": {
+    "Yavapai-Prescott Indian Water Rights Settlement Act of 1994.pdf": {
         "url": "https://drive.google.com/file/d/1aH9zxpLz3P4Gz2hiGSF1eBLyL3EQHz2W/view?usp=drive_link",
         "description": "Yavapai-Prescott Indian Water Rights Settlement Act of 1994"
     },
-    "San Carlos Apache Tribe Water Rights Settlement Act of 1992 Amen": {
+    "San Carlos Apache Tribe Water Rights Settlement Act of 1992 Amen.pdf": {
         "url": "https://drive.google.com/file/d/1Pmu4yxESqaWM3B5SAf4XIqXRnCw6c816/view?usp=drive_link",
         "description": "San Carlos Apache Tribe Water Rights Settlement Act of 1992 Amen"
     },
-    "An Act to Provide for the Settlement of the Water Rights Claims of Yavapai": {
+    "An Act to Provide for the Settlement of the Water Rights Claims of Yavapai.pdf": {
         "url": "https://drive.google.com/file/d/1j3PW1DI--bGXFPU1zFxrXir9GW4W_AGO/view?usp=drive_link",
         "description": "An Act to Provide for the Settlement of the Water Rights Claims of Yavapai"
     },
-    "Yavapai-Prescott Indian Tribe Water Rights Settlement of 1994 Am": {
+    "Yavapai-Prescott Indian Tribe Water Rights Settlement of 1994 Am.pdf": {
         "url": "https://drive.google.com/file/d/1h0VXgtMuzTx9yTmxtWUYw_lJ4uP05LdW/view?usp=drive_link",
         "description": "Yavapai-Prescott Indian Tribe Water Rights Settlement of 1994 Am"
     },
-    "San Carlos Apache Tribe Amendments to Act of 1992 1997 Amendment": {
+    "San Carlos Apache Tribe Amendments to Act of 1992 1997 Amendment.pdf": {
         "url": "https://drive.google.com/file/d/1E6lTUrTlpxtMb3PDjA-8Ep3T2fSmhBMN/view?usp=drive_link",
         "description": "San Carlos Apache Tribe Amendments to Act of 1992 1997 Amendment"
     },
-    "San Carlos Apache Tribe Water Rights Settlement Agreement of 1999": {
+    "San Carlos Apache Tribe Water Rights Settlement Agreement of 1999.pdf": {
         "url": "https://drive.google.com/file/d/1MJ5H2sGqdUKclAEA-vD-m-lN22ppbh2F/view?usp=drive_link",
         "description": "San Carlos Apache Tribe Water Rights Settlement Agreement of 1999"
     },
-    "Zuni Indian Tribe Water Rights Settlement in the Little CO River": {
+    "Zuni Indian Tribe Water Rights Settlement in the Little CO River.pdf": {
         "url": "https://drive.google.com/file/d/18ro5k2PKHOm2nxS1jfpmoMePw4Zf7WhJ/view?usp=drive_link",
         "description": "Zuni Indian Tribe Water Rights Settlement in the Little CO River"
     },
-    "Zuni Indian Tribe Water Rights Settlement Act of 2003": {
+    "Zuni Indian Tribe Water Rights Settlement Act of 2003.pdf": {
         "url": "https://drive.google.com/file/d/1eASZoeQYE2ZjY0VFvykgcHnXcYLjbUwB/view?usp=drive_link",
         "description": "Zuni Indian Tribe Water Rights Settlement Act of 2003"
     },
-    "Tohono Oodham Settlement": {
+    "Tohono Oodham Settlement.pdf": {
         "url": "https://drive.google.com/file/d/1lTFRCaIexshWP7CkJ2tRHbSRMBtN_41A/view?usp=drive_link",
         "description": "Tohono Oodham Settlement"
     },
-    "Gila River Indian Community Water Rights Settlement Act of 2004": {
+    "Gila River Indian Community Water Rights Settlement Act of 2004.pdf": {
         "url": "https://drive.google.com/file/d/1n6K9eA4pwgxZvrRGc6g38O4w5al9cKFj/view?usp=drive_link",
         "description": "Gila River Indian Community Water Rights Settlement Act of 2004"
     },
-    "Amendment No. 1 to the Zuni Indian Tribe Water Rights Settlement": {
+    "Amendment No. 1 to the Zuni Indian Tribe Water Rights Settlement.pdf": {
         "url": "https://drive.google.com/file/d/1AjV9YxM5i26xNOYR2zoRmq_Tz1PQSx_q/view?usp=drive_link",
         "description": "Amendment No. 1 to the Zuni Indian Tribe Water Rights Settlement"
     },
-    "2005 Amended and Restated Gila River Indian Community Water Right": {
+    "2005 Amended and Restated Gila River Indian Community Water Right.pdf": {
         "url": "https://drive.google.com/file/d/1bUyGcH5mg0-XAE8F4D-WWsN18434Xqhe/view?usp=drive_link",
         "description": "2005 Amended and Restated Gila River Indian Community Water Right"
     },
-    "Fort McDowell Indian Community Water Rights Settlement Revision A": {
+    "Fort McDowell Indian Community Water Rights Settlement Revision A.pdf": {
         "url": "https://drive.google.com/file/d/1NEzvg-0vRXjBhA0BCmE-4Ac6SOBTyJB-/view?usp=drive_link",
         "description": "Fort McDowell Indian Community Water Rights Settlement Revision A"
     },
-    "Amendment No. 1 to the Amended and Restated Gila River Indian Com": {
+    "Amendment No. 1 to the Amended and Restated Gila River Indian Com.pdf": {
         "url": "https://drive.google.com/file/d/1HWBgc5KYNbfZR6o4asFETqZ2VGS5Ddkl/view?usp=drive_link",
         "description": "Amendment No. 1 to the Amended and Restated Gila River Indian Com"
     },
-    "Amended and Restated Gila River Indian Community Water Rights Amendment 2 2007": {
+    "Amended and Restated Gila River Indian Community Water Rights Amendment 2 2007.pdf": {
         "url": "https://drive.google.com/file/d/1OHh8RdcdJu9EshDMRCLmXxkiu8Pa0gMh/view?usp=drive_link",
         "description": "Amended and Restated Gila River Indian Community Water Rights Amendment 2 2007"
     },
-    "White Mountain Apache Tribe Water Rights Quantification Act of 2010": {
+    "White Mountain Apache Tribe Water Rights Quantification Act of 2010.pdf": {
         "url": "https://drive.google.com/file/d/15jpmbSHHQrooHGl_gE-PUNY79c11oaSl/view?usp=drive_link",
         "description": "White Mountain Apache Tribe Water Rights Quantification Act of 2010"
     },
-    "Amended and Restated White Mountain Apache Tribe Water Rights Qua": {
+    "Amended and Restated White Mountain Apache Tribe Water Rights Qua.pdf": {
         "url": "https://drive.google.com/file/d/18mm3EiJr0syymQ9S83uCxqZOYGnEcrrr/view?usp=drive_link",
         "description": "Amended and Restated White Mountain Apache Tribe Water Rights Qua"
     },
-    "White Mountain Apache Water Rights Quantification Settlement Judg": {
+    "White Mountain Apache Water Rights Quantification Settlement Judg.pdf": {
         "url": "https://drive.google.com/file/d/1UtUKHiC_U5czXfiyl8k5-8o0ZUVXDfO1/view?usp=drive_link",
         "description": "White Mountain Apache Water Rights Quantification Settlement Judg"
     },
-    "Bill Williams River Water Rights Settlement Act of 2014": {
+    "Bill Williams River Water Rights Settlement Act of 2014.pdf": {
         "url": "https://drive.google.com/file/d/1yWMkwj0zKcLamC2RS_W7toY_D3qy2i2j/view?usp=drive_link",
         "description": "Bill Williams River Water Rights Settlement Act of 2014"
     },
-    "White Mountain Apache Tribe Water Rights Quantification Act": {
+    "White Mountain Apache Tribe Water Rights Quantification Act.pdf": {
         "url": "https://drive.google.com/file/d/1HQPSqvCZ7oItOkhh9zMyIe4y9QwwgqxN/view?usp=drive_link",
         "description": "White Mountain Apache Tribe Water Rights Quantification Act"
     },
-    "Hualapai Tribe Water Rights Settlement Act of 2022": {
+    "Hualapai Tribe Water Rights Settlement Act of 2022.pdf": {
         "url": "https://drive.google.com/file/d/1BENEONXHWDJoznXJKaarCODhI9xZ6KvN/view?usp=drive_link",
         "description": "Hualapai Tribe Water Rights Settlement Act of 2022"
     },
-    "Ak-Chin Settlement Act of 1984": {
+    "Ak-Chin Settlement Act of 1984.pdf": {
         "url": "https://drive.google.com/file/d/1-0dmg3cM-I0SySpeAJGCQupL7VBGkFLH/view?usp=drive_link",
         "description": "Ak-Chin Settlement Act of 1984"
     },
-    "1992 Amendments 1984 Ak-Chin Water Act": {
+    "1992 Amendments 1984 Ak-Chin Water Act.pdf": {
         "url": "https://drive.google.com/file/d/1kvECq3CVSfdY7PEZDfCkNiKGqzcoBdaI/view?usp=drive_link",
         "description": "1992 Amendments 1984 Ak-Chin Water Act"
     },
-    "Ak-Chin Water Use Act of 1984 2000 Amendments": {
+    "Ak-Chin Water Use Act of 1984 2000 Amendments.pdf": {
         "url": "https://drive.google.com/file/d/1MP7fIl_TU1ERDBl0IqHqK0ZJIlitaFCa/view?usp=drive_link",
         "description": "Ak-Chin Water Use Act of 1984 2000 Amendments"
     },
-    "Fort Mojave Indian Tribe - Keepers of the River": {
+    "Fort Mojave Indian Tribe - Keepers of the River.pdf": {
         "url": "https://drive.google.com/file/d/1wdn04ge8T0k_rh7Up7-ZC-I4GdBRcjkc/view?usp=drive_link",
         "description": "Fort Mojave Indian Tribe - Keepers of the River"
     },
