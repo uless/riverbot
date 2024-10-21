@@ -3,6 +3,7 @@ ecr_auth.sh
 
 # Database
 application/docs/
+application/newData
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
