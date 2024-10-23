@@ -169,3 +169,4 @@ cython_debug/
 #.idea/
 
 push_to_ecr.sh
+application/newData/

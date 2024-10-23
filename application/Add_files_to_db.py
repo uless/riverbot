@@ -1,10 +1,10 @@
 import os
 import re
 import uuid
-from langchain.document_loaders import TextLoader, PyPDFLoader
-from langchain.vectorstores import Chroma
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
+from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 
 def add_document_with_metadata(db, text_splitter, file_path, splits):
     file_name = os.path.basename(file_path)

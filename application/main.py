@@ -105,7 +105,7 @@ class MyEventHandler(TranscriptResultStreamHandler):
                 for alt in result.alternatives:
                     logging.info(f"Handling full transcript: {alt.transcript}")
                     api_url = self.determine_api_url(alt.transcript.strip().lower())
-                    print(api_url)
+                    # print(api_url)
                     self.transcribed_text = alt.transcript
                     self.designated_action = api_url
                     form_data = {'user_query': alt.transcript}
@@ -261,8 +261,8 @@ async def session_transcript_post(request: Request):
         session_text += f"Role: {entry['role']}\nContent: {entry['content']}\n\n"
 
     # Upload the session history to S3 as plain text
-    print(session_text)  # Print for debugging (optional)
-    print(TRANSCRIPT_BUCKET_NAME)  # Print for debugging (optional)
+    # print(session_text)  # Print for debugging (optional)
+    # print(TRANSCRIPT_BUCKET_NAME)  # Print for debugging (optional)
     await s3_manager.upload(key=object_key, body=session_text)
 
     # Generate a presigned URL for the S3 object
@@ -302,10 +302,6 @@ async def chat_sources_post(request: Request, background_tasks:BackgroundTasks):
     user_query=await memory.get_latest_memory( session_id=session_uuid, read="content")
     sources=await memory.get_latest_memory( session_id=session_uuid, read="sources")
     language = detect_language(user_query)
-    
-    # print("user query : ", user_query)
-    # print("user query language detected is : ", language)
-
 
     memory_payload={
         "documents":docs,
@@ -367,10 +363,10 @@ async def chat_action_items_api_post(request: Request, background_tasks:Backgrou
     language = detect_language(user_query)
     
     if language == 'es':
-        print("Inside spanish chromaDB")
+        # print("Inside spanish chromaDB")
         doc_content_str = await knowledge_base_spanish.knowledge_to_string({"documents":docs})     
     else:
-        print("Inside english chromaDB")
+        # print("Inside english chromaDB")
         doc_content_str = await knowledge_base.knowledge_to_string({"documents":docs})
 
     llm_body=await llm_adapter.get_llm_nextsteps_body( kb_data=doc_content_str,user_query=user_query,bot_response=bot_response )
@@ -425,10 +421,10 @@ async def chat_detailed_api_post(request: Request, background_tasks:BackgroundTa
     language = detect_language(user_query)
 
     if language == 'es':
-        print("Inside spanish chromaDB")
+        # print("Inside spanish chromaDB")
         doc_content_str = await knowledge_base_spanish.knowledge_to_string({"documents":docs})
     else:
-        print("Inside enlgish chromaDB")
+        # print("Inside enlgish chromaDB")
         doc_content_str = await knowledge_base.knowledge_to_string({"documents":docs})
 
     llm_body=await llm_adapter.get_llm_detailed_body( kb_data=doc_content_str,user_query=user_query,bot_response=bot_response )
@@ -519,11 +515,11 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     language = detect_language(user_query)
     
     if language == 'es':
-        print("Inside spanish chromaDB")
+        # print("Inside spanish chromaDB")
         docs = await knowledge_base_spanish.ann_search(user_query)
         doc_content_str = await knowledge_base_spanish.knowledge_to_string(docs)
     else:
-         print("Inside english chromaDB")
+        #  print("Inside english chromaDB")
          docs = await knowledge_base.ann_search(user_query)
          doc_content_str = await knowledge_base.knowledge_to_string(docs)
     
