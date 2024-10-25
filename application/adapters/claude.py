@@ -58,10 +58,6 @@ class BedrockClaudeAdapter(ModelAdapter):
         
         For any other inquiries regarding the names of elected officials excluding the name of the governor, you should respond: 'The most current information on the names of elected officials is available at az.gov.'
         
-        AWII stands for Arizona Water Innovation Initiative.
-        
-        When asked to define AWII or What is AWII or What it stands for, respond with: "AWII stands for Arizona Water Innovation Initiative."
-        
         Verify not to include any information that is irrelevant to the current query. 
         
         Use the following knowledge: 
@@ -69,7 +65,9 @@ class BedrockClaudeAdapter(ModelAdapter):
         {kb_data}
         </knowledge>
 
-        You should answer in no more than 3 to 4 sentences in a friendly tone. Avoid lists.
+        You should answer in 4-5 sentences in a friendly tone and include details within those 4-5 sentences. You can include more information when available. Avoid lists.
+
+        At the end of each message, please include - "I’d love to tell you more! Just click the buttons below or ask a follow-up question."
         """
 
         system_prompt=system_prompt.format(kb_data=kb_data)
