@@ -65,7 +65,7 @@ class BedrockClaudeAdapter(ModelAdapter):
         {kb_data}
         </knowledge>
 
-        You should answer in 2 to 3 sentences in a friendly tone. You can include more information when available. Avoid lists.
+        You should answer in 4-5 sentences in a friendly tone and include details within those 4-5 sentences. You can include more information when available. Avoid lists.
 
         At the end of each message, please include - "I’d love to tell you more! Just click the buttons below or ask a follow-up question."
         """
