@@ -549,7 +549,7 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     )
 
     return {
-        "resp":response_content,
+        "resp": response_content.replace('\n\n', '</p><p>').replace('\n', '<br>'),
         "msgID": await memory.get_message_count(session_uuid)
     }
 

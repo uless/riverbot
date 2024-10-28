@@ -42,7 +42,7 @@ def main():
     db = Chroma(persist_directory='docs/chroma/', embedding_function=embeddings)
 
     # Specify the PDF file path to process
-    file_path = "newData/100+ Water Saving Tips.pdf"  # Replace with the path to your PDF file
+    file_path = "newData/KYL-NEAZ-WtrRghts-FNL-2.pdf"  # Replace with the path to your PDF file
 
     # Validate the file exists
     if not os.path.exists(file_path):

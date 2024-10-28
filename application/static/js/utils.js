@@ -385,7 +385,7 @@ function showReactions(message) {
         body: requestBody,
       })
       .then(response => response.json())
-      .then(botResponse => {
+      .then(botResponse => { 
         // Display the bot's response in the chat
         displayBotMessage(botResponse.resp, botResponse.msgID);
         //typewriter(botResponse);
@@ -526,20 +526,29 @@ function removeThumbsDown(messageid) {
 }
 
 function messageInterval(botResponse, messageID) {
-  var $el = $(".card-body").find("#botmessage-" + messageID);
-  var text = botResponse;
-  speed = 100; //ms
-  $el.text("");
+  const $el = $(".card-body").find("#botmessage-" + messageID);
+  const speed = 100; // ms
+  $el.html(""); // Clear previous content
 
-  var wordArray = text.split(' '),
-    i = 0;
+  // Split by spaces and HTML tags, keeping tags intact
+  const wordArray = botResponse.split(/(<\/?[^>]+>| )/g).filter(Boolean);
+  let i = 0;
 
-  INV = setInterval(function () {
-    if (i >= wordArray.length - 1) {
-      clearInterval(INV);
+  // Display each word or tag sequentially
+  const interval = setInterval(() => {
+    if (i >= wordArray.length) {
+      clearInterval(interval); // Stop once all elements are appended
+    } else {
+      // Append current item and move to the next
+      if (wordArray[i].match(/<\/?[^>]+>/)) {
+        // If it's an HTML tag, add immediately
+        $el.append(wordArray[i]);
+      } else {
+        // If it's a text word, add with a space
+        $el.append(`${wordArray[i]} `);
+      }
+      i++;
     }
-    $el.append(wordArray[i] + ' ');
-    i++;
   }, speed);
 }
 
