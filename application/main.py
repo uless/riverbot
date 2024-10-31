@@ -154,7 +154,10 @@ app.add_middleware(SetCookieMiddleware)
 app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
 MESSAGES_TABLE=os.getenv("MESSAGES_TABLE")
+print("MESSAGES_TABLE value", MESSAGES_TABLE)
 TRANSCRIPT_BUCKET_NAME=os.getenv("TRANSCRIPT_BUCKET_NAME")
+print("TRANSCRIPT_BUCKET_NAME value", TRANSCRIPT_BUCKET_NAME)
+
 # adapter choices
 ADAPTERS = {
     "claude.haiku":BedrockClaudeAdapter("anthropic.claude-3-haiku-20240307-v1:0"),

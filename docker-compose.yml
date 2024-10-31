@@ -8,6 +8,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}   # Pass AWS access key ID from environment
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}   # Pass AWS secret access key from environment
       - TRANSCRIPT_BUCKET_NAME=${TRANSCRIPT_BUCKET_NAME}
+      - MESSAGES_TABLE=${MESSAGES_TABLE}
     volumes:
       - ./application:/app  # Mount the application code for live updates
     ports:
