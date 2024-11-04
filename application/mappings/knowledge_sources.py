@@ -1967,4 +1967,20 @@ knowledge_sources = {
       "url": "https://www.unicef.org/wash#:~:text=Growing%20up%20in%20a%20clean,a%20healthier%20start%20in%20life",
       "description": "Water, Sanitation, and Hygiene"
     },
+    "Brief History of Tohono O_odham Water.pdf": {
+      "url": "http://www.tonation-nsn.gov/water-resources/brief-history/",
+      "description": "Brief History of Tohono O’odham Water"
+    },
+    "Where does our water come from_ _ Arizona Environment.pdf": {
+      "url": "https://environment.arizona.edu/news/where-does-our-water-come",
+      "description": "Where Does Our Water Come From"
+    },
+    "Colorado River Interim Guidelines for Lower Basin Shortages .pdf": {
+      "url": "https://westernresourceadvocates.org/we-save-water-and-protect-rivers/colorado-river-basin-interim-guidelines/",
+      "description": "Colorado River Interim Guidelines for Lower Basin Shortages"
+    },
+    "KYL-NEAZ-WtrRghts-FNL-2.pdf": {
+      "url": "https://issuu.com/asu_morrison_institute/docs/kyl-neaz-wtrrghts-fnl-2",
+      "description": "KYL-NEAZ"
+    }
 }

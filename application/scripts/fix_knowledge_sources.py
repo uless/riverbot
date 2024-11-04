@@ -1,3 +1,5 @@
+# This script reads the csv file which contains resource name and url and appends the data to knowledge_sources.py
+
 import os
 import sys
 import re
