@@ -526,7 +526,7 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     llm_body = await llm_adapter.get_llm_body( 
         chat_history=await memory.get_session_history_all(session_uuid), 
         kb_data=doc_content_str,
-        temperature=.9,
+        temperature=.5,
         max_tokens=500 )
 
     response_content = await llm_adapter.generate_response(llm_body=llm_body)
