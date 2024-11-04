@@ -1982,5 +1982,9 @@ knowledge_sources = {
     "KYL-NEAZ-WtrRghts-FNL-2.pdf": {
       "url": "https://issuu.com/asu_morrison_institute/docs/kyl-neaz-wtrrghts-fnl-2",
       "description": "KYL-NEAZ"
+    },
+    "2023-23127.pdf": {
+      "url": "https://www.federalregister.gov/documents/2023/10/20/2023-23127/colorado-river-reservoir-operations-development-of-post-2026-operational-guidelines-and-strategies",
+      "description": "Colorado River Reservoir Operations: Development of Post-2026 Operational Guidelines"
     }
 }

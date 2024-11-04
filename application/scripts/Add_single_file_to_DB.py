@@ -39,10 +39,10 @@ def main():
     # Initialize components
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=150)
     embeddings = OpenAIEmbeddings()
-    db = Chroma(persist_directory='docs/chroma/', embedding_function=embeddings)
+    db = Chroma(persist_directory='../docs/chroma/', embedding_function=embeddings)
 
     # Specify the PDF file path to process
-    file_path = "newData/KYL-NEAZ-WtrRghts-FNL-2.pdf"  # Replace with the path to your PDF file
+    file_path = "../newData/2023-23127.pdf"  # Replace with the path to your PDF file
 
     # Validate the file exists
     if not os.path.exists(file_path):
