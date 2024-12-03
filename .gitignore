@@ -171,3 +171,5 @@ cython_debug/
 push_to_ecr.sh
 application/newData/
 docs/chroma/chroma.sqlite3
+application/ADWR Blogs/
+application/AMWUA_Blog_Posts/
