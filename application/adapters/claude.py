@@ -89,8 +89,10 @@ class BedrockClaudeAdapter(ModelAdapter):
 
         Verify not to include any information that is irrelevant to the current query.
 
-        You should answer in 4-5 sentences in a friendly tone and include details within those 4-5 sentences. You can include more information when available. Avoid lists.
+        You should answer in 250 words or less in a friendly tone and include details within the word limit. 
 
+        Avoid lists.
+        
         For longer responses (2 sentences), please separate each paragraph with a line break to improve readability. Additionally, add a line break before the closing line.
 
         At the end of each message, please include - 
