@@ -40,6 +40,39 @@ import json
 import datetime
 from starlette.middleware.base import BaseHTTPMiddleware
 
+### Postgres test
+db_host = "waterbot-logs.c3usgymgs1y2.us-west-2.rds.amazonaws.com"
+db_user = "postgres"
+db_password = "postgres"
+db_name = "waterbot_logs"
+
+# Function to test database connection
+def test_postgres_connection():
+    try:
+        # Try to connect to the database
+        conn = psycopg2.connect(
+            host=db_host,
+            user=db_user,
+            password=db_password,
+            dbname=db_name
+        )
+        print("Postgres Database connection successful!")
+        conn.close()
+        
+    except psycopg2.Error as err:
+        print(f"Error in postgres: {err}")
+    except OperationalError as e:
+        print(f"Postgres Failed to connect to database: {e}")
+        # Optionally, raise the error to stop execution if desired
+        raise Exception("Postgres Database connection failed. Exiting...")
+
+# Run the database connection check before starting the FastAPI app
+try:
+    test_postgres_connection()
+except Exception as e:
+    print(str(e))
+    exit(1)  # Exit if the database connection fails
+
 # Ensure reproducibility by setting the seed
 DetectorFactory.seed = 0
 
@@ -154,9 +187,7 @@ app.add_middleware(SetCookieMiddleware)
 app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
 MESSAGES_TABLE=os.getenv("MESSAGES_TABLE")
-print("MESSAGES_TABLE value", MESSAGES_TABLE)
 TRANSCRIPT_BUCKET_NAME=os.getenv("TRANSCRIPT_BUCKET_NAME")
-print("TRANSCRIPT_BUCKET_NAME value", TRANSCRIPT_BUCKET_NAME)
 
 # adapter choices
 ADAPTERS = {
