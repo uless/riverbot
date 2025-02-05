@@ -40,9 +40,18 @@ import json
 import datetime
 from starlette.middleware.base import BaseHTTPMiddleware
 
-### Postgres test
+### Postgres
 import psycopg2
+from psycopg2.extras import execute_values
+from datetime import datetime
+import logging
 
+# Configure logging
+logging.basicConfig(
+    filename='app.log',  # Log to a file named app.log
+    level=logging.INFO,  # Log all INFO level messages and above
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Include timestamp, log level, and message
+)
 
 # Ensure reproducibility by setting the seed
 DetectorFactory.seed = 0
@@ -207,25 +216,53 @@ async def home(request: Request,):
     return templates.TemplateResponse("spanish.html", context )
 
 
+# Database connection variables
 db_host = "waterbot-logs.c3usgymgs1y2.us-west-2.rds.amazonaws.com"
 db_user = "postgres"
 db_password = "postgres"
 db_name = "waterbot_logs"
 
+# Database connection parameters
+DB_PARAMS = {
+    "dbname": db_name,
+    "user": db_user,
+    "password": db_password,
+    "host": db_host,
+    "port": "5432"
+}
+
+
 @app.get("/test-db")
 def test_db():
     try:
-        conn = psycopg2.connect(
-            dbname=db_name,
-            user=db_user,
-            password=db_password,
-            host=db_host,
-            port="5432"
-        )
+        conn = psycopg2.connect(**DB_PARAMS)
         conn.close()
         return {"message": "Database connection successful!"}
     except Exception as e:
         return {"error": str(e)}
+
+def log_message(session_uuid, msg_id, user_query, response_content, source):
+    """Insert a message into the PostgreSQL database."""
+    try:
+        # Connect to PostgreSQL
+        conn = psycopg2.connect(**DB_PARAMS)
+        cursor = conn.cursor()
+
+        # Insert the message
+        query = """
+        INSERT INTO messages (session_uuid, msg_id, user_query, response_content, source, created_at) 
+        VALUES (%s, %s, %s, %s, %s, %s);
+        """
+        cursor.execute(query, (session_uuid, msg_id, user_query, response_content, source, datetime.utcnow()))
+
+        # Commit and close
+        conn.commit()
+        cursor.close()
+        conn.close()
+        logging.info("Message logged successfully in PostgreSQL.")
+
+    except Exception as e:
+        logging.error(f"Database Error: {e}")
 
 @app.websocket("/transcribe")
 async def transcribe(websocket: WebSocket):
@@ -566,7 +603,16 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     await memory.increment_message_count(session_uuid)
 
 
-    background_tasks.add_task( datastore.write_msg,
+    # background_tasks.add_task( datastore.write_msg,
+    #     session_uuid=session_uuid,
+    #     msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
+    #     user_query=user_query, 
+    #     response_content=response_content,
+    #     source=docs["sources"]
+    # )
+
+    # Log the message to postgres
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=user_query, 
