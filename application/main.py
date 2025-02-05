@@ -41,37 +41,8 @@ import datetime
 from starlette.middleware.base import BaseHTTPMiddleware
 
 ### Postgres test
-db_host = "waterbot-logs.c3usgymgs1y2.us-west-2.rds.amazonaws.com"
-db_user = "postgres"
-db_password = "postgres"
-db_name = "waterbot_logs"
+import psycopg2
 
-# Function to test database connection
-def test_postgres_connection():
-    try:
-        # Try to connect to the database
-        conn = psycopg2.connect(
-            host=db_host,
-            user=db_user,
-            password=db_password,
-            dbname=db_name
-        )
-        print("Postgres Database connection successful!")
-        conn.close()
-        
-    except psycopg2.Error as err:
-        print(f"Error in postgres: {err}")
-    except OperationalError as e:
-        print(f"Postgres Failed to connect to database: {e}")
-        # Optionally, raise the error to stop execution if desired
-        raise Exception("Postgres Database connection failed. Exiting...")
-
-# Run the database connection check before starting the FastAPI app
-try:
-    test_postgres_connection()
-except Exception as e:
-    print(str(e))
-    exit(1)  # Exit if the database connection fails
 
 # Ensure reproducibility by setting the seed
 DetectorFactory.seed = 0
@@ -234,6 +205,27 @@ async def home(request: Request,):
     }
 
     return templates.TemplateResponse("spanish.html", context )
+
+
+db_host = "waterbot-logs.c3usgymgs1y2.us-west-2.rds.amazonaws.com"
+db_user = "postgres"
+db_password = "postgres"
+db_name = "waterbot_logs"
+
+@app.get("/test-db")
+def test_db():
+    try:
+        conn = psycopg2.connect(
+            dbname=db_name,
+            user=db_user,
+            password=db_password,
+            host=db_host,
+            port="5432"
+        )
+        conn.close()
+        return {"message": "Database connection successful!"}
+    except Exception as e:
+        return {"error": str(e)}
 
 @app.websocket("/transcribe")
 async def transcribe(websocket: WebSocket):
