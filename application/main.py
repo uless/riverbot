@@ -43,7 +43,6 @@ from starlette.middleware.base import BaseHTTPMiddleware
 ### Postgres
 import psycopg2
 from psycopg2.extras import execute_values
-from datetime import datetime
 import logging
 
 # Configure logging
@@ -241,9 +240,13 @@ def test_db():
     except Exception as e:
         return {"error": str(e)}
 
+
 def log_message(session_uuid, msg_id, user_query, response_content, source):
     """Insert a message into the PostgreSQL database."""
     try:
+        source_json = json.dumps(source)  # Convert source (list/dict) to a JSON string
+        msg_id_str = str(msg_id)  # Ensure msg_id is a string
+
         # Connect to PostgreSQL
         conn = psycopg2.connect(**DB_PARAMS)
         cursor = conn.cursor()
@@ -253,7 +256,8 @@ def log_message(session_uuid, msg_id, user_query, response_content, source):
         INSERT INTO messages (session_uuid, msg_id, user_query, response_content, source, created_at) 
         VALUES (%s, %s, %s, %s, %s, %s);
         """
-        cursor.execute(query, (session_uuid, msg_id, user_query, response_content, source, datetime.utcnow()))
+        # Execute query
+        cursor.execute(query, (session_uuid, msg_id_str, user_query, response_content, source_json, datetime.datetime.utcnow()))
 
         # Commit and close
         conn.commit()
@@ -262,7 +266,7 @@ def log_message(session_uuid, msg_id, user_query, response_content, source):
         logging.info("Message logged successfully in PostgreSQL.")
 
     except Exception as e:
-        logging.error(f"Database Error: {e}")
+        logging.error("Database Error: %s", e, exc_info=True)
 
 @app.websocket("/transcribe")
 async def transcribe(websocket: WebSocket):
@@ -391,7 +395,7 @@ async def chat_sources_post(request: Request, background_tasks:BackgroundTasks):
     await memory.increment_message_count(session_uuid)
 
     # We do not include sources as this message is the actual sources; no AI generation involved.
-    background_tasks.add_task( datastore.write_msg,
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=generated_user_query, 
@@ -450,8 +454,7 @@ async def chat_action_items_api_post(request: Request, background_tasks:Backgrou
     )
     await memory.increment_message_count(session_uuid)
 
-    
-    background_tasks.add_task( datastore.write_msg,
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=generated_user_query, 
@@ -509,7 +512,7 @@ async def chat_detailed_api_post(request: Request, background_tasks:BackgroundTa
     await memory.increment_message_count(session_uuid)
 
 
-    background_tasks.add_task( datastore.write_msg,
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=generated_user_query, 
@@ -556,7 +559,7 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
         generated_user_query = f'{custom_tags.tags["SECURITY_CHECK"][0]}{data}{custom_tags.tags["SECURITY_CHECK"][1]}'
         generated_user_query += f'{custom_tags.tags["OG_QUERY"][0]}{user_query}{custom_tags.tags["OG_QUERY"][1]}'
 
-        background_tasks.add_task( datastore.write_msg,
+        background_tasks.add_task(log_message,
             session_uuid=session_uuid,
             msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
             user_query=generated_user_query, 
@@ -601,16 +604,6 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     )
 
     await memory.increment_message_count(session_uuid)
-
-
-    # background_tasks.add_task( datastore.write_msg,
-    #     session_uuid=session_uuid,
-    #     msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
-    #     user_query=user_query, 
-    #     response_content=response_content,
-    #     source=docs["sources"]
-    # )
-
     # Log the message to postgres
     background_tasks.add_task(log_message,
         session_uuid=session_uuid,
