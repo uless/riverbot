@@ -7,8 +7,9 @@ CONTAINER="waterbot-container"
 DB_HOST="waterbot-logs.c3usgymgs1y2.us-west-2.rds.amazonaws.com"
 DB_USER="postgres"
 DB_NAME="waterbot_logs"
-DB_PASSWORD=""  # Populate the password when required for security
-OUTPUT_FILE="last_5_messages.txt"
+
+# Output file
+OUTPUT_FILE="latest_messages.txt"
 
 # Get the latest running ECS task ID dynamically
 TASK_ID=$(aws ecs list-tasks --region $REGION --cluster $CLUSTER --desired-status RUNNING --query "taskArns[0]" --output text)
@@ -21,13 +22,13 @@ fi
 
 echo "Connecting to ECS Task: $TASK_ID"
 
-# Execute the query inside the container and save to file
+# Execute command in the ECS container and save output to file
 aws ecs execute-command \
-    --region "$REGION" \
-    --cluster "$CLUSTER" \
-    --task "$TASK_ID" \
-    --container "$CONTAINER" \
-    --interactive \
-    --command "/bin/bash -c 'PGPASSWORD=\"$DB_PASSWORD\" psql -h \"$DB_HOST\" -U \"$DB_USER\" -d \"$DB_NAME\" -c \"SELECT * FROM messages ORDER BY created_at DESC LIMIT 5;\" > /tmp/$OUTPUT_FILE && cat /tmp/$OUTPUT_FILE'" > "$OUTPUT_FILE"
+    --region $REGION \
+    --cluster $CLUSTER \
+    --task $TASK_ID \
+    --container $CONTAINER \
+    --command "/bin/bash -c 'apt update && apt install -y postgresql-client && psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c \"SELECT * FROM messages ORDER BY created_at DESC LIMIT 5;\" > ./latest_messages.txt && cat ./latest_messages.txt'" \
+    --interactive | tee "$OUTPUT_FILE"
 
-echo "Query results saved to $OUTPUT_FILE"
+echo "Latest messages saved to $OUTPUT_FILE"

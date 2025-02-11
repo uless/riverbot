@@ -9,8 +9,9 @@ from typing import Annotated
 
 import mappings.custom_tags as custom_tags
 
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException
 from fastapi import Request, Form
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -42,7 +43,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 ### Postgres
 import psycopg2
-from psycopg2.extras import execute_values
+from psycopg2.extras import execute_values, DictCursor
 import logging
 
 # Configure logging
@@ -157,6 +158,7 @@ load_dotenv(override=True)
 
 # FastaAPI startup
 app = FastAPI()
+security = HTTPBasic()
 templates = Jinja2Templates(directory='templates')
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -216,10 +218,10 @@ async def home(request: Request,):
 
 
 # Database connection variables
-db_host = "waterbot-logs.c3usgymgs1y2.us-west-2.rds.amazonaws.com"
-db_user = "postgres"
-db_password = "postgres"
-db_name = "waterbot_logs"
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_name = os.getenv("DB_NAME")
 
 # Database connection parameters
 DB_PARAMS = {
@@ -231,15 +233,41 @@ DB_PARAMS = {
 }
 
 
-@app.get("/test-db")
-def test_db():
+# Authentication function
+def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
+    correct_username = "admin"
+    correct_password = "supersecurepassword"
+    if credentials.username != correct_username or credentials.password != correct_password:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return credentials.username
+
+# Secure endpoint
+@app.get("/messages")
+def get_messages(user: str = Depends(authenticate)):  # Requires authentication
+    """Read the messages from the PostgreSQL database"""
     try:
         conn = psycopg2.connect(**DB_PARAMS)
+        cursor = conn.cursor(cursor_factory=DictCursor)
+        cursor.execute("SELECT * FROM messages ORDER BY created_at DESC LIMIT 100;")
+        messages = cursor.fetchall()
+        cursor.close()
         conn.close()
-        return {"message": "Database connection successful!"}
-    except Exception as e:
-        return {"error": str(e)}
 
+        # Convert datetime objects to strings
+        def convert_datetime_to_str(obj):
+            if isinstance(obj, datetime):
+                return obj.isoformat()  # Convert datetime to ISO format string
+            return obj
+
+        # Convert each message (dict) to a JSON-serializable format
+        serializable_messages = []
+        for msg in messages:
+            msg_dict = dict(msg)
+            serializable_messages.append({k: convert_datetime_to_str(v) for k, v in msg_dict.items()})
+
+        return json.dumps(serializable_messages)
+    except Exception as e:
+        logging.error("Database Error: %s", e, exc_info=True)
 
 def log_message(session_uuid, msg_id, user_query, response_content, source):
     """Insert a message into the PostgreSQL database."""
