@@ -69,22 +69,21 @@
 
     <!-- Second header -->
     <div class="second-header">
-      <!-- <div class="col-2"></div> -->
-      <!-- <div class="col-10"> -->
       <div class="container-xl">
         <div class="navbar navbar-expand-xl pb-0">
           <a class="navbar-brand" href="https://globalfutures.asu.edu">
             <img class="asu-logo vert" />
           </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
+                  aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
           <div class="expand-title">
             <div class="title" data-testid="title">
-              <a class="title-subunit-name active" href="https://globalfutures.asu.edu"
-                title="Julie Ann Wrigley Global Futures Laboratory™ home page">Julie Ann Wrigley Global Futures
-                Laboratory</a>
+              <a class="title-subunit-name active" href="https://globalfutures.asu.edu">Julie Ann Wrigley Global Futures Laboratory</a>
             </div>
-            <a class="subunit-name active" href="https://live-awii-d9.ws.asu.edu/" title="Arizona Water Chatbot">Arizona
-              Water Chatbot</a>
-            <nav class="navbar pt-0 pb-0">
+            <a class="subunit-name active" href="https://live-awii-d9.ws.asu.edu/">Arizona Water Chatbot</a>
+            <nav class="navbar pt-0 pb-0 nav-container">
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                   <li class="nav-item active itdiqF">
@@ -93,7 +92,7 @@
                       <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item itdiqF">
-                    <a class="nav-link nav-link-ltr dropdown-toggle" href="#" id="about" data-toggle="dropdown"
+                    <a class="nav-link nav-link-ltr dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">About
                     </a>
                     <div class="dropdown-container dropdown-menu" aria-labelledby="about">
@@ -107,6 +106,7 @@
 
                       <a class="dropdown-item" href="https://globalfutures.asu.edu/about/julie-ann-wrigley/">Julie Ann
                         Wrigley</a>
+                      <a class="dropdown-item" href="/waterBot">About Arizona WaterBot </a>
                     </div>
                   </li>
 
@@ -130,24 +130,26 @@
                   <li class="nav-item itdiqF">
                     <a class="nav-link nav-link-ltr" href="https://globalfutures.asu.edu/gfors/">GFORS</a>
                   </li>
+                  <li class="nav-item itdiqF">
+                    <a class="nav-link nav-link-ltr" href="/" role="button">New Chat</a>
+                  </li>
+                  <li class="nav-item itdiqF">
+                    <a class="nav-link nav-link-ltr" href="#" role="button" id="transcript-button">Download Transcript</a>
+                  </li>
                 </ul>
               </div>
             </nav>
           </div>
         </div>
       </div>
-      <!-- </div> -->
     </div>
   </header>
 
   <!-- Main body -->
   <main>
     <div class="">
-      <div class="row">
-        <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 chatbot-container"> -->
-        <!-- Chatbot welcome message -->
-
-        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 chatbot-prompt-container">
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10 col-md-12 chatbot-prompt-container">
           <div class="chatbot-prompt" id="chatbot-prompt" data-bs-spy="scroll" data-bs-offset="0">
             <div class="card left">
               <div class="card-body welcome-message">
@@ -158,16 +160,16 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 welcome-message-body">
 
-                    <p>Hi! My name is Blue! I’m here to answer your questions about water in Arizona.</p>
+                    <p>Hi! My name is Blue! I'm here to answer your questions about water in Arizona.</p>
                     <p>Ask me anything you want about the story of water in our state!</p>
                     <p>Not sure where to start? You can try asking questions about:</p>
                     <ol>
-                        <li>Arizona’s unique water landscape, rivers, lakes, groundwater, and aquifers</li>
-                        <li>Colorado River’s role in Arizona’s water supply </li>
-                        <li>What’s on your mind about conserving water in our desert environment?</li>
+                        <li>Arizona's unique water landscape, rivers, lakes, groundwater, and aquifers</li>
+                        <li>Colorado River's role in Arizona's water supply </li>
+                        <li>What's on your mind about conserving water in our desert environment?</li>
                         <li>Are there any government programs or initiatives to address drought in Arizona?</li>
                     </ol>
-                    <p> Ask any question in the space below to start exploring Arizona’s water situation with me! </p>
+                    <p> Ask any question in the space below to start exploring Arizona's water situation with me! </p>
 
                   </div>
                 </div>
@@ -179,7 +181,7 @@
           <div id="transcription" style="display:none;"></div>
 
           <form autocomplete="off" onsubmit="return false" action="/chat_api" method="post" id="userBox" style="display: flex; align-items: center;">
-            <div class="input-group mt-3" style="position: relative; flex-grow: 1;">
+          <div class="input-group mt-3" style="position: relative; flex-grow: 1;">
               <input autocomplete="nope" type="text" id="user_query" name="user_query"
                      class="input-chatbot-question form-control" placeholder="Type your question here"
                      aria-label="Type your question here" aria-describedby="basic-addon2" style="padding-right: 50px; border-radius: 25px; height: 48px;">
@@ -187,13 +189,13 @@
                       style="position: absolute; right: -5px; top: 50%; transform: translateY(-50%); background: none; border: none;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
                   <circle cx="17.5" cy="17.4999" r="16.2931" fill="url(#paint0_linear_96_2391)" fill-opacity="0.9"/>
-                  <path d="M21.5707 17.6195C21.6254 17.2613 21.9126 16.9657 22.2749 16.9657C22.6373 16.9657 22.9359 17.2607 22.8913 17.6203C22.7613 18.6672 22.3128 19.605 21.5459 20.4337C20.9258 21.1052 20.2131 21.5914 19.4079 21.8923C18.7715 22.1302 18.2655 22.6882 18.2655 23.3676V23.9758C18.2655 24.3986 17.9227 24.7413 17.5 24.7413C17.0773 24.7413 16.7346 24.3986 16.7346 23.9758V23.3676C16.7346 22.6882 16.2288 22.1296 15.5918 21.8935C14.7801 21.5927 14.0554 21.1061 13.4176 20.4337C12.6709 19.605 12.2343 18.6672 12.1077 17.6204C12.0642 17.2606 12.3627 16.9657 12.7251 16.9657C13.0874 16.9657 13.3748 17.2612 13.4279 17.6197C13.5549 18.4763 13.9402 19.2074 14.584 19.8131C15.4102 20.5432 16.3822 20.9083 17.5 20.9083C18.6178 20.9083 19.5776 20.5432 20.3795 19.8131C21.0429 19.2074 21.4399 18.4762 21.5707 17.6195ZM16.5523 12.2201V17.0387C16.5523 17.2821 16.6374 17.5011 16.8075 17.6958C17.0019 17.8662 17.2327 17.9514 17.5 17.9514C17.743 17.9514 17.9496 17.8662 18.1197 17.6958C18.3141 17.5255 18.4113 17.3064 18.4113 17.0387L18.4477 12.2201C18.4477 11.9524 18.3505 11.7334 18.1561 11.563C17.9617 11.3683 17.743 11.271 17.5 11.271C17.257 11.271 17.0383 11.3683 16.8439 11.563C16.6495 11.7334 16.5523 11.9524 16.5523 12.2201ZM19.1402 18.6084C18.6786 19.0708 18.1318 19.302 17.5 19.302C16.8682 19.302 16.3215 19.0708 15.8598 18.6084C15.3981 18.1461 15.1672 17.5985 15.1672 16.9657V12.2931C15.1672 11.6603 15.3981 11.1128 15.8598 10.6504C16.3215 10.188 16.8682 9.95679 17.5 9.95679C18.1318 9.95679 18.6786 10.188 19.1402 10.6504C19.6019 11.1128 19.8328 11.6603 19.8328 12.2931V16.9657C19.8328 17.5985 19.6019 18.1461 19.1402 18.6084Z" fill="#FEFEFF"/>
-                  <defs>
-                    <linearGradient id="paint0_linear_96_2391" x1="17.5" y1="1.20679" x2="17.5" y2="33.793" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#8C1D40"/>
-                      <stop offset="1" stop-color="#260811" stop-opacity="0.9"/>
-                    </linearGradient>
-                  </defs>
+                <path d="M21.5707 17.6195C21.6254 17.2613 21.9126 16.9657 22.2749 16.9657C22.6373 16.9657 22.9359 17.2607 22.8913 17.6203C22.7613 18.6672 22.3128 19.605 21.5459 20.4337C20.9258 21.1052 20.2131 21.5914 19.4079 21.8923C18.7715 22.1302 18.2655 22.6882 18.2655 23.3676V23.9758C18.2655 24.3986 17.9227 24.7413 17.5 24.7413C17.0773 24.7413 16.7346 24.3986 16.7346 23.9758V23.3676C16.7346 22.6882 16.2288 22.1296 15.5918 21.8935C14.7801 21.5927 14.0554 21.1061 13.4176 20.4337C12.6709 19.605 12.2343 18.6672 12.1077 17.6204C12.0642 17.2606 12.3627 16.9657 12.7251 16.9657C13.0874 16.9657 13.3748 17.2612 13.4279 17.6197C13.5549 18.4763 13.9402 19.2074 14.584 19.8131C15.4102 20.5432 16.3822 20.9083 17.5 20.9083C18.6178 20.9083 19.5776 20.5432 20.3795 19.8131C21.0429 19.2074 21.4399 18.4762 21.5707 17.6195ZM16.5523 12.2201V17.0387C16.5523 17.2821 16.6374 17.5011 16.8075 17.6958C17.0019 17.8662 17.2327 17.9514 17.5 17.9514C17.743 17.9514 17.9496 17.8662 18.1197 17.6958C18.3141 17.5255 18.4113 17.3064 18.4113 17.0387L18.4477 12.2201C18.4477 11.9524 18.3505 11.7334 18.1561 11.563C17.9617 11.3683 17.743 11.271 17.5 11.271C17.257 11.271 17.0383 11.3683 16.8439 11.563C16.6495 11.7334 16.5523 11.9524 16.5523 12.2201ZM19.1402 18.6084C18.6786 19.0708 18.1318 19.302 17.5 19.302C16.8682 19.302 16.3215 19.0708 15.8598 18.6084C15.3981 18.1461 15.1672 17.5985 15.1672 16.9657V12.2931C15.1672 11.6603 15.3981 11.1128 15.8598 10.6504C16.3215 10.188 16.8682 9.95679 17.5 9.95679C18.1318 9.95679 18.6786 10.188 19.1402 10.6504C19.6019 11.1128 19.8328 11.6603 19.8328 12.2931V16.9657C19.8328 17.5985 19.6019 18.1461 19.1402 18.6084Z" fill="#FEFEFF"/>
+                <defs>
+                  <linearGradient id="paint0_linear_96_2391" x1="17.5" y1="1.20679" x2="17.5" y2="33.793" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#8C1D40"/>
+                    <stop offset="1" stop-color="#260811" stop-opacity="0.9"/>
+                  </linearGradient>
+                </defs>
                 </svg>
               </button>
             </div>
@@ -201,6 +203,8 @@
               <i class="fa fa-send" style="color: #8c1d40; font-size: 24px;"></i>
             </button>
           </form>
+          
+          
           
           <!-- <p class="disclosure">
             <small>
@@ -213,22 +217,23 @@
             <small>Hostname: {{ hostname }}</small><br>
             <small>IP Address: {{ ip_address }}</small>
           </p>
-           -->
+          -->
         </div>
-        <!-- Water droplet logo and New chat button -->
+        <!-- Water droplet logo and New chat button 
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 chatbot-guidelines">
           <div class="chatbot-welcome">
             <div class="row mb-4">
               <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-3">
-                <img class="waterdrop1" />
-                <!-- <img id="waterdropFeedback" class="waterdrop1" data-bs-toggle="popover" data-bs-content="Thanks for your feedback"  /> -->
-              </div>
+                <img class="waterdrop1" /> -->
+                <!-- <img id="waterdropFeedback" class="waterdrop1" data-bs-toggle="popover" data-bs-content="Thanks for your feedback"  /> 
+              </div> -->
+              <!--
               <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 chatbottext-cta">
                 <span class="h5"><strong>Arizona Water Chatbot</strong></span>
                 <div style="display: inline-flex; align-items: center;">
                 <button type="button" class="btn btn-primary btn-lg btn-new-chat"
-                  onclick="window.location.href='/'">New Chat</button>
-                 
+                  onclick="window.location.href='/'">New Chat</button> -->
+                
                   <button class="btn btn-mic" id="mic-button-2" type="button" onclick="window.location.href='/'"
                   style="margin-left: 1px; background: none; border: none; display: inline-flex; align-items: center;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 65 65" fill="none">
@@ -248,21 +253,6 @@
             </div>
           </div>
           <!-- About Water chatbot -->
-          <div class="row">
-            <div class="col-12">
-              <p class="fs-7">
-                Arizona Water Chatbot is your Grand Canyon State water pal.
-                Learn about drought, water conservation, and creative ways to protect our desert oasis's vital resource.
-                Together, we can improve Arizona's water future!
-                <!-- Arizona Water Chatbot is your trusted chatbot companion for
-                all things related to water in the Grand Canyon State.
-                Explore the challenges of drought, learn effective water
-                conservation techniques, and explore innovative solutions to
-                secure our desert oasis's precious resource. Let's dive in
-                together and make a difference for Arizona's water future! -->
-              </p>
-            </div>
-          </div>
           <!-- Chatbot Recent History -->
           <!-- <div class="row">
               <div class="col-12 chatbot-history">
@@ -289,170 +279,14 @@
               <!-- </div> -->
             
               <!-- Transcript Section -->
-              <div class="col-12 col-md-6 transcript-section">
+              
+              <!--<div class="col-12 col-md-6 transcript-section">
                 <p class="transcript-heading">Chat Transcript</p>
                 <button class="transcript-button" id="transcript-button">Download</button>
-              </div>
+              </div>-->
+
+
             </div>
-            
-                    
-          <!-- Links and Resources -->
-          <div class="row">
-            <div class="col-12">
-              <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      How It Works
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body welcome-message-scroll" data-bs-spy="scroll" data-bs-offset="0">
-                      <ul class="list-unstyled">
-                        <li>
-                          <strong>Start Talking</strong>
-                          <br />
-                          To begin a conversation, just say "Hi" or ask something about water management in Arizona.
-                          Waterbot will tell you what it can do, such as give information about Arizona’s water use,
-                          how you can save water, and how you can help keep our water safe.
-                        </li>
-                        <br>
-                        <li>
-                          <strong>Get Info Just for You</strong>
-                          <br />
-                          Based on your questions, you'll get customized information on things like Arizona’s climate,
-                          water conservation, and smart water solutions.
-                          <br>
-                          <b>Note:</b><i> Information is not updated daily on water levels and drought conditions.
-                            Answers to questions
-                            about these topics are based on data available during the last Waterbot data update.
-                            Currently this
-                            data is reflective of Summer 2024 or earlier. </i>
-                        </li>
-                        <br>
-                        <li>
-                          <strong>Helpful Hints and Links</strong>
-                          <br />
-                          After giving an initial answer, Waterbot can
-                          re-answer the same question in different ways depending on what you need:
-                          <ul>
-                            <li><b>Tell Me More</b> for more in-depth information</li>
-                            <li><b>Next Steps</b> Items for things you can do to help</li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Frequently Asked Questions
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body welcome-message-scroll" data-bs-spy="scroll" data-bs-offset="0">
-                      <ul class="list-unstyled">
-
-                        <li>
-                          <strong> What topics does the Arizona Water Chatbot cover?</strong>
-                          <br />
-                          The Chatbot is your go-to resource for information on water management in Arizona.
-                          It covers a range of topics, including drought conditions, water conservation strategies,
-                          and creative initiatives to safeguard our water.
-
-                        </li>
-                        <br />
-                        <li>
-                          <strong>How can I personalize my experience with the Chatbot?</strong>
-                          <br />
-                          The Chatbot tailors its insights based on your inputs. Asking a few questions
-                          allows the Chatbot to build on previous answers to provide personalized information
-                          that aligns with your needs.
-                        </li>
-                        <br />
-                        <li>
-                          <strong>What kind of updates does the Arizona Water Chatbot receive?</strong>
-                          <br />
-                          The Chatbot receives updates based on new water-related information offered
-                          by municipal, state, tribal, and federal sources; changes in water regulations;
-                          and news on water supply levels. These updates occur about three times a year.
-
-                        </li>
-                        <br />
-                        <li>
-                          <strong>Can the Arizona Water Chatbot provide real-time updates on water levels and drought
-                            conditions?</strong>
-                          <br />
-                          No, the Arizona Water Chatbot does not provide real-time updates. It offers information on
-                          water levels and drought
-                          conditions based on data available up until its last update. Updates happen about three times
-                          a year. While the Chatbot
-                          is a valuable resource for historical data and trends, users seeking the most current
-                          information should consult real-time
-                          monitoring services or local water authorities.
-                        </li>
-                        <br />
-                        <li>
-                          <strong>Can the Arizona Water Chatbot offer advice on reducing water usage?</strong>
-                          <br />
-                          Yes, the Chatbot is equipped to provide practical advice on reducing your water footprint.
-                          It offers tips on water-efficient practices, landscaping ideas that require less water, and
-                          habits that promote water conservation. Tailored suggestions can help you consider ways to
-                          save
-                          on water and contribute to statewide conservation efforts.
-
-                        </li>
-                        <br />
-                        <li>
-                          <strong>Who all can use the Water Chatbot?</strong>
-                          <br />
-                          The Chatbot serves as an educational tool for all Arizonans. It provides educational
-                          resources,
-                          water policies, and information tailored to different groups based on their inputs. Teachers,
-                          students,
-                          and researchers interested in learning about water management in the state of Arizona may be
-                          particularly
-                          interested.
-
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Resources
-                    </button>
-                  </h2>
-                  <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body links-resources">
-                      <b>For more in-depth resources, check out:</b>
-                      <ul class="list-unstyled">
-                        <li class="list-group-item pb-2"> <i class="fa-solid fa-link"></i>&nbsp;&nbsp;<a
-                            href="https://www.azwater.gov/">Arizona
-                            Department of Water Resources</a></li>
-                        <li class="list-group-item pb-2"><i class="fa-solid fa-link"></i>&nbsp;&nbsp;<a
-                            href="https://www.azwater.org/">Arizona Water Association</a></li>
-                        <li class="list-group-item"> <i class="fa-solid fa-link"></i>&nbsp;&nbsp;<a
-                            href="https://www.amwua.org/">Arizona
-                            Municipal Water Users Association</a></li>
-
-                      </ul>
-                      <p>
-                        <strong>These resources provide valuable information on Arizona’s
-                          water situation and conservation efforts.</strong>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
           <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">

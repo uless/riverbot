@@ -191,6 +191,22 @@ async def home(request: Request,):
 
     return templates.TemplateResponse("index.html", context )
 
+
+# for waterBot html
+
+@app.get("/waterBot", response_class=HTMLResponse)
+async def home(request: Request,):
+    # hostname = socket.gethostname()
+    # ip_address = socket.gethostbyname(hostname)
+
+    context = {
+        "request": request,
+        # "hostname": hostname,
+        # "ip_address": ip_address
+    }
+
+    return templates.TemplateResponse("aboutWaterbot.html", context )
+
 @app.get("/Spanish_Translation_2.0.1.html", response_class=HTMLResponse)
 async def home(request: Request,):
     # hostname = socket.gethostname()

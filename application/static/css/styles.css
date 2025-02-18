@@ -85,6 +85,7 @@ p .h6 {
   margin-right: auto;
   margin-left: auto;
   width: 100%;
+  padding: 0 1rem;
 }
 
 .asu-logo {
@@ -316,15 +317,15 @@ a {
 
 /* Chatbot-prompt */
 .chatbot-prompt-container {
-  padding: 1rem 10rem 0rem 10rem;
-  background-color: #f9f9f9;
-  min-width: 100vh;
-  /* overflow: overlay; */
-  /* overscroll-behavior: contain; */
+  padding: 1rem 2rem 0rem 2rem;
+  background-color: #ffffff;
+  min-width: auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 @media (max-width: 992px) {
   .chatbot-prompt-container {
-    padding: 1rem 2rem 0rem 2rem;
+    padding: 1rem 1rem 0rem 1rem;
   }
 }
 .chatbot-prompt {
@@ -337,6 +338,7 @@ a {
   overflow-y: auto;
   flex-shrink: 0;
   padding-bottom: 10px;
+  max-width: 100%;
 }
 .card-footer {
   background-color: inherit;
@@ -807,4 +809,107 @@ a {
   .language-toggle-container {
     margin-bottom: 10px;
   }
+}
+
+/* Main body */
+main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Add these new styles */
+.navbar-toggler {
+  display: none;
+  border: none;
+  padding: 0.5rem;
+  color: #8c1d40;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+@media (max-width: 1199px) {
+  .navbar-toggler {
+    display: block;
+    order: 1;
+  }
+
+  .expand-title {
+    order: 0;
+    width: calc(100% - 160px); /* Adjust based on logo width + padding */
+  }
+
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 1000;
+    padding: 1rem;
+    border-top: 1px solid #d0d0d0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    border: none;
+    padding-left: 1rem;
+  }
+
+  .navbar-collapse.collapse:not(.show) {
+    display: none;
+  }
+}
+
+/* Ensure desktop view remains unchanged */
+@media (min-width: 1200px) {
+  .navbar-collapse {
+    display: flex !important;
+  }
+
+  .navbar-toggler {
+    display: none !important;
+  }
+}
+
+/* Update navigation button styles */
+.nav-item .nav-link[href="/"],
+.nav-item .nav-link#transcript-button {
+  background-color: #8c1d40;
+  color: white !important;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 3rem;
+  padding: 8px 24px !important;
+  margin: 0.25rem 0 0.75rem 0;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-item .nav-link[href="/"]:hover,
+.nav-item .nav-link#transcript-button:hover {
+  background-color: #a83250;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+/* Remove the default border bottom on hover */
+.itdiqF .nav-link[href="/"],
+.itdiqF .nav-link#transcript-button {
+  border-bottom: none !important;
+}
+
+.itdiqF .nav-link[href="/"].active,
+.itdiqF .nav-link#transcript-button.active {
+  border-bottom: none !important;
 }
