@@ -9,8 +9,9 @@ from typing import Annotated
 
 import mappings.custom_tags as custom_tags
 
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException
 from fastapi import Request, Form
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -39,6 +40,18 @@ import os
 import json
 import datetime
 from starlette.middleware.base import BaseHTTPMiddleware
+
+### Postgres
+import psycopg2
+from psycopg2.extras import execute_values, DictCursor
+import logging
+
+# Configure logging
+logging.basicConfig(
+    filename='app.log',  # Log to a file named app.log
+    level=logging.INFO,  # Log all INFO level messages and above
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Include timestamp, log level, and message
+)
 
 # Ensure reproducibility by setting the seed
 DetectorFactory.seed = 0
@@ -145,6 +158,7 @@ load_dotenv(override=True)
 
 # FastaAPI startup
 app = FastAPI()
+security = HTTPBasic()
 templates = Jinja2Templates(directory='templates')
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -154,9 +168,7 @@ app.add_middleware(SetCookieMiddleware)
 app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
 MESSAGES_TABLE=os.getenv("MESSAGES_TABLE")
-print("MESSAGES_TABLE value", MESSAGES_TABLE)
 TRANSCRIPT_BUCKET_NAME=os.getenv("TRANSCRIPT_BUCKET_NAME")
-print("TRANSCRIPT_BUCKET_NAME value", TRANSCRIPT_BUCKET_NAME)
 
 # adapter choices
 ADAPTERS = {
@@ -219,6 +231,86 @@ async def home(request: Request,):
     }
 
     return templates.TemplateResponse("spanish.html", context )
+
+
+# Database connection variables
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_name = os.getenv("DB_NAME")
+
+# Database connection parameters
+DB_PARAMS = {
+    "dbname": db_name,
+    "user": db_user,
+    "password": db_password,
+    "host": db_host,
+    "port": "5432"
+}
+
+
+# Authentication function
+def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
+    correct_username = "admin"
+    correct_password = "supersecurepassword"
+    if credentials.username != correct_username or credentials.password != correct_password:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return credentials.username
+
+# Secure endpoint
+@app.get("/messages")
+def get_messages(user: str = Depends(authenticate)):  # Requires authentication
+    """Read the messages from the PostgreSQL database"""
+    try:
+        conn = psycopg2.connect(**DB_PARAMS)
+        cursor = conn.cursor(cursor_factory=DictCursor)
+        cursor.execute("SELECT * FROM messages ORDER BY created_at DESC LIMIT 100;")
+        messages = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        # Convert datetime objects to strings
+        def convert_datetime_to_str(obj):
+            if isinstance(obj, datetime):
+                return obj.isoformat()  # Convert datetime to ISO format string
+            return obj
+
+        # Convert each message (dict) to a JSON-serializable format
+        serializable_messages = []
+        for msg in messages:
+            msg_dict = dict(msg)
+            serializable_messages.append({k: convert_datetime_to_str(v) for k, v in msg_dict.items()})
+
+        return json.dumps(serializable_messages)
+    except Exception as e:
+        logging.error("Database Error: %s", e, exc_info=True)
+
+def log_message(session_uuid, msg_id, user_query, response_content, source):
+    """Insert a message into the PostgreSQL database."""
+    try:
+        source_json = json.dumps(source)  # Convert source (list/dict) to a JSON string
+        msg_id_str = str(msg_id)  # Ensure msg_id is a string
+
+        # Connect to PostgreSQL
+        conn = psycopg2.connect(**DB_PARAMS)
+        cursor = conn.cursor()
+
+        # Insert the message
+        query = """
+        INSERT INTO messages (session_uuid, msg_id, user_query, response_content, source, created_at) 
+        VALUES (%s, %s, %s, %s, %s, %s);
+        """
+        # Execute query
+        cursor.execute(query, (session_uuid, msg_id_str, user_query, response_content, source_json, datetime.datetime.utcnow()))
+
+        # Commit and close
+        conn.commit()
+        cursor.close()
+        conn.close()
+        logging.info("Message logged successfully in PostgreSQL.")
+
+    except Exception as e:
+        logging.error("Database Error: %s", e, exc_info=True)
 
 @app.websocket("/transcribe")
 async def transcribe(websocket: WebSocket):
@@ -347,7 +439,7 @@ async def chat_sources_post(request: Request, background_tasks:BackgroundTasks):
     await memory.increment_message_count(session_uuid)
 
     # We do not include sources as this message is the actual sources; no AI generation involved.
-    background_tasks.add_task( datastore.write_msg,
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=generated_user_query, 
@@ -406,8 +498,7 @@ async def chat_action_items_api_post(request: Request, background_tasks:Backgrou
     )
     await memory.increment_message_count(session_uuid)
 
-    
-    background_tasks.add_task( datastore.write_msg,
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=generated_user_query, 
@@ -465,7 +556,7 @@ async def chat_detailed_api_post(request: Request, background_tasks:BackgroundTa
     await memory.increment_message_count(session_uuid)
 
 
-    background_tasks.add_task( datastore.write_msg,
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=generated_user_query, 
@@ -512,7 +603,7 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
         generated_user_query = f'{custom_tags.tags["SECURITY_CHECK"][0]}{data}{custom_tags.tags["SECURITY_CHECK"][1]}'
         generated_user_query += f'{custom_tags.tags["OG_QUERY"][0]}{user_query}{custom_tags.tags["OG_QUERY"][1]}'
 
-        background_tasks.add_task( datastore.write_msg,
+        background_tasks.add_task(log_message,
             session_uuid=session_uuid,
             msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
             user_query=generated_user_query, 
@@ -557,9 +648,8 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
     )
 
     await memory.increment_message_count(session_uuid)
-
-
-    background_tasks.add_task( datastore.write_msg,
+    # Log the message to postgres
+    background_tasks.add_task(log_message,
         session_uuid=session_uuid,
         msg_id=await memory.get_message_count_uuid_combo(session_uuid), 
         user_query=user_query, 

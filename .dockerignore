@@ -1,4 +1,8 @@
-venv/
+application/.venv/
 __pycache__/
 **/.env
 application/newData/
+.git/
+*.log
+application/ADWR Blogs/
+application/AMWUA_Blog_Posts

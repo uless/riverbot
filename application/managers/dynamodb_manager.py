@@ -33,6 +33,7 @@ class DynamoDBManager():
         
         return sanitized_input
     
+    #Deprecated function : Replaced with log_message for PostgreSQL
     async def write_msg(self, 
                         session_uuid, 
                         msg_id, 
