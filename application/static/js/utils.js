@@ -472,25 +472,30 @@ function showReactions(message) {
     scrollToBottom();
     fetch(apiUrl, {
         method: 'POST',
-      })
-      .then(response => response.json())
-      .then(botResponse => {
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(errorMessage => {
+                throw new Error(errorMessage);
+            });
+        }
+        return response.json();
+    })
+    .then(botResponse => {
         displayBotMessage(botResponse.resp, botResponse.msgID);
         removeLoadingAnimation();
         $("#user_query").prop('disabled', false);
         $("#submit-button").prop('disabled', false);
         scrollToBottom();
-
-      })
-      .catch(error => {
-        console.error('Error:', error);
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
         removeLoadingAnimation();
         $("#user_query").prop('disabled', false);
         $("#submit-button").prop('disabled', false);
         scrollToBottom();
-      });
-  }
-
+    });
+}
 
   function scrollToBottom() {
     $("#chatbot-prompt").scrollTop($('#chatbot-prompt')[0].scrollHeight - $('#chatbot-prompt')[0].clientHeight);

@@ -201,9 +201,20 @@ async def home(request: Request,):
         # "ip_address": ip_address
     }
 
+    return templates.TemplateResponse("splashScreen.html", context )
+
+@app.get("/index", response_class=HTMLResponse)
+async def home(request: Request,):
+    # hostname = socket.gethostname()
+    # ip_address = socket.gethostbyname(hostname)
+
+    context = {
+        "request": request,
+        # "hostname": hostname,
+        # "ip_address": ip_address
+    }
+
     return templates.TemplateResponse("index.html", context )
-
-
 # for waterBot html
 
 @app.get("/waterBot", response_class=HTMLResponse)
