@@ -1,13 +1,17 @@
 $(document).ready(function () {
-  $('.toast').toast('hide');
-  $('.waterdrop1').popover('hide');
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  $(".toast").toast("hide");
+  $(".waterdrop1").popover("hide");
+  var popoverTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="popover"]')
+  );
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
+    return new bootstrap.Popover(popoverTriggerEl);
   });
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-toggle="tooltip"]')
+  );
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
+    return new bootstrap.Tooltip(tooltipTriggerEl);
   });
   // // Function to display a user message in the chat interface
   // function displayUserMessage(userQuery) {
@@ -17,11 +21,11 @@ $(document).ready(function () {
   //   userMessage.innerHTML = `
 
   //       <div class="card-body chatbot-question">
-  //         <div class="row">             
+  //         <div class="row">
   //           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 message-body">
   //           ${userQuery}
   //           </div>
-            
+
   //         </div>
   //       </div>
 
@@ -30,128 +34,172 @@ $(document).ready(function () {
   // }
 
   // Toggle buttons for language selection
-document.getElementById('english-button').addEventListener('click', function() {
-  this.classList.add('active');
-  document.getElementById('spanish-button').classList.remove('active');
-  // Navigate to English version if needed
-  // window.location.href = 'URL_FOR_ENGLISH_VERSION';
-});
+  document
+    .getElementById("english-button")
+    .addEventListener("click", function () {
+      this.classList.add("active");
+      document.getElementById("spanish-button").classList.remove("active");
+      // Navigate to English version if needed
+      // window.location.href = 'URL_FOR_ENGLISH_VERSION';
+    });
 
-document.getElementById('spanish-button').addEventListener('click', function() {
-  this.classList.add('active');
-  document.getElementById('english-button').classList.remove('active');
-  // Navigate to Spanish version
-  window.location.href = 'Spanish_Translation_2.0.1.html';  // Adjust the URL as needed when spanish version is developed
-});
+  document
+    .getElementById("spanish-button")
+    .addEventListener("click", function () {
+      this.classList.add("active");
+      document.getElementById("english-button").classList.remove("active");
+      // Navigate to Spanish version
+      window.location.href = "Spanish_Translation_2.0.1.html"; // Adjust the URL as needed when spanish version is developed
+    });
 
-function showReactions(message) {
-    $(message).find('.reactions').show();
+  function showReactions(message) {
+    $(message).find(".reactions").show();
   }
 
   function hideReactions(message) {
-    $(message).find('.reactions').hide();
+    $(message).find(".reactions").hide();
   }
 
   function completeRequest() {
-    $('.toast').toast('show');
+    $(".toast").toast("show");
   }
 
   function submitReaction($clickedReaction) {
-    const reactionValue = $clickedReaction.data('reaction');
+    const reactionValue = $clickedReaction.data("reaction");
     console.log("Sending reaction: " + reactionValue);
     const messageID = $clickedReaction.attr("data-messageid");
 
     if (reactionValue == 0) {
-      $("#modal-" + messageID).find(".modal-header >i").removeClass("bi bi-hand-thumbs-up").addClass("bi bi-hand-thumbs-down");
+      $("#modal-" + messageID)
+        .find(".modal-header >i")
+        .removeClass("bi bi-hand-thumbs-up")
+        .addClass("bi bi-hand-thumbs-down");
 
       $("#feedback-" + messageID).css({
-        "display": "flex"
+        display: "flex",
       });
     }
 
     // Send a POST request with the selected reaction and message
-    fetch('/submit_rating_api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          'reaction': reactionValue,
-          'message_id': messageID,
-        }),
-      })
-      .then(response => response.text())
-      .then(message => {
+    fetch("/submit_rating_api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        reaction: reactionValue,
+        message_id: messageID,
+      }),
+    })
+      .then((response) => response.text())
+      .then((message) => {
         console.log(message); // Handle the response as needed
-        $("button.comment[data-messageid=" + messageID + "]").attr("data-reaction", reactionValue);
-
+        $("button.comment[data-messageid=" + messageID + "]").attr(
+          "data-reaction",
+          reactionValue
+        );
       });
   }
 
   function submitComment($clickedReaction) {
-    const reactionValue = $clickedReaction.data('reaction');
-    const messageID = $clickedReaction.parent().parent().find("button.comment").attr("data-messageid");
-    var commentInput = $clickedReaction.parent().parent().find('#userComment-' + messageID).val();
-    var selectedFeedback = $(document.querySelector('.modal-feedback-button.selected')).attr("data-comment");
+    const reactionValue = $clickedReaction.data("reaction");
+    const messageID = $clickedReaction
+      .parent()
+      .parent()
+      .find("button.comment")
+      .attr("data-messageid");
+    var commentInput = $clickedReaction
+      .parent()
+      .parent()
+      .find("#userComment-" + messageID)
+      .val();
+    var selectedFeedback = $(
+      document.querySelector(".modal-feedback-button.selected")
+    ).attr("data-comment");
 
     if (selectedFeedback != undefined)
       commentInput = selectedFeedback + ", " + commentInput;
 
     console.log("Sending comment: " + commentInput + " for " + messageID);
     // Send a POST request with the selected reaction and message
-    fetch('/submit_rating_api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          'userComment': commentInput,
-          'message_id': messageID,
-        }),
-      })
-      .then(response => response.text())
-      .then(message => {
+    fetch("/submit_rating_api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        userComment: commentInput,
+        message_id: messageID,
+      }),
+    })
+      .then((response) => response.text())
+      .then((message) => {
         console.log(message); // Handle the response as needed
         //Remove one of the reactions
 
         if (reactionValue == "1") {
           //means thumbs-up
           //remove thumbs-down
-          $("span.reaction[data-reaction='0'][data-messageid=" + messageID + "]").remove();
+          $(
+            "span.reaction[data-reaction='0'][data-messageid=" + messageID + "]"
+          ).remove();
 
           //Remove click event from thumbs up
-          $("span.reaction[data-reaction='1'][data-messageid=" + messageID + "]").removeAttr("data-bs-toggle");
-          $("span.reaction[data-reaction='1'][data-messageid=" + messageID + "]").removeAttr("data-bs-target");
+          $(
+            "span.reaction[data-reaction='1'][data-messageid=" + messageID + "]"
+          ).removeAttr("data-bs-toggle");
+          $(
+            "span.reaction[data-reaction='1'][data-messageid=" + messageID + "]"
+          ).removeAttr("data-bs-target");
 
           //Replace the icon to fill
           //$("span.reaction[data-reaction='1'][data-messageid="+messageID+"] > i").removeClass("bi-hand-thumbs-up").addClass("bi-hand-thumbs-up-fill");
 
-          $("span.reaction[data-reaction='1'][data-messageid=" + messageID + "] > i").addClass("reaction-feedback");
+          $(
+            "span.reaction[data-reaction='1'][data-messageid=" +
+              messageID +
+              "] > i"
+          ).addClass("reaction-feedback");
 
-          $("span.reaction[data-reaction='1'][data-messageid=" + messageID + "]").removeClass("reaction");
-
+          $(
+            "span.reaction[data-reaction='1'][data-messageid=" + messageID + "]"
+          ).removeClass("reaction");
         } else {
           //remove thumbs-up
-          $("span.reaction[data-reaction='1'][data-messageid=" + messageID + "]").remove();
+          $(
+            "span.reaction[data-reaction='1'][data-messageid=" + messageID + "]"
+          ).remove();
 
           //Remove click event from thumbs up
-          $("span.reaction[data-reaction='0'][data-messageid=" + messageID + "]").removeAttr("data-bs-toggle");
-          $("span.reaction[data-reaction='0'][data-messageid=" + messageID + "]").removeAttr("data-bs-target");
+          $(
+            "span.reaction[data-reaction='0'][data-messageid=" + messageID + "]"
+          ).removeAttr("data-bs-toggle");
+          $(
+            "span.reaction[data-reaction='0'][data-messageid=" + messageID + "]"
+          ).removeAttr("data-bs-target");
 
           //Replace the icon to fill
           //$("span.reaction[data-reaction='0'][data-messageid="+messageID+"] > i").removeClass("bi-hand-thumbs-down").addClass("bi-hand-thumbs-down-fill");
-          $("span.reaction[data-reaction='0'][data-messageid=" + messageID + "] > i").addClass("reaction-feedback");
+          $(
+            "span.reaction[data-reaction='0'][data-messageid=" +
+              messageID +
+              "] > i"
+          ).addClass("reaction-feedback");
 
-          $("span.reaction[data-reaction='0'][data-messageid=" + messageID + "]").removeClass("reaction");
+          $(
+            "span.reaction[data-reaction='0'][data-messageid=" + messageID + "]"
+          ).removeClass("reaction");
         }
 
         //Close the modal popup
-        $("#modal-" + messageID).modal('toggle');
-        $(".card.data-messageid-" + messageID).append(thankYouFeedback(messageID));
+        $("#modal-" + messageID).modal("toggle");
+        $(".card.data-messageid-" + messageID).append(
+          thankYouFeedback(messageID)
+        );
         scrollToBottom();
 
         $("#feedback-" + messageID).css({
-          "display": "none"
+          display: "none",
         });
 
         $("[data-messageid]").removeClass("reaction");
@@ -193,10 +241,10 @@ function showReactions(message) {
   //       <div class="row mb-4">
   //         <div class="col-2"></div>
   //         <div class="col-10" style="padding-top: 0.5rem;">
-         
-  //         <a class="reaction" title="I like the response" data-messageid=${messageID} data-reaction="1"><i class="bi bi-hand-thumbs-up fa-0.75x"></i></a> 
+
+  //         <a class="reaction" title="I like the response" data-messageid=${messageID} data-reaction="1"><i class="bi bi-hand-thumbs-up fa-0.75x"></i></a>
   //         <a class="reaction" data-toggle="tooltip" data-placement="top" title="Could be better" data-messageid=${messageID} data-reaction="0"><i class="bi bi-hand-thumbs-down fa-0.75x"></i></a>
-          
+
   //         <!--  <span class="reaction" data-toggle="tooltip" data-placement="top" title="Could be better" data-bs-toggle="modal" data-messageid=${messageID} data-bs-target="#modal-${messageID}" data-reaction="0"><i class="bi bi-hand-thumbs-down fa-0.75x"></i></span> -->
   //         <!-- <button type="button" class = "btn btn-sm followup-buttons fw-bold" id="shortButton">
   //           Short
@@ -224,7 +272,7 @@ function showReactions(message) {
   //                 </div>
   //                 <div class="col-9">
   //                   <div class="card-title m-0"></div>
-  //                   <div class="card-body" data-messageid="449">          
+  //                   <div class="card-body" data-messageid="449">
   //                   <p class="fw-bold">What did you not like?</p>
   //                   <button type="button" class="btn btn-sm feedback-button fw-bold mb-2" data-comment="Factually incorrect" data-messageid=${messageID} id="btnFactuallyIncorrect">
   //                     Factually incorrect
@@ -257,7 +305,7 @@ function showReactions(message) {
   //               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   //             </div>
   //             <div class="modal-body">
-                  
+
   //                   <button type="button" class="btn btn-sm modal-feedback-button fw-bold mb-2" data-messageid=${messageID} data-comment="Factually incorrect" id="btnFactuallyIncorrect">
   //                     Factually incorrect
   //                   </button>
@@ -271,10 +319,10 @@ function showReactions(message) {
   //                     Other
   //                   </button>
   //                   <textarea placeholder="Provide additional feedback" class="userComment form-control" data-feedback="" id ="userComment-${messageID}"></textarea>
-                  
+
   //             </div>
   //             <div id="footer-${messageID}" class="modal-footer" data-messageid=${messageID} >
-  //               <button class="comment btn btn-primary btn-new-chat" data-messageid=${messageID} data-user-comment-target=".userComment">Submit</button>                
+  //               <button class="comment btn btn-primary btn-new-chat" data-messageid=${messageID} data-user-comment-target=".userComment">Submit</button>
   //             </div>
   //           </div>
   //         </div>
@@ -283,52 +331,52 @@ function showReactions(message) {
   //   chatHistory.appendChild(botMessage);
   //   messageInterval(botResponse, messageID)
   // }
-  $(document).on('click', '.modal-feedback-button', function () {
+  $(document).on("click", ".modal-feedback-button", function () {
     $(".modal-feedback-button").removeClass("selected");
     $(this).addClass("selected");
   });
 
-  $(document).on('click', '.feedback-button', function () {
+  $(document).on("click", ".feedback-button", function () {
     $(this).addClass("selected");
     var messageID = $(this).attr("data-messageid");
     var commentInput = $(".feedback-button.selected").attr("data-comment");
     if (document.querySelector(".feedback-button") != null) {
-
       $("#feedback-" + messageID).css({
-        "display": "none"
+        display: "none",
       });
       debugger;
-      $(".card.data-messageid-" + messageID).append(thankYouFeedback(messageID));
+      $(".card.data-messageid-" + messageID).append(
+        thankYouFeedback(messageID)
+      );
 
-      fetch('/submit_rating_api', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: new URLSearchParams({
-            'userComment': commentInput,
-            'message_id': messageID,
-          }),
-        })
-        .then(response => response.text())
-        .then(message => {
+      fetch("/submit_rating_api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          userComment: commentInput,
+          message_id: messageID,
+        }),
+      })
+        .then((response) => response.text())
+        .then((message) => {
           console.log(message); // Handle the response as needed
           //Remove one of the reactions
           removeThumbsUp(messageID);
         });
-
     }
   });
-  $(document).on('click', '.comment', function () {
+  $(document).on("click", ".comment", function () {
     submitComment($(this).parent());
   });
 
   // Function to display a loading animation message in the chat interface
   function displayLoadingAnimation() {
     $("div.loading-animation").remove();
-    const chatHistory = document.getElementById('chatbot-prompt');
-    const botMessage = document.createElement('div');
-    botMessage.classList.add('card', 'loading-animation', 'left');
+    const chatHistory = document.getElementById("chatbot-prompt");
+    const botMessage = document.createElement("div");
+    botMessage.classList.add("card", "loading-animation", "left");
     botMessage.innerHTML = `
           <div class="card-body">
             <div class="row">
@@ -355,20 +403,20 @@ function showReactions(message) {
 
   // Function to send user queries to the backend and receive responses
   function sendUserQuery(e) {
-    const userQuery = document.getElementById('user_query').value;
+    const userQuery = document.getElementById("user_query").value;
     e.preventDefault();
 
-    if (userQuery.trim() === '') {
+    if (userQuery.trim() === "") {
       return; // Don't send empty queries
     }
 
     // Display the user's message in the chat
     displayUserMessage(userQuery);
-    $('.followup-buttons').hide();
+    $(".followup-buttons").hide();
     //Start of the loading animation
     displayLoadingAnimation();
-    $("#user_query").prop('disabled', true);
-    $("#submit-button").prop('disabled', true);
+    $("#user_query").prop("disabled", true);
+    $("#submit-button").prop("disabled", true);
 
     //Scroll to bottom script
     scrollToBottom();
@@ -378,156 +426,163 @@ function showReactions(message) {
 
     // Create a request body with the user query
     const requestBody = new FormData();
-    requestBody.append('user_query', userQuery);
+    requestBody.append("user_query", userQuery);
 
     fetch(apiUrl, {
-        method: 'POST',
-        body: requestBody,
-      })
-      .then(response => response.json())
-      .then(botResponse => { 
+      method: "POST",
+      body: requestBody,
+    })
+      .then((response) => response.json())
+      .then((botResponse) => {
         // Display the bot's response in the chat
         displayBotMessage(botResponse.resp, botResponse.msgID);
         //typewriter(botResponse);
 
         //Removing loading animation
         removeLoadingAnimation();
-        $("#user_query").prop('disabled', false);
-        $("#submit-button").prop('disabled', false);
+        $("#user_query").prop("disabled", false);
+        $("#submit-button").prop("disabled", false);
         //Scroll to bottom function
         scrollToBottom();
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
         removeLoadingAnimation();
-        $("#user_query").prop('disabled', false);
-        $("#submit-button").prop('disabled', false);
+        $("#user_query").prop("disabled", false);
+        $("#submit-button").prop("disabled", false);
         scrollToBottom();
       });
 
     scrollToBottom();
 
     // Clear the input field after sending the query
-    document.getElementById('user_query').value = '';
-
+    document.getElementById("user_query").value = "";
   }
 
-  $("#user_query").on('keyup', function (e) {
+  $("#user_query").on("keyup", function (e) {
     e.preventDefault();
-    if (e.key === 'Enter' || e.keyCode === 13) {
+    if (e.key === "Enter" || e.keyCode === 13) {
       sendUserQuery(e);
     }
   });
 
-  $("#submit-button").on('click', function (e) {
+  $("#submit-button").on("click", function (e) {
     e.preventDefault();
     sendUserQuery(e);
   });
 
-  $(document).on('mouseover', '.welcome-message', function () {
+  $(document).on("mouseover", ".welcome-message", function () {
     showReactions($(this));
   });
 
-  $(document).on('mouseout', '.welcome-message', function () {
+  $(document).on("mouseout", ".welcome-message", function () {
     hideReactions($(this));
   });
 
   // Bind click event to submit the reaction for all elements with the class 'reactions'
-  $(document).on('click', '.reaction', function () {
+  $(document).on("click", ".reaction", function () {
     submitReaction($(this));
     const messageID = $(this).attr("data-messageid");
     const reactionId = $(this).attr("data-reaction");
     // $("#modal-" + messageID).find("button.comment").attr("data-reaction", reactionId);
     if (reactionId == 1)
       $("#feedback-" + messageID).css({
-        "display": "none"
+        display: "none",
       });
   });
 
-
-
-  $(document).on('click', '.followup-buttons', function () {
-    var buttonId = $(this).attr('id');
+  $(document).on("click", ".followup-buttons", function () {
+    var buttonId = $(this).attr("id");
     switch (buttonId) {
-      case 'shortButton':
-        callAPI('/chat_short_api');
+      case "shortButton":
+        callAPI("/chat_short_api");
         break;
-      case 'detailedButton':
-        callAPI('/chat_detailed_api');
+      case "detailedButton":
+        callAPI("/chat_detailed_api");
         break;
-      case 'actionItemsButton':
-        callAPI('/chat_actionItems_api');
+      case "actionItemsButton":
+        callAPI("/chat_actionItems_api");
         break;
-      case 'sourcesButton':
-        callAPI('/chat_sources_api');
+      case "sourcesButton":
+        callAPI("/chat_sources_api");
         break;
-        // Add more cases for additional buttons if needed
+      // Add more cases for additional buttons if needed
     }
   });
 
   function callAPI(apiUrl) {
     console.log("Calling API: " + apiUrl);
-    $('.followup-buttons').hide();
+    $(".followup-buttons").hide();
     displayLoadingAnimation();
     scrollToBottom();
     fetch(apiUrl, {
-        method: 'POST',
+      method: "POST",
     })
-    .then(response => {
+      .then((response) => {
         if (!response.ok) {
-            return response.text().then(errorMessage => {
-                throw new Error(errorMessage);
-            });
+          return response.text().then((errorMessage) => {
+            throw new Error(errorMessage);
+          });
         }
         return response.json();
-    })
-    .then(botResponse => {
+      })
+      .then((botResponse) => {
         displayBotMessage(botResponse.resp, botResponse.msgID);
         removeLoadingAnimation();
-        $("#user_query").prop('disabled', false);
-        $("#submit-button").prop('disabled', false);
+        $("#user_query").prop("disabled", false);
+        $("#submit-button").prop("disabled", false);
         scrollToBottom();
-    })
-    .catch(error => {
-        console.error('Error:', error.message);
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
         removeLoadingAnimation();
-        $("#user_query").prop('disabled', false);
-        $("#submit-button").prop('disabled', false);
+        $("#user_query").prop("disabled", false);
+        $("#submit-button").prop("disabled", false);
         scrollToBottom();
-    });
-}
-
-  function scrollToBottom() {
-    $("#chatbot-prompt").scrollTop($('#chatbot-prompt')[0].scrollHeight - $('#chatbot-prompt')[0].clientHeight);
+      });
   }
 
+  function scrollToBottom() {
+    $("#chatbot-prompt").scrollTop(
+      $("#chatbot-prompt")[0].scrollHeight -
+        $("#chatbot-prompt")[0].clientHeight
+    );
+  }
 
-  $(document).on('click', ".reaction", function () {
+  $(document).on("click", ".reaction", function () {
     $(".reaction").find("i").removeClass("followup-selected");
-    if (document.querySelector('.reaction > .followup-selected') != null) {
+    if (document.querySelector(".reaction > .followup-selected") != null) {
       $(this).find("i").removeClass("followup-selected");
       //remove active class from thumbs up
       //$(".reaction [data-reaction='0']").find("i").removeClass("active");
     } else {
       $(this).find("i").addClass("followup-selected").css({
-        "pointer-events": "none"
+        "pointer-events": "none",
       });
       //remove active class from thumbs down
       //$(".reaction [data-reaction='1']").find("i").removeClass("active");
     }
-    if($(this).attr("data-reaction") == 1)
-    removeThumbsDown($(this).attr("data-messageid"));
+    if ($(this).attr("data-reaction") == 1)
+      removeThumbsDown($(this).attr("data-messageid"));
   });
 });
 
 function removeThumbsUp(messageid) {
-  $("a.reaction[data-messageid='" + messageid + "'][data-reaction=1]").removeClass("reaction").remove();
-  $("a[data-messageid='" + messageid + "'][data-reaction=0]").removeClass("reaction");
+  $("a.reaction[data-messageid='" + messageid + "'][data-reaction=1]")
+    .removeClass("reaction")
+    .remove();
+  $("a[data-messageid='" + messageid + "'][data-reaction=0]").removeClass(
+    "reaction"
+  );
 }
 
 function removeThumbsDown(messageid) {
-  $("a.reaction[data-messageid='" + messageid + "'][data-reaction=0]").removeClass("reaction").remove();
-  $("a[data-messageid='" + messageid + "'][data-reaction=1]").removeClass("reaction");
+  $("a.reaction[data-messageid='" + messageid + "'][data-reaction=0]")
+    .removeClass("reaction")
+    .remove();
+  $("a[data-messageid='" + messageid + "'][data-reaction=1]").removeClass(
+    "reaction"
+  );
 }
 
 function messageInterval(botResponse, messageID) {
@@ -559,10 +614,10 @@ function messageInterval(botResponse, messageID) {
 
 // Function to display a user message in the chat interface
 function displayUserMessage(userQuery) {
-const chatHistory = document.getElementById('chatbot-prompt');
-const userMessage = document.createElement('div');
-userMessage.classList.add('card', 'user-message', 'right');
-userMessage.innerHTML = `
+  const chatHistory = document.getElementById("chatbot-prompt");
+  const userMessage = document.createElement("div");
+  userMessage.classList.add("card", "user-message", "right");
+  userMessage.innerHTML = `
 
   <div class="card-body chatbot-question">
     <div class="row">             
@@ -574,15 +629,19 @@ userMessage.innerHTML = `
   </div>
 
 `;
-chatHistory.appendChild(userMessage);
+  chatHistory.appendChild(userMessage);
 }
 
- // Function to display a bot message in the chat interface
- function displayBotMessage(botResponse, messageID) {
-  const chatHistory = document.getElementById('chatbot-prompt');
-  const botMessage = document.createElement('div');
-  botMessage.classList.add('card', 'left');
-  botMessage.classList.add('card', 'bot-message', 'data-messageid-' + messageID);
+// Function to display a bot message in the chat interface
+function displayBotMessage(botResponse, messageID) {
+  const chatHistory = document.getElementById("chatbot-prompt");
+  const botMessage = document.createElement("div");
+  botMessage.classList.add("card", "left");
+  botMessage.classList.add(
+    "card",
+    "bot-message",
+    "data-messageid-" + messageID
+  );
   botMessage.innerHTML = `
       <div class="card-body welcome-message pb-0" data-messageid=${messageID}>
       <div class="row">
@@ -686,5 +745,33 @@ chatHistory.appendChild(userMessage);
       </div>
     `;
   chatHistory.appendChild(botMessage);
-  messageInterval(botResponse, messageID)
+  messageInterval(botResponse, messageID);
+}
+
+// Timeout Function
+
+const IDLE_MINUTES = 1;
+const TARGET_URL = "https://azwaterbot.org";
+
+let idleTimerId, lastActivity;
+
+// const statusEl = document.getElementById("status");
+
+resetIdleTimer();
+attachActivityListeners();
+
+function resetIdleTimer() {
+  clearTimeout(idleTimerId);
+  lastActivity = Date.now();
+
+  idleTimerId = setTimeout(() => {
+    window.location.href = TARGET_URL;
+  }, IDLE_MINUTES * 60_000);
+}
+
+function attachActivityListeners() {
+  const events = ["mousemove", "keydown", "scroll", "touchstart"];
+  events.forEach((evt) => {
+    window.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
 }
