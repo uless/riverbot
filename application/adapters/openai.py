@@ -62,7 +62,7 @@ class OpenAIAdapter(ModelAdapter):
         return openai_payload
     
 
-    async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5 ):
+    async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5, custom_system_prompt=None ):
         # system_prompt = """
         # You are a helpful assistant named Blue that provides information about water in Arizona.
 
@@ -93,7 +93,8 @@ class OpenAIAdapter(ModelAdapter):
         # system_prompt=system_prompt.format(kb_data=kb_data)
 
 
-        system_prompt = """
+        # Base system prompt
+        base_system_prompt = f"""
         You are a helpful assistant named Blue that provides information about water in Arizona.
 
         You will be provided with Arizona water-related queries.
@@ -108,6 +109,11 @@ class OpenAIAdapter(ModelAdapter):
 
         Verify not to include any information that is irrelevant to the current query.
 
+        Use the following knowledge to answer questions: 
+        <knowledge>
+        {kb_data}
+        </knowledge>
+
         You should answer in 250 words or less in a friendly tone and include details within the word limit. 
 
         Avoid lists.
@@ -118,6 +124,12 @@ class OpenAIAdapter(ModelAdapter):
 
         "I would love to tell you more! Just click the buttons below or ask a follow-up question."
         """
+        
+        # Use custom system prompt if provided, otherwise use base prompt
+        if custom_system_prompt:
+            system_prompt = custom_system_prompt
+        else:
+            system_prompt = base_system_prompt
 
         messages=[
             {
