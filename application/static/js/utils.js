@@ -747,31 +747,3 @@ function displayBotMessage(botResponse, messageID) {
   chatHistory.appendChild(botMessage);
   messageInterval(botResponse, messageID);
 }
-
-// Timeout Function
-
-const IDLE_MINUTES = 1;
-const TARGET_URL = "https://azwaterbot.org";
-
-let idleTimerId, lastActivity;
-
-// const statusEl = document.getElementById("status");
-
-resetIdleTimer();
-attachActivityListeners();
-
-function resetIdleTimer() {
-  clearTimeout(idleTimerId);
-  lastActivity = Date.now();
-
-  idleTimerId = setTimeout(() => {
-    window.location.href = TARGET_URL;
-  }, IDLE_MINUTES * 60_000);
-}
-
-function attachActivityListeners() {
-  const events = ["mousemove", "keydown", "scroll", "touchstart"];
-  events.forEach((evt) => {
-    window.addEventListener(evt, resetIdleTimer, { passive: true });
-  });
-}
