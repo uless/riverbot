@@ -178,7 +178,7 @@ p .h6 {
   .waterdrop1 {
     width: 5.8125rem;
     height: 6.8125rem;
-    content: url(../images/WaterDrop1.png);
+    content: url(../images/WaterDrop1.svg);
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -270,7 +270,7 @@ p .h6 {
 .waterdrop1 {
   width: 5.8125rem;
   height: 6.8125rem;
-  content: url(../images/WaterDrop1.png);
+  content: url(../images/WaterDrop1.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -362,13 +362,14 @@ a {
   padding: 5px;
   cursor: pointer;
 }
-.dislike-buttons{
+.dislike-buttons {
   border: 1px solid #8c1d40;
   border-radius: 20px;
-  margin-right:5 rem;
+  margin-right: 5 rem;
 }
 .waterdrop1,
-.waterdrop2, waterdrop5 {
+.waterdrop2,
+waterdrop5 {
   width: 3.625rem;
   height: 4.25rem;
   flex-shrink: 0;
@@ -480,13 +481,17 @@ a {
   padding: 8px;
 }
 
-.feedback-button,.feedback-other-button, .modal-feedback-button{
-  background: #FFC627;
+.feedback-button,
+.feedback-other-button,
+.modal-feedback-button {
+  background: #ffc627;
   border-radius: 20px;
-  border: 1px solid #FFC627;
+  border: 1px solid #ffc627;
 }
 
-.feedback-button:hover, .feedback-other-button:hover, .modal-feedback-button:hover{
+.feedback-button:hover,
+.feedback-other-button:hover,
+.modal-feedback-button:hover {
   border: 1px solid black;
 }
 
@@ -522,7 +527,7 @@ a {
   cursor: pointer;
 }
 
-.followup-selected{
+.followup-selected {
   color: white;
   background: #8c1d40;
 }
@@ -629,7 +634,7 @@ a {
   animation: pulse 1s linear infinite;
 }
 .loader:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 24px;
   height: 24px;
@@ -644,12 +649,23 @@ a {
 }
 
 @keyframes scaleUp {
-  0% { transform: translate(-50%, -50%) scale(0) }
-  60% , 100% { transform: translate(-50%, -50%)  scale(1)}
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  60%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 @keyframes pulse {
-  0% , 60% , 100%{ transform:  scale(1) }
-  80% { transform:  scale(1.2)}
+  0%,
+  60%,
+  100% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1.2);
+  }
 }
 .btn-mic:hover svg {
   transform: scale(1.05);
@@ -705,12 +721,12 @@ a {
 }
 
 .language-button.english-button {
-  background: #8C1D40;
-  color: #FFFFFF;
+  background: #8c1d40;
+  color: #ffffff;
   border-top-left-radius: 25.5px;
   border-bottom-left-radius: 25.5px;
-  border-top-right-radius: 0;  /* Adjust border radius */
-  border-bottom-right-radius: 0;  /* Adjust border radius */
+  border-top-right-radius: 0; /* Adjust border radius */
+  border-bottom-right-radius: 0; /* Adjust border radius */
   width: 70px; /* Adjusted width */
   height: 35px; /* Adjusted height */
   font-size: 12px; /* Adjusted font size */
@@ -722,10 +738,10 @@ a {
 
 .language-button.spanish-button {
   background: #606060;
-  color: #FFFFFF;
+  color: #ffffff;
   border-top-right-radius: 25.5px;
   border-bottom-right-radius: 25.5px;
-  border-top-left-radius: 0;  /* Adjust border radius */
+  border-top-left-radius: 0; /* Adjust border radius */
   border-bottom-left-radius: 0;
   font-family: Montserrat, sans-serif;
   font-size: 12px; /* Adjusted font size */
@@ -743,29 +759,29 @@ a {
   color: #f0f0f0; /* Light greyish white for better contrast */
 }
 
-
 .language-button.english-button:hover {
   background-color: #a83250; /* Slightly lighter shade for hover */
   color: #f0f0f0; /* Light greyish white for text */
 }
 
 .language-button.active {
-  background-color: #8C1D40;
-  color: #FFFFFF;
+  background-color: #8c1d40;
+  color: #ffffff;
 }
 
 .language-transcript-row {
   padding: 20px;
 }
 
-.language-section, .transcript-section {
+.language-section,
+.transcript-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align content to the left */
   padding: 10px;
 }
 
-.language-text{
+.language-text {
   margin-bottom: 7px;
   font-size: 16px;
   font-weight: 700;
@@ -780,10 +796,10 @@ a {
 .transcript-button {
   width: 125px; /* Set the button width */
   height: 40px; /* Set the button height */
-  margin-top: 0; 
+  margin-top: 0;
   flex-shrink: 0; /* Prevent the button from shrinking */
-  background-color: #8C1D40; /* Background color */
-  padding: 5px 0; 
+  background-color: #8c1d40; /* Background color */
+  padding: 5px 0;
   color: white; /* Text color for visibility */
   border: none; /* Remove default border */
   border-radius: 25px; /* Rounded corners */
@@ -851,7 +867,7 @@ main {
     z-index: 1000;
     padding: 1rem;
     border-top: 1px solid #d0d0d0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
   .navbar-nav {
