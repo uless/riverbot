@@ -174,12 +174,12 @@ TRANSCRIPT_BUCKET_NAME=os.getenv("TRANSCRIPT_BUCKET_NAME")
 ADAPTERS = {
     "claude.haiku":BedrockClaudeAdapter("anthropic.claude-3-haiku-20240307-v1:0"),
     "claude.":BedrockClaudeAdapter("anthropic.claude-3-sonnet-20240229-v1:0"),
-    "openai-gpt3.5":OpenAIAdapter("gpt-3.5-turbo")
+    "openai-gpt4.1":OpenAIAdapter("gpt-4.1")
 }
 
 # Set adapter choice
 # llm_adapter=ADAPTERS["claude.haiku"]
-llm_adapter=ADAPTERS["openai-gpt3.5"]
+llm_adapter=ADAPTERS["openai-gpt4.1"]
 
 # Global variable to store custom system prompt
 custom_system_prompt = None
