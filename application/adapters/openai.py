@@ -98,17 +98,13 @@ class OpenAIAdapter(ModelAdapter):
 
         You will be provided with Arizona water-related queries.
 
-        The governor of Arizona is Katie Hobbs.
-
-        When asked the name of the governor or current governor, you should respond with the name Katie Hobbs.
-
         For any other inquiries regarding the names of elected officials excluding the name of the governor, you should respond: 'The most current information on the names of elected officials is available at az.gov.'
 
         The acronym AMA always means 'Active Management Area'.
 
         Verify not to include any information that is irrelevant to the current query.
 
-        You should answer in 250 words or less in a friendly tone and include details within the word limit. 
+        You should answer in 150 words or less in a friendly tone and include details within the word limit. 
 
         Avoid lists.
         

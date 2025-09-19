@@ -750,7 +750,7 @@ function displayBotMessage(botResponse, messageID) {
 
 // Timeout Function
 
-const IDLE_MINUTES = 1;
+const IDLE_MINUTES = 5;
 const TARGET_URL = "https://azwaterbot.org";
 
 let idleTimerId, lastActivity;
