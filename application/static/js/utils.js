@@ -587,27 +587,39 @@ function removeThumbsDown(messageid) {
 
 function messageInterval(botResponse, messageID) {
   const $el = $(".card-body").find("#botmessage-" + messageID);
-  const speed = 100; // ms
+  const speed = 50; // ms - faster for character by character
   $el.html(""); // Clear previous content
 
-  // Split by spaces and HTML tags, keeping tags intact
-  const wordArray = botResponse.split(/(<\/?[^>]+>| )/g).filter(Boolean);
-  let i = 0;
+  // Split by HTML tags and text content
+  const parts = botResponse.split(/(<[^>]*>)/g).filter(Boolean);
+  let partIndex = 0;
+  let charIndex = 0;
+  let currentText = "";
 
-  // Display each word or tag sequentially
+  // Display each character sequentially, handling HTML tags
   const interval = setInterval(() => {
-    if (i >= wordArray.length) {
-      clearInterval(interval); // Stop once all elements are appended
+    if (partIndex >= parts.length) {
+      clearInterval(interval); // Stop once all parts are processed
+      return;
+    }
+
+    const currentPart = parts[partIndex];
+
+    // If it's an HTML tag, add it immediately
+    if (currentPart.match(/^<[^>]*>$/)) {
+      $el.append(currentPart);
+      partIndex++;
+      charIndex = 0;
     } else {
-      // Append current item and move to the next
-      if (wordArray[i].match(/<\/?[^>]+>/)) {
-        // If it's an HTML tag, add immediately
-        $el.append(wordArray[i]);
+      // If it's text content, add character by character
+      if (charIndex < currentPart.length) {
+        $el.append(currentPart[charIndex]);
+        charIndex++;
       } else {
-        // If it's a text word, add with a space
-        $el.append(`${wordArray[i]} `);
+        // Move to next part
+        partIndex++;
+        charIndex = 0;
       }
-      i++;
     }
   }, speed);
 }
