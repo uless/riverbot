@@ -142,6 +142,20 @@ p .h6 {
     color: black;
   }
 }
+.chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.col-11 {
+  flex: 0 0 auto;
+  width: 6rem;
+}
+
+.ps-10 {
+  padding-left: 6rem !important;
+}
 
 .cVsgpr {
   position: fixed;
@@ -317,12 +331,14 @@ a {
 
 /* Chatbot-prompt */
 .chatbot-prompt-container {
-  padding: 1rem 5rem 1rem 2rem;
+  padding: 1rem 5rem 1rem 5rem;
   background-color: transparent;
   min-width: auto;
   max-width: 100%;
   margin-left: 20px;
   margin-right: 200px;
+  width: calc(100% - 180px); /* trims 240px from the right */
+  margin-right: auto;
 }
 @media (max-width: 992px) {
   .chatbot-prompt-container {
@@ -409,6 +425,7 @@ waterdrop5 {
 
   white-space: normal;
   overflow-wrap: anywhere; /* break long words/URLs */
+  margin-left: 0;
 }
 .message-body {
   display: inline-flex;
@@ -449,7 +466,7 @@ waterdrop5 {
   border-radius: 20px 20px 0px 20px;
   height: fit-content;
   width: fit-content;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   margin: 0.12rem 0.5rem;
   /* margin-left: 20%; */
 }

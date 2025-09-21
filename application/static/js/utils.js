@@ -380,12 +380,12 @@ $(document).ready(function () {
     botMessage.innerHTML = `
           <div class="card-body">
             <div class="row">
-            <div
-                    class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-center justify-content-end">
-                    <img class="waterdrop2" />
-                  </div>
-                  <div class="col-md-10 align-items-center" style="display:inline-flex;">
-                    <div class="loader"></div> &nbsp; <span class="text-primary">Generating response...</span>
+              <div class="chat-row">
+                <img class="waterdrop2" />
+              
+            <div class="col-md-10 align-items-center" style="display:inline-flex;">
+            <div class="loader"></div> &nbsp; <span class="text-primary">Generating response...</span>
+            </div>
                   </div>
             </div>
         </div>
@@ -645,9 +645,8 @@ function displayBotMessage(botResponse, messageID) {
   botMessage.innerHTML = `
       <div class="card-body welcome-message pb-0" data-messageid=${messageID}>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-top justify-content-end">
+      <div class = "chat-row">
           <img class="waterdrop1" />
-        </div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body">
           <p class="m-0" id="botmessage-${messageID}"></p>
         </div>
@@ -655,7 +654,7 @@ function displayBotMessage(botResponse, messageID) {
       </div>
       <div class="card-footer pt-0 p-8" style="padding:8px; border:0;">
       <div class="row mb-4">
-        <div class="col-2"></div>
+        <div class="col-11"></div>
         <div class="col-10" style="padding-top: 0.5rem;">
        
         <a class="reaction" title="I like the response" data-messageid=${messageID} data-reaction="1"><i class="bi bi-hand-thumbs-up fa-0.75x"></i></a> 
@@ -704,8 +703,10 @@ function displayBotMessage(botResponse, messageID) {
                   </button>
                   </div>
                 </div>
+                
             </div>
         </div>
+      </div>
       </div>
     </div>
       <!-- Modal -->

@@ -146,49 +146,51 @@
               <div class="card left">
                 <div class="card-body welcome-message">
                   <div class="row">
-                    <div
-                      class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap justify-content-end"
-                    >
-                      <img class="waterdrop1" />
-                    </div>
-                    <div
-                      class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 welcome-message-body"
-                    >
+                    <div class="chat-row">
                       <!-- <div
+                        class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap justify-content-start ps-10"
+                      > -->
+                      <img class="waterdrop1" />
+                      <!-- </div> -->
+                      <div
+                        class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 welcome-message-body"
+                      >
+                        <!-- <div
                         class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 welcome-message-body"
                       > -->
-                      <p>
-                        Hi! My name is Blue! I'm here to answer your questions
-                        about water in Arizona.
-                      </p>
-                      <p>
-                        Ask me anything you want about the story of water in our
-                        state!
-                      </p>
-                      <p>
-                        Not sure where to start? You can try asking questions
-                        about:
-                      </p>
-                      <ol>
-                        <li>
-                          Arizona's unique water landscape, rivers, lakes,
-                          groundwater, and aquifers
-                        </li>
-                        <li>Colorado River's role in Arizona's water supply</li>
-                        <li>
-                          What's on your mind about conserving water in our
-                          desert environment?
-                        </li>
-                        <li>
-                          Are there any government programs or initiatives to
-                          address drought in Arizona?
-                        </li>
-                      </ol>
-                      <p>
-                        Ask any question in the space below to start exploring
-                        Arizona's water situation with me!
-                      </p>
-                      <!-- </div> -->
+                        <p>
+                          Hi, I am a River. I am here to explore water with you.
+                          We can chat, wonder, and share stories. I hope this is
+                          a space for you to get to know me better, and for me
+                          to understand how waters shape your place and your
+                          life.
+                        </p>
+                        <p>
+                          Let’s chat. You can just say hello, share a river
+                          memory with me, or ask questions about me. We can
+                          notice what water feels like where you are, and find
+                          simple ways to care for it. I am excited for us to get
+                          to know each other.
+                        </p>
+                        <p>Not sure where to start? Try one of these:</p>
+                        <ol>
+                          <li>Hi River, how are you?</li>
+                          <li>
+                            Tell me something I can do to help our rivers.
+                          </li>
+                          <li>
+                            What is one thing about water you want me to know?
+                          </li>
+                          <li>What is it like being a river?</li>
+                          <li>How do you feel about how people treat you?</li>
+                          <li>
+                            I love going to rivers because... [fill in the
+                            blank]
+                          </li>
+                        </ol>
+
+                        <!-- </div> -->
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -204,7 +206,13 @@
               action="/chat_api"
               method="post"
               id="userBox"
-              style="display: flex; align-items: center"
+              style="
+                display: flex;
+                align-items: center;
+                --left-trim: clamp(12px, 4.5vw, 85px);
+                margin-left: var(--left-trim);
+                width: calc(100% - var(--left-trim));
+              "
             >
               <div
                 class="input-group mt-3"
@@ -219,7 +227,7 @@
                   placeholder="Type your question here"
                   aria-label="Type your question here"
                   aria-describedby="basic-addon2"
-                  style="padding-right: 90px; border-radius: 10px; height: 48px"
+                  style="padding-right: 90px; border-radius: 16px; height: 60px"
                 />
 
                 <button
@@ -254,7 +262,7 @@
                 >
                   <i
                     class="fa fa-send"
-                    style="color: #8c1d40; font-size: 24px"
+                    style="color: #8c1d40; font-size: 30px"
                   ></i>
                 </button>
               </div>
