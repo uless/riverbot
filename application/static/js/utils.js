@@ -645,7 +645,7 @@ function displayBotMessage(botResponse, messageID) {
   botMessage.innerHTML = `
       <div class="card-body welcome-message pb-0" data-messageid=${messageID}>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-top justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-end justify-content-center">
           <img class="waterdrop1" />
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body">
