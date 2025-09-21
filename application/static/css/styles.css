@@ -387,78 +387,28 @@ waterdrop5 {
   flex-shrink: 0;
 }
 .welcome-message-body {
-  position: relative; /* Add this to the selected element */
-  /* other styles */
-}
-.bot-message-body::after {
-  content: "";
-  position: relative;
-  bottom: 1px; /* Position at the bottom */
-  left: -16px; /* Position at the left */
-  width: 0;
-  height: 0;
-  border-bottom: 10px solid transparent; /* Adjust size and color */
-  border-left: 20px solid transparent; /* Adjust size and color */
-  border-right: 13px solid transparent; /* Adjust size */
-  border-top: 10px solid transparent; /* Adjust size */
-  transform: translateX(
-    -100%
-  ); /* Shift left by its own width to position correctly */
-  border-bottom-right-radius: 23%;
-  border-bottom-left-radius: 50%;
-  box-shadow: 16px 9px 0px 8px #eeeeee;
-}
-.welcome-message-body::after {
-  content: "";
-  position: relative;
-  bottom: 1px; /* Position at the bottom */
-  left: -16px; /* Position at the left */
-  width: 0;
-  height: 0;
-  border-bottom: 10px solid transparent; /* Adjust size and color */
-  border-left: 20px solid transparent; /* Adjust size and color */
-  border-right: 13px solid transparent; /* Adjust size */
-  border-top: 10px solid transparent; /* Adjust size */
-  transform: translateX(
-    -100%
-  ); /* Shift left by its own width to position correctly */
-  border-bottom-right-radius: 23%;
-  border-bottom-left-radius: 50%;
-  box-shadow: 16px 9px 0px 8px #eeeeee;
-}
+  width: 800px; /* fixed */
+  max-width: 95vw; /* don’t overflow small screens */
+  display: block; /* or flex, but NOT inline-flex */
+  padding: 1rem;
+  background: #eee;
 
-.message-body::after {
-  content: "";
-  z-index: -2;
-  position: absolute;
-  top: -6px; /* Position at the bottom */
-  right: 42px; /* Position at the left */
-  width: 0;
-  height: 0;
-  border-bottom: 16px solid transparent; /* Adjust size and color */
-  border-left: 19px solid transparent; /* Adjust size and color */
-  border-right: 10px solid transparent; /* Adjust size */
-  border-top: 10px solid transparent; /* Adjust size */
-  transform: translateX(50%) rotate(270deg) scaleX(-1); /* Shift left by its own width to position correctly */
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 30%;
-  box-shadow: 21px 9px 0px 8px #eeeeee;
+  white-space: normal;
+  overflow-wrap: anywhere; /* break long words/URLs */
+  border-radius: 0px 13px 13px 13px;
 }
 
 .bot-message-body,
 .welcome-message-body {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  align-self: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  word-wrap: break-word;
-  flex-grow: 1;
-  background: #eeeeee;
-  /* border-radius: 0.5rem 0.5rem 0rem 0rem; */
-  border-radius: 0.5rem;
+  width: 800px; /* fixed */
+  max-width: 95vw; /* don’t overflow small screens */
+  display: block; /* or flex, but NOT inline-flex */
   padding: 1rem;
+  border-radius: 0px 13px 13px 13px;
+  background: #eee;
+
+  white-space: normal;
+  overflow-wrap: anywhere; /* break long words/URLs */
 }
 .message-body {
   display: inline-flex;
@@ -496,7 +446,7 @@ waterdrop5 {
   background: #eeeeee;
   background-attachment: fixed;
   color: #1f1d1d;
-  border-radius: 0.5rem 0.2rem 0.2rem 0.5rem;
+  border-radius: 13px 13px 0px 13px;
   height: fit-content;
   width: fit-content;
   padding: 0.5rem 1rem;

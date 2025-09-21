@@ -381,7 +381,7 @@ $(document).ready(function () {
           <div class="card-body">
             <div class="row">
             <div
-                    class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-center justify-content-center">
+                    class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-center justify-content-end">
                     <img class="waterdrop2" />
                   </div>
                   <div class="col-md-10 align-items-center" style="display:inline-flex;">
@@ -645,7 +645,7 @@ function displayBotMessage(botResponse, messageID) {
   botMessage.innerHTML = `
       <div class="card-body welcome-message pb-0" data-messageid=${messageID}>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-end justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-top justify-content-end">
           <img class="waterdrop1" />
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body">
