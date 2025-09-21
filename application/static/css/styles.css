@@ -176,7 +176,7 @@ p .h6 {
   flex-shrink: 0; */
 
   .waterdrop1 {
-    width: 5.8125rem;
+    width: 6.8125rem;
     height: 6.8125rem;
     content: url(../images/WaterDrop1.png);
     background-repeat: no-repeat;
@@ -372,7 +372,7 @@ a {
 .waterdrop1,
 .waterdrop2,
 waterdrop5 {
-  width: 3.625rem;
+  width: 4.25rem;
   height: 4.25rem;
   flex-shrink: 0;
 }
@@ -395,7 +395,7 @@ waterdrop5 {
 
   white-space: normal;
   overflow-wrap: anywhere; /* break long words/URLs */
-  border-radius: 0px 13px 13px 13px;
+  border-radius: 0px 35px 35px 35px;
 }
 
 .bot-message-body,
@@ -404,7 +404,7 @@ waterdrop5 {
   max-width: 95vw; /* don’t overflow small screens */
   display: block; /* or flex, but NOT inline-flex */
   padding: 1rem;
-  border-radius: 0px 13px 13px 13px;
+  border-radius: 0px 35px 35px 35px;
   background: #eee;
 
   white-space: normal;
@@ -446,7 +446,7 @@ waterdrop5 {
   background: #eeeeee;
   background-attachment: fixed;
   color: #1f1d1d;
-  border-radius: 13px 13px 0px 13px;
+  border-radius: 20px 20px 0px 20px;
   height: fit-content;
   width: fit-content;
   padding: 0.5rem 1rem;
