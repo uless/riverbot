@@ -178,7 +178,7 @@ p .h6 {
   .waterdrop1 {
     width: 5.8125rem;
     height: 6.8125rem;
-    content: url(../images/WaterDrop1.svg);
+    content: url(../images/WaterDrop1.png);
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -270,7 +270,7 @@ p .h6 {
 .waterdrop1 {
   width: 5.8125rem;
   height: 6.8125rem;
-  content: url(../images/WaterDrop1.svg);
+  content: url(../images/WaterDrop1.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -317,28 +317,75 @@ a {
 
 /* Chatbot-prompt */
 .chatbot-prompt-container {
-  padding: 1rem 2rem 0rem 2rem;
-  background-color: #ffffff;
+  padding: 1rem 5rem 1rem 2rem;
+  background-color: transparent;
   min-width: auto;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin-left: 20px ;
+  margin-right: 200px ;
 }
 @media (max-width: 992px) {
   .chatbot-prompt-container {
-    padding: 1rem 1rem 0rem 1rem;
+    padding: 1rem 1rem 2rem 1rem;
   }
 }
-.chatbot-prompt {
+
+
+
+/* Container for arrow + dropdown */
+.top-right-icon {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-items: left;
-  align-items: stretch;
+  align-items: center;
+}
+
+/* Hidden drop‑box: collapsed height and zero opacity */
+.nav-items {
+  position: absolute;
+  right: -8px;
+  top: -11px;
+  width: 80px;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 47px;
+  background: #8c1d40;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Show menu when hovering over container or nav-items itself */
+.top-right-icon:hover .nav-items,
+.nav-items:hover {
+  height: 240px;   /* adjust to fit your items */
+  opacity: 1;
+}
+
+/* Each circular nav button */
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 12px auto;
+  border-radius: 60%;
+  background: #fff;
+  color: #8c1d40;
+  text-decoration: none;
+  font-size: 35px;
+}
+.chatbot-prompt {
+ /* margin-right: 80px; */
+  display: flex;
+  flex-direction: column; /* this aligns internal items to the left */
+  justify-content: flex-start;
   gap: 0.5rem;
   height: calc(100vh - 310px);
   overflow-y: auto;
   flex-shrink: 0;
   padding-bottom: 10px;
   max-width: 100%;
+  margin-left: 0;
 }
 .card-footer {
   background-color: inherit;
@@ -362,14 +409,13 @@ a {
   padding: 5px;
   cursor: pointer;
 }
-.dislike-buttons {
+.dislike-buttons{
   border: 1px solid #8c1d40;
   border-radius: 20px;
-  margin-right: 5 rem;
+  margin-right:5 rem;
 }
 .waterdrop1,
-.waterdrop2,
-waterdrop5 {
+.waterdrop2, waterdrop5 {
   width: 3.625rem;
   height: 4.25rem;
   flex-shrink: 0;
@@ -384,8 +430,67 @@ waterdrop5 {
   height: 8.25rem;
   flex-shrink: 0;
 }
+.welcome-message-body {
+  position: relative; /* Add this to the selected element */
+  /* other styles */
+}
+.bot-message-body::after{
+   content: '';
+  position: relative;
+  bottom: 1px; /* Position at the bottom */
+  left: -16px; /* Position at the left */
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid transparent; /* Adjust size and color */
+  border-left: 20px solid transparent; /* Adjust size and color */
+  border-right: 13px solid transparent; /* Adjust size */
+  border-top: 10px solid transparent; /* Adjust size */
+  transform: translateX(-100%); /* Shift left by its own width to position correctly */
+  border-bottom-right-radius: 23%;
+  border-bottom-left-radius: 50%;
+  box-shadow: 16px 9px 0px 8px #eeeeee;
+
+}
+.welcome-message-body::after {
+  content: '';
+  position: relative;
+  bottom: 1px; /* Position at the bottom */
+  left: -16px; /* Position at the left */
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid transparent; /* Adjust size and color */
+  border-left: 20px solid transparent; /* Adjust size and color */
+  border-right: 13px solid transparent; /* Adjust size */
+  border-top: 10px solid transparent; /* Adjust size */
+  transform: translateX(-100%); /* Shift left by its own width to position correctly */
+  border-bottom-right-radius: 23%;
+  border-bottom-left-radius: 50%;
+  box-shadow: 16px 9px 0px 8px #eeeeee;
+}
+
+.message-body::after{
+  content: '';
+  z-index: -2;
+  position: absolute;
+  top:-6px ; /* Position at the bottom */
+  right : 42px; /* Position at the left */
+  width: 0;
+  height: 0;
+  border-bottom: 16px solid transparent; /* Adjust size and color */
+  border-left: 19px solid transparent; /* Adjust size and color */
+  border-right: 10px solid transparent; /* Adjust size */
+  border-top: 10px solid transparent; /* Adjust size */
+  transform: translateX(50%) rotate(270deg) scaleX(-1); /* Shift left by its own width to position correctly */
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 30%;
+  box-shadow: 21px 9px 0px 8px #eeeeee;
+}
+
+
+
 .bot-message-body,
 .welcome-message-body {
+  margin-left: -15px;
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -399,7 +504,6 @@ waterdrop5 {
   border-radius: 0.5rem;
   padding: 1rem;
 }
-
 .message-body {
   display: inline-flex;
   flex-direction: column;
@@ -433,15 +537,9 @@ waterdrop5 {
 }
 
 .message-body {
-  background: linear-gradient(
-      180deg,
-      hsl(207, 83%, 57%) 0%,
-      hsl(212, 54%, 52%) 50%,
-      hsl(206, 66%, 33%) 92%
-    )
-    no-repeat center;
+  background: #eeeeee;
   background-attachment: fixed;
-  color: #fff;
+  color: #1f1d1d;
   border-radius: 0.5rem 0.2rem 0.2rem 0.5rem;
   height: fit-content;
   width: fit-content;
@@ -481,17 +579,13 @@ waterdrop5 {
   padding: 8px;
 }
 
-.feedback-button,
-.feedback-other-button,
-.modal-feedback-button {
-  background: #ffc627;
+.feedback-button,.feedback-other-button, .modal-feedback-button{
+  background: #FFC627;
   border-radius: 20px;
-  border: 1px solid #ffc627;
+  border: 1px solid #FFC627;
 }
 
-.feedback-button:hover,
-.feedback-other-button:hover,
-.modal-feedback-button:hover {
+.feedback-button:hover, .feedback-other-button:hover, .modal-feedback-button:hover{
   border: 1px solid black;
 }
 
@@ -527,7 +621,7 @@ waterdrop5 {
   cursor: pointer;
 }
 
-.followup-selected {
+.followup-selected{
   color: white;
   background: #8c1d40;
 }
@@ -616,10 +710,11 @@ waterdrop5 {
 
 .left {
   float: left;
-  max-width: 90%;
+  max-width: fit-content !important;
   justify-content: flex-end;
 }
 .right {
+  margin-left: 50%;
   justify-content: flex-end;
 }
 
@@ -634,7 +729,7 @@ waterdrop5 {
   animation: pulse 1s linear infinite;
 }
 .loader:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 24px;
   height: 24px;
@@ -649,23 +744,12 @@ waterdrop5 {
 }
 
 @keyframes scaleUp {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-  }
-  60%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
+  0% { transform: translate(-50%, -50%) scale(0) }
+  60% , 100% { transform: translate(-50%, -50%)  scale(1)}
 }
 @keyframes pulse {
-  0%,
-  60%,
-  100% {
-    transform: scale(1);
-  }
-  80% {
-    transform: scale(1.2);
-  }
+  0% , 60% , 100%{ transform:  scale(1) }
+  80% { transform:  scale(1.2)}
 }
 .btn-mic:hover svg {
   transform: scale(1.05);
@@ -721,12 +805,12 @@ waterdrop5 {
 }
 
 .language-button.english-button {
-  background: #8c1d40;
-  color: #ffffff;
+  background: #8C1D40;
+  color: #FFFFFF;
   border-top-left-radius: 25.5px;
   border-bottom-left-radius: 25.5px;
-  border-top-right-radius: 0; /* Adjust border radius */
-  border-bottom-right-radius: 0; /* Adjust border radius */
+  border-top-right-radius: 0;  /* Adjust border radius */
+  border-bottom-right-radius: 0;  /* Adjust border radius */
   width: 70px; /* Adjusted width */
   height: 35px; /* Adjusted height */
   font-size: 12px; /* Adjusted font size */
@@ -738,10 +822,10 @@ waterdrop5 {
 
 .language-button.spanish-button {
   background: #606060;
-  color: #ffffff;
+  color: #FFFFFF;
   border-top-right-radius: 25.5px;
   border-bottom-right-radius: 25.5px;
-  border-top-left-radius: 0; /* Adjust border radius */
+  border-top-left-radius: 0;  /* Adjust border radius */
   border-bottom-left-radius: 0;
   font-family: Montserrat, sans-serif;
   font-size: 12px; /* Adjusted font size */
@@ -759,29 +843,29 @@ waterdrop5 {
   color: #f0f0f0; /* Light greyish white for better contrast */
 }
 
+
 .language-button.english-button:hover {
   background-color: #a83250; /* Slightly lighter shade for hover */
   color: #f0f0f0; /* Light greyish white for text */
 }
 
 .language-button.active {
-  background-color: #8c1d40;
-  color: #ffffff;
+  background-color: #8C1D40;
+  color: #FFFFFF;
 }
 
 .language-transcript-row {
   padding: 20px;
 }
 
-.language-section,
-.transcript-section {
+.language-section, .transcript-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align content to the left */
   padding: 10px;
 }
 
-.language-text {
+.language-text{
   margin-bottom: 7px;
   font-size: 16px;
   font-weight: 700;
@@ -796,10 +880,10 @@ waterdrop5 {
 .transcript-button {
   width: 125px; /* Set the button width */
   height: 40px; /* Set the button height */
-  margin-top: 0;
+  margin-top: 0; 
   flex-shrink: 0; /* Prevent the button from shrinking */
-  background-color: #8c1d40; /* Background color */
-  padding: 5px 0;
+  background-color: #8C1D40; /* Background color */
+  padding: 5px 0; 
   color: white; /* Text color for visibility */
   border: none; /* Remove default border */
   border-radius: 25px; /* Rounded corners */
@@ -867,7 +951,7 @@ main {
     z-index: 1000;
     padding: 1rem;
     border-top: 1px solid #d0d0d0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
 
   .navbar-nav {
