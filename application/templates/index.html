@@ -97,8 +97,35 @@
   padding: 0 20px;
   height: 120px;
 }
+/* Fullscreen transparent overlay */
+.mic-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999; /* semi-transparent backdrop */
+    top: 50%;
+    left: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center box with transparent background */
+.mic-modal-content {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+}
+
+/* Size of animation */
+#mic-animation {
+    width: 150px;
+    height: 150px;
+    background: rgba(0, 0, 0, 0);
+}
+
   </style>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-28W41YFR82"></script>
@@ -112,7 +139,12 @@
 </script>
 
 <body data-spy="scroll" data-target=".chatbot-prompt .welcome-message-scroll" data-bs-offset="147">
-
+<!-- Mic Animation Modal -->
+<div id="micModal" class="mic-modal">
+    <div class="mic-modal-content">
+        <div id="mic-animation"></div>
+    </div>
+</div>
 <header class="minimal-header">
   <div class="asu-logo-box">
   <img src="../static/images/ASU_Sunburst.png" alt="ASU Logo" class="asu-logo-img">
@@ -271,6 +303,15 @@
 
   <!-----adding script to handle audio to transcribe functionality------------------------>
 <script>
+    const micAnimation = lottie.loadAnimation({
+        container: document.getElementById('mic-animation'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: false,
+        path: '/static/animation/mic.json' // replace with your Lottie JSON path
+    });
+
+    const micModal = document.getElementById("micModal");
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (SpeechRecognition) {
   const recognition = new SpeechRecognition();
@@ -289,11 +330,15 @@ if (SpeechRecognition) {
       recognition.start();
         micIcon.classList.remove('bi-mic');
         micIcon.classList.add('bi-pause');
+        micModal.style.display = "flex";  // show modal
+        micAnimation.play();
       isListening = true;
     } else {
       recognition.stop();
       micIcon.classList.remove('bi-pause');
       micIcon.classList.add('bi-mic');
+        micModal.style.display = "none";  // hide modal
+        micAnimation.stop();
       isListening = false;
     }
   });
@@ -316,6 +361,8 @@ if (SpeechRecognition) {
   recognition.onend = function() {
     micIcon.classList.remove('bi-pause');
      micIcon.classList.add('bi-mic');
+      micModal.style.display = "none";
+      micAnimation.stop();
     isListening = false;
   };
 
@@ -323,7 +370,8 @@ if (SpeechRecognition) {
   console.warn('Web Speech API not supported in this browser.');
   document.getElementById('mic-button').disabled = true;
 }
-</script>]
+</script>
+
 </body>
 <footer></footer>
 
