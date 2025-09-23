@@ -218,7 +218,7 @@ custom_system_prompt = get_custom_system_prompt()
 # Manager classes
 memory = MemoryManager()  # Assuming you have a MemoryManager class
 datastore = DynamoDBManager(messages_table=MESSAGES_TABLE)
-knowledge_base = ChromaManager(persist_directory="docs/chroma/", embedding_function=embeddings)
+knowledge_base = ChromaManager(persist_directory="../application/scripts/docs/chroma", embedding_function=embeddings)
 knowledge_base_spanish = ChromaManager(persist_directory="docs/chroma/spanish", embedding_function=embeddings)
 s3_manager = S3Manager(bucket_name=TRANSCRIPT_BUCKET_NAME)
 

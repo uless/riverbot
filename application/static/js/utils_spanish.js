@@ -334,7 +334,7 @@ function showReactions(message) {
             <div class="row">
             <div
                     class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-center justify-content-center">
-                    <img class="waterdrop2" />
+                    <img class="waterdrop1" />
                   </div>
                   <div class="col-md-10 align-items-center" style="display:inline-flex;">
                     <div class="loader"></div> &nbsp; <span class="text-primary">Generating response...</span>

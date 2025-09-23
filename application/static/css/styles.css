@@ -176,6 +176,8 @@ p .h6 {
   flex-shrink: 0; */
 
   .waterdrop1 {
+      position: relative;
+      top: 20px;
     width: 5.8125rem;
     height: 6.8125rem;
     content: url(../images/WaterDrop1.png);
@@ -412,10 +414,11 @@ a {
 .dislike-buttons{
   border: 1px solid #8c1d40;
   border-radius: 20px;
-  margin-right:5 rem;
+  margin-right: 5rem;
 }
-.waterdrop1,
-.waterdrop2, waterdrop5 {
+.waterdrop1{
+    position: relative;
+    top: 20px;
   width: 3.625rem;
   height: 4.25rem;
   flex-shrink: 0;
