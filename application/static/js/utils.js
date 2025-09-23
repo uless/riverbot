@@ -659,7 +659,7 @@ function displayBotMessage(botResponse, messageID) {
       <div class="row">
       <div class = "chat-row">
           <img class="waterdrop1" />
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body pb-2">
           <p class="m-0" id="botmessage-${messageID}"></p>
         </div>
         </div>
