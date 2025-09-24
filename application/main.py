@@ -13,7 +13,7 @@ from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException
 from fastapi import Request, Form
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import WebSocket
 
@@ -181,39 +181,7 @@ ADAPTERS = {
 # llm_adapter=ADAPTERS["claude.haiku"]
 llm_adapter=ADAPTERS["openai-gpt4.1"]
 
-# Global variable to store custom system prompt
-custom_system_prompt = None
-
-def get_custom_system_prompt():
-    """Get custom system prompt from file storage"""
-    try:
-        if os.path.exists('custom_prompt.txt'):
-            with open('custom_prompt.txt', 'r', encoding='utf-8') as f:
-                return f.read().strip()
-    except Exception as e:
-        logging.error(f"Error reading custom prompt: {e}")
-    return None
-
-def set_custom_system_prompt(prompt):
-    """Set custom system prompt to file storage"""
-    global custom_system_prompt
-    try:
-        if prompt:
-            with open('custom_prompt.txt', 'w', encoding='utf-8') as f:
-                f.write(prompt)
-            custom_system_prompt = prompt
-        else:
-            if os.path.exists('custom_prompt.txt'):
-                os.remove('custom_prompt.txt')
-            custom_system_prompt = None
-    except Exception as e:
-        logging.error(f"Error writing custom prompt: {e}")
-        custom_system_prompt = prompt
-
 embeddings = llm_adapter.get_embeddings()
-
-# Load custom system prompt from file if it exists
-custom_system_prompt = get_custom_system_prompt()
 
 # Manager classes
 memory = MemoryManager()  # Assuming you have a MemoryManager class
@@ -240,12 +208,8 @@ async def home(request: Request,):
     # hostname = socket.gethostname()
     # ip_address = socket.gethostbyname(hostname)
 
-    current_custom_prompt = get_custom_system_prompt()
-    print(f"DEBUG: Index route - custom_system_prompt value: {current_custom_prompt}")
-
     context = {
         "request": request,
-        "custom_system_prompt": current_custom_prompt,
         # "hostname": hostname,
         # "ip_address": ip_address
     }
@@ -278,32 +242,6 @@ async def home(request: Request,):
     }
 
     return templates.TemplateResponse("spanish.html", context )
-
-@app.post("/set-custom-prompt")
-async def set_custom_prompt(request: Request, customPrompt: Annotated[str, Form()] = ""):
-    print(f"DEBUG: Received custom prompt: '{customPrompt}'")
-    print(f"DEBUG: Custom prompt type: {type(customPrompt)}")
-    print(f"DEBUG: Custom prompt length: {len(customPrompt) if customPrompt else 0}")
-    
-    if customPrompt.strip():
-        set_custom_system_prompt(customPrompt.strip())
-        print(f"DEBUG: Setting custom system prompt to: '{customPrompt.strip()}'")
-        logging.info(f"Custom system prompt set: {customPrompt.strip()}")
-    else:
-        set_custom_system_prompt(None)
-        print("DEBUG: Clearing custom system prompt")
-        logging.info("Custom system prompt cleared, using default")
-    
-    print(f"DEBUG: Final custom_system_prompt value: {get_custom_system_prompt()}")
-    
-    # Redirect to the main chat interface
-    return RedirectResponse(url="/index", status_code=303)
-
-@app.get("/clear-custom-prompt")
-async def clear_custom_prompt():
-    set_custom_system_prompt(None)
-    logging.info("Custom system prompt cleared")
-    return RedirectResponse(url="/", status_code=303)
 
 
 # Database connection variables
@@ -706,16 +644,11 @@ async def chat_api_post(request: Request, user_query: Annotated[str, Form()], ba
          docs = await knowledge_base.ann_search(user_query)
          doc_content_str = await knowledge_base.knowledge_to_string(docs)
     
-    # Debug logging for custom prompt
-    current_custom_prompt = get_custom_system_prompt()
-    logging.info(f"Using custom system prompt: {current_custom_prompt}")
-    
     llm_body = await llm_adapter.get_llm_body( 
         chat_history=await memory.get_session_history_all(session_uuid), 
         kb_data=doc_content_str,
         temperature=.5,
-        max_tokens=500,
-        custom_system_prompt=current_custom_prompt )
+        max_tokens=500 )
 
     response_content = await llm_adapter.generate_response(llm_body=llm_body)
 

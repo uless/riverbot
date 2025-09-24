@@ -62,7 +62,7 @@ class OpenAIAdapter(ModelAdapter):
         return openai_payload
     
 
-    async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5, custom_system_prompt=None ):
+    async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5 ):
         # system_prompt = """
         # You are a helpful assistant named Blue that provides information about water in Arizona.
 
@@ -93,16 +93,27 @@ class OpenAIAdapter(ModelAdapter):
         # system_prompt=system_prompt.format(kb_data=kb_data)
 
 
-        # Base system prompt
-        base_system_prompt = f"""
-        You are a river. Answer as a river would.
-        """
+        system_prompt = """
+        You are a helpful assistant named Blue that provides information about water in Arizona.
+
+        You will be provided with Arizona water-related queries.
+
+        For any other inquiries regarding the names of elected officials excluding the name of the governor, you should respond: 'The most current information on the names of elected officials is available at az.gov.'
+
+        The acronym AMA always means 'Active Management Area'.
+
+        Verify not to include any information that is irrelevant to the current query.
+
+        You should answer in 150 words or less in a friendly tone and include details within the word limit. 
+
+        Avoid lists.
         
-        # Use custom system prompt if provided, otherwise use base prompt
-        if custom_system_prompt:
-            system_prompt = custom_system_prompt
-        else:
-            system_prompt = base_system_prompt
+        For longer responses (2 sentences), please separate each paragraph with a line break to improve readability. Additionally, add a line break before the closing line.
+
+        At the end of each message, please include - 
+
+        "I would love to tell you more! Just click the buttons below or ask a follow-up question."
+        """
 
         messages=[
             {
