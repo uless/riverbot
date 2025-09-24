@@ -380,12 +380,12 @@ $(document).ready(function () {
     botMessage.innerHTML = `
           <div class="card-body">
             <div class="row">
-            <div
-                    class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-center justify-content-center">
-                    <img class="waterdrop2" />
-                  </div>
-                  <div class="col-md-10 align-items-center" style="display:inline-flex;">
-                    <div class="loader"></div> &nbsp; <span class="text-primary">Generating response...</span>
+              <div class="chat-row">
+                <img class="waterdrop2" />
+              
+            <div class="col-md-10 align-items-center" style="display:inline-flex;">
+            <div class="loader"></div> &nbsp; <span class="text-primary">Generating response...</span>
+            </div>
                   </div>
             </div>
         </div>
@@ -587,27 +587,39 @@ function removeThumbsDown(messageid) {
 
 function messageInterval(botResponse, messageID) {
   const $el = $(".card-body").find("#botmessage-" + messageID);
-  const speed = 100; // ms
+  const speed = 50; // ms - faster for character by character
   $el.html(""); // Clear previous content
 
-  // Split by spaces and HTML tags, keeping tags intact
-  const wordArray = botResponse.split(/(<\/?[^>]+>| )/g).filter(Boolean);
-  let i = 0;
+  // Split by HTML tags and text content
+  const parts = botResponse.split(/(<[^>]*>)/g).filter(Boolean);
+  let partIndex = 0;
+  let charIndex = 0;
+  let currentText = "";
 
-  // Display each word or tag sequentially
+  // Display each character sequentially, handling HTML tags
   const interval = setInterval(() => {
-    if (i >= wordArray.length) {
-      clearInterval(interval); // Stop once all elements are appended
+    if (partIndex >= parts.length) {
+      clearInterval(interval); // Stop once all parts are processed
+      return;
+    }
+
+    const currentPart = parts[partIndex];
+
+    // If it's an HTML tag, add it immediately
+    if (currentPart.match(/^<[^>]*>$/)) {
+      $el.append(currentPart);
+      partIndex++;
+      charIndex = 0;
     } else {
-      // Append current item and move to the next
-      if (wordArray[i].match(/<\/?[^>]+>/)) {
-        // If it's an HTML tag, add immediately
-        $el.append(wordArray[i]);
+      // If it's text content, add character by character
+      if (charIndex < currentPart.length) {
+        $el.append(currentPart[charIndex]);
+        charIndex++;
       } else {
-        // If it's a text word, add with a space
-        $el.append(`${wordArray[i]} `);
+        // Move to next part
+        partIndex++;
+        charIndex = 0;
       }
-      i++;
     }
   }, speed);
 }
@@ -645,9 +657,8 @@ function displayBotMessage(botResponse, messageID) {
   botMessage.innerHTML = `
       <div class="card-body welcome-message pb-0" data-messageid=${messageID}>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-top justify-content-center">
+      <div class = "chat-row">
           <img class="waterdrop1" />
-        </div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body">
           <p class="m-0" id="botmessage-${messageID}"></p>
         </div>
@@ -655,7 +666,7 @@ function displayBotMessage(botResponse, messageID) {
       </div>
       <div class="card-footer pt-0 p-8" style="padding:8px; border:0;">
       <div class="row mb-4">
-        <div class="col-2"></div>
+        <div class="col-11"></div>
         <div class="col-10" style="padding-top: 0.5rem;">
        
         <a class="reaction" title="I like the response" data-messageid=${messageID} data-reaction="1"><i class="bi bi-hand-thumbs-up fa-0.75x"></i></a> 
@@ -704,8 +715,10 @@ function displayBotMessage(botResponse, messageID) {
                   </button>
                   </div>
                 </div>
+                
             </div>
         </div>
+      </div>
       </div>
     </div>
       <!-- Modal -->
