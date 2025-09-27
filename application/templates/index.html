@@ -79,7 +79,7 @@
   background-position: center center;
   margin: 0;
   padding: 0;
-  height: 100vh;                    
+  height: 100vh;
   }
 
     .container-xl {
@@ -153,12 +153,12 @@
     <img src="../static/images/downIcon.png" alt="Icon" class="icon-img">
     <div class="nav-items" id="nav-items">
       <a href="#" class="nav-item"><i class="bi bi-house"></i></a>
-      <a href="#" class="nav-item"><i class="bi bi-download"></i></a>
+      <a href="#" class="nav-item nav-download"><i class="bi bi-download"></i></a>
       <a href="#" class="nav-item" id="mic-button"><i class="bi bi-mic"></i></a>
     </div>
   </div>
   <!-- Hidden icons for home, download, mic -->
-    
+
 </header>
 
   <!-- Main body -->
@@ -175,7 +175,7 @@
                     <img class="waterdrop1" />
                   </div>
                   <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-9 welcome-message-body">
-          
+
                     <p>Hi! My name is Blue! I'm here to answer your questions about water in Arizona.</p>
                     <p>Ask me anything you want about the story of water in our state!</p>
                     <p>Not sure where to start? You can try asking questions about:</p>
@@ -192,7 +192,7 @@
             </div>
           </div>
 
-      
+
           <div  style="display:none;"></div>
 
          <form autocomplete="off" onsubmit="return false" action="/chat_api" method="post" id="userBox" style="display: flex; align-items: center;">
@@ -346,7 +346,7 @@ if (SpeechRecognition) {
   recognition.onresult = function(event) {
     const transcript = event.results[0][0].transcript;
     console.log('Transcript:', transcript);
-    
+
     transcriptionDiv.value = transcript;
 
   };

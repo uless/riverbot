@@ -28,8 +28,43 @@ $(document).ready(function () {
   //     `;
   //   chatHistory.appendChild(userMessage);
   // }
+    // download transcript
+    document.querySelector(".nav-download").addEventListener("click", async (e) => {
+        e.preventDefault();
 
-  // Toggle buttons for language selection
+        try {
+            const response = await fetch("/session-transcript", {
+                method: "POST",
+                credentials: "include" // ✅ ensures cookie/session goes through
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch transcript");
+            }
+
+            const data = await response.json();
+
+            if (data.presigned_url) {
+                // Trigger file download
+                const link = document.createElement("a");
+                link.href = data.presigned_url;
+                link.download = "session-transcript.txt"; // suggest filename
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        } catch (err) {
+            console.error("Error downloading transcript:", err);
+            alert("Could not download transcript. Please try again.");
+        }
+    });
+
+
+
+
+
+
+    // Toggle buttons for language selection
 document.getElementById('english-button').addEventListener('click', function() {
   this.classList.add('active');
   document.getElementById('spanish-button').classList.remove('active');
@@ -52,12 +87,14 @@ const openHeight = '240px';
 
 navContainer.addEventListener('mouseenter', () => {
   navItems.style.height = openHeight;
-  navItems.style.opacity = '1';
+  navItems.style.opacity = '1'
+    console.log('mouseenter')
 });
 
 navContainer.addEventListener('mouseleave', () => {
   navItems.style.height = '0';
   navItems.style.opacity = '0';
+    console.log('mouseleave')
 });
 function showReactions(message) {
     $(message).find('.reactions').show();
@@ -542,43 +579,47 @@ function removeThumbsDown(messageid) {
 
 
 function messageInterval(botResponse, messageID) {
-    const $el = $(".card-body").find("#botmessage-" + messageID);
-    const speed = 50; // ms - faster for character by character
+    const $container = $("#chatbot-prompt"); // ✅ this is the scrollable one
+    const $el = $container.find("#botmessage-" + messageID);
+    const speed = 20; // ms - faster typing
     $el.html(""); // Clear previous content
 
-    // Split by HTML tags and text content
     const parts = botResponse.split(/(<[^>]*>)/g).filter(Boolean);
     let partIndex = 0;
     let charIndex = 0;
-    let currentText = "";
 
-    // Display each character sequentially, handling HTML tags
     const interval = setInterval(() => {
         if (partIndex >= parts.length) {
-            clearInterval(interval); // Stop once all parts are processed
+            clearInterval(interval);
             return;
         }
 
         const currentPart = parts[partIndex];
 
-        // If it's an HTML tag, add it immediately
         if (currentPart.match(/^<[^>]*>$/)) {
             $el.append(currentPart);
             partIndex++;
             charIndex = 0;
         } else {
-            // If it's text content, add character by character
             if (charIndex < currentPart.length) {
                 $el.append(currentPart[charIndex]);
                 charIndex++;
             } else {
-                // Move to next part
                 partIndex++;
                 charIndex = 0;
             }
         }
+
+        // 🔽 Auto-scroll fix with slight delay
+        setTimeout(() => {
+            $container.scrollTop($container[0].scrollHeight);
+        }, 0);
     }, speed);
 }
+
+
+
+
 // Function to display a user message in the chat interface
 function displayUserMessage(userQuery) {
 const chatHistory = document.getElementById('chatbot-prompt');
