@@ -498,7 +498,6 @@ a {
   gap: 0.5rem;
   padding-left: 0.5rem;
   word-wrap: break-word;
-  flex-grow: 1;
   background: #eeeeee;
   /* border-radius: 0.5rem 0.5rem 0rem 0rem; */
   border-radius: 0.5rem;

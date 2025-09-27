@@ -540,33 +540,45 @@ function removeThumbsDown(messageid) {
   $("a[data-messageid='" + messageid + "'][data-reaction=1]").removeClass("reaction");
 }
 
+
 function messageInterval(botResponse, messageID) {
-  const $el = $(".card-body").find("#botmessage-" + messageID);
-  const speed = 100; // ms
-  $el.html(""); // Clear previous content
+    const $el = $(".card-body").find("#botmessage-" + messageID);
+    const speed = 50; // ms - faster for character by character
+    $el.html(""); // Clear previous content
 
-  // Split by spaces and HTML tags, keeping tags intact
-  const wordArray = botResponse.split(/(<\/?[^>]+>| )/g).filter(Boolean);
-  let i = 0;
+    // Split by HTML tags and text content
+    const parts = botResponse.split(/(<[^>]*>)/g).filter(Boolean);
+    let partIndex = 0;
+    let charIndex = 0;
+    let currentText = "";
 
-  // Display each word or tag sequentially
-  const interval = setInterval(() => {
-    if (i >= wordArray.length) {
-      clearInterval(interval); // Stop once all elements are appended
-    } else {
-      // Append current item and move to the next
-      if (wordArray[i].match(/<\/?[^>]+>/)) {
-        // If it's an HTML tag, add immediately
-        $el.append(wordArray[i]);
-      } else {
-        // If it's a text word, add with a space
-        $el.append(`${wordArray[i]} `);
-      }
-      i++;
-    }
-  }, speed);
+    // Display each character sequentially, handling HTML tags
+    const interval = setInterval(() => {
+        if (partIndex >= parts.length) {
+            clearInterval(interval); // Stop once all parts are processed
+            return;
+        }
+
+        const currentPart = parts[partIndex];
+
+        // If it's an HTML tag, add it immediately
+        if (currentPart.match(/^<[^>]*>$/)) {
+            $el.append(currentPart);
+            partIndex++;
+            charIndex = 0;
+        } else {
+            // If it's text content, add character by character
+            if (charIndex < currentPart.length) {
+                $el.append(currentPart[charIndex]);
+                charIndex++;
+            } else {
+                // Move to next part
+                partIndex++;
+                charIndex = 0;
+            }
+        }
+    }, speed);
 }
-
 // Function to display a user message in the chat interface
 function displayUserMessage(userQuery) {
 const chatHistory = document.getElementById('chatbot-prompt');
