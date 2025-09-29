@@ -395,6 +395,7 @@ a {
   gap: 0.5rem;
   height: calc(100vh - 310px);
   overflow-y: auto;
+  overflow-x: hidden;
   flex-shrink: 0;
   padding-bottom: 10px;
   max-width: 100%;
