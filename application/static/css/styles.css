@@ -142,6 +142,20 @@ p .h6 {
     color: black;
   }
 }
+.chat-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.col-11 {
+  flex: 0 0 auto;
+  width: 6rem;
+}
+
+.ps-10 {
+  padding-left: 6rem !important;
+}
 
 .cVsgpr {
   position: fixed;
@@ -317,29 +331,77 @@ a {
 
 /* Chatbot-prompt */
 .chatbot-prompt-container {
-  padding: 1rem 2rem 0rem 2rem;
-  background-color: #ffffff;
+  padding: 1rem 5rem 1rem 5rem;
+  background-color: transparent;
   min-width: auto;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%; /* trims 240px from the right */
+  margin-right: auto;
 }
 @media (max-width: 992px) {
   .chatbot-prompt-container {
-    padding: 1rem 1rem 0rem 1rem;
+    padding: 1rem 1rem 2rem 1rem;
   }
 }
-.chatbot-prompt {
+
+/* Container for arrow + dropdown */
+.top-right-icon {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-items: left;
-  align-items: stretch;
+  align-items: center;
+}
+
+/* Hidden drop‑box: collapsed height and zero opacity */
+.nav-items {
+  position: absolute;
+  right: -8px;
+  top: -11px;
+  width: 80px;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 47px;
+  background: #8c1d40;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Show menu when hovering over container or nav-items itself */
+.top-right-icon:hover .nav-items,
+.nav-items:hover {
+  height: 240px; /* adjust to fit your items */
+  opacity: 1;
+}
+
+/* Each circular nav button */
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 12px auto;
+  border-radius: 60%;
+  background: #fff;
+  color: #8c1d40;
+  text-decoration: none;
+  font-size: 35px;
+}
+
+.chatbot-prompt {
+  /* margin-right: 80px; */
+  display: flex;
+  flex-direction: column; /* this aligns internal items to the left */
+  justify-content: flex-start;
   gap: 0.5rem;
   height: calc(100vh - 310px);
   overflow-y: auto;
+  overflow-x: hidden;
   flex-shrink: 0;
   padding-bottom: 10px;
   max-width: 100%;
+  margin-left: 0;
+  padding-top: 16px;
 }
+
 .card-footer {
   background-color: inherit;
   border-radius: 20px;
@@ -362,13 +424,14 @@ a {
   padding: 5px;
   cursor: pointer;
 }
-.dislike-buttons{
+.dislike-buttons {
   border: 1px solid #8c1d40;
   border-radius: 20px;
-  margin-right:5 rem;
+  margin-right: 5 rem;
 }
 .waterdrop1,
-.waterdrop2, waterdrop5 {
+.waterdrop2,
+waterdrop5 {
   width: 3.625rem;
   height: 4.25rem;
   flex-shrink: 0;
@@ -383,20 +446,32 @@ a {
   height: 8.25rem;
   flex-shrink: 0;
 }
+
+.welcome-message-body {
+  width: 800px; /* fixed */
+  max-width: 95vw; /* don’t overflow small screens */
+  display: block; /* or flex, but NOT inline-flex */
+  padding: 1rem;
+  background: #eee;
+  white-space: normal;
+  overflow-wrap: anywhere; /* break long words/URLs */
+  border-radius: 0px 35px 35px 35px;
+  padding-bottom: 0;
+}
+
 .bot-message-body,
 .welcome-message-body {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  align-self: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  word-wrap: break-word;
-  flex-grow: 1;
-  background: #eeeeee;
-  /* border-radius: 0.5rem 0.5rem 0rem 0rem; */
-  border-radius: 0.5rem;
+  width: 800px; /* fixed */
+  max-width: 95vw; /* don’t overflow small screens */
+  display: block; /* or flex, but NOT inline-flex */
   padding: 1rem;
+  border-radius: 35px 35px 35px 0px;
+  background: #eee;
+
+  white-space: normal;
+  overflow-wrap: anywhere; /* break long words/URLs */
+  margin-left: 0;
+  padding-bottom: 5px;
 }
 
 .message-body {
@@ -410,8 +485,14 @@ a {
   padding: 1rem;
   background: #eee;
   border-radius: 1rem;
+  padding-bottom: 1rem;
 }
-.chxatbot-question {
+
+.nav-items .nav-download {
+  cursor: pointer;
+}
+
+.chatbot-question {
   display: flex;
   /* flex-direction: row; */
   align-items: flex-start;
@@ -432,20 +513,15 @@ a {
 }
 
 .message-body {
-  background: linear-gradient(
-      180deg,
-      hsl(207, 83%, 57%) 0%,
-      hsl(212, 54%, 52%) 50%,
-      hsl(206, 66%, 33%) 92%
-    )
-    no-repeat center;
+  background: #eeeeee;
   background-attachment: fixed;
-  color: #fff;
-  border-radius: 0.5rem 0.2rem 0.2rem 0.5rem;
+  color: #1f1d1d;
+  border-radius: 20px 20px 0px 20px;
   height: fit-content;
   width: fit-content;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   margin: 0.12rem 0.5rem;
+  margin-right: 1rem;
   /* margin-left: 20%; */
 }
 
@@ -480,13 +556,17 @@ a {
   padding: 8px;
 }
 
-.feedback-button,.feedback-other-button, .modal-feedback-button{
-  background: #FFC627;
+.feedback-button,
+.feedback-other-button,
+.modal-feedback-button {
+  background: #ffc627;
   border-radius: 20px;
-  border: 1px solid #FFC627;
+  border: 1px solid #ffc627;
 }
 
-.feedback-button:hover, .feedback-other-button:hover, .modal-feedback-button:hover{
+.feedback-button:hover,
+.feedback-other-button:hover,
+.modal-feedback-button:hover {
   border: 1px solid black;
 }
 
@@ -522,7 +602,7 @@ a {
   cursor: pointer;
 }
 
-.followup-selected{
+.followup-selected {
   color: white;
   background: #8c1d40;
 }
@@ -616,6 +696,7 @@ a {
 }
 .right {
   justify-content: flex-end;
+  margin-left: 50%;
 }
 
 .loader {
@@ -629,7 +710,7 @@ a {
   animation: pulse 1s linear infinite;
 }
 .loader:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 24px;
   height: 24px;
@@ -644,12 +725,23 @@ a {
 }
 
 @keyframes scaleUp {
-  0% { transform: translate(-50%, -50%) scale(0) }
-  60% , 100% { transform: translate(-50%, -50%)  scale(1)}
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  60%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 @keyframes pulse {
-  0% , 60% , 100%{ transform:  scale(1) }
-  80% { transform:  scale(1.2)}
+  0%,
+  60%,
+  100% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1.2);
+  }
 }
 .btn-mic:hover svg {
   transform: scale(1.05);
@@ -705,12 +797,12 @@ a {
 }
 
 .language-button.english-button {
-  background: #8C1D40;
-  color: #FFFFFF;
+  background: #8c1d40;
+  color: #ffffff;
   border-top-left-radius: 25.5px;
   border-bottom-left-radius: 25.5px;
-  border-top-right-radius: 0;  /* Adjust border radius */
-  border-bottom-right-radius: 0;  /* Adjust border radius */
+  border-top-right-radius: 0; /* Adjust border radius */
+  border-bottom-right-radius: 0; /* Adjust border radius */
   width: 70px; /* Adjusted width */
   height: 35px; /* Adjusted height */
   font-size: 12px; /* Adjusted font size */
@@ -722,10 +814,10 @@ a {
 
 .language-button.spanish-button {
   background: #606060;
-  color: #FFFFFF;
+  color: #ffffff;
   border-top-right-radius: 25.5px;
   border-bottom-right-radius: 25.5px;
-  border-top-left-radius: 0;  /* Adjust border radius */
+  border-top-left-radius: 0; /* Adjust border radius */
   border-bottom-left-radius: 0;
   font-family: Montserrat, sans-serif;
   font-size: 12px; /* Adjusted font size */
@@ -743,29 +835,29 @@ a {
   color: #f0f0f0; /* Light greyish white for better contrast */
 }
 
-
 .language-button.english-button:hover {
   background-color: #a83250; /* Slightly lighter shade for hover */
   color: #f0f0f0; /* Light greyish white for text */
 }
 
 .language-button.active {
-  background-color: #8C1D40;
-  color: #FFFFFF;
+  background-color: #8c1d40;
+  color: #ffffff;
 }
 
 .language-transcript-row {
   padding: 20px;
 }
 
-.language-section, .transcript-section {
+.language-section,
+.transcript-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align content to the left */
   padding: 10px;
 }
 
-.language-text{
+.language-text {
   margin-bottom: 7px;
   font-size: 16px;
   font-weight: 700;
@@ -780,10 +872,10 @@ a {
 .transcript-button {
   width: 125px; /* Set the button width */
   height: 40px; /* Set the button height */
-  margin-top: 0; 
+  margin-top: 0;
   flex-shrink: 0; /* Prevent the button from shrinking */
-  background-color: #8C1D40; /* Background color */
-  padding: 5px 0; 
+  background-color: #8c1d40; /* Background color */
+  padding: 5px 0;
   color: white; /* Text color for visibility */
   border: none; /* Remove default border */
   border-radius: 25px; /* Rounded corners */
@@ -851,7 +943,7 @@ main {
     z-index: 1000;
     padding: 1rem;
     border-top: 1px solid #d0d0d0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
   .navbar-nav {

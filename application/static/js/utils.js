@@ -33,6 +33,38 @@ $(document).ready(function () {
   //   chatHistory.appendChild(userMessage);
   // }
 
+  document
+    .querySelector(".nav-download")
+    .addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      try {
+        const response = await fetch("/session-transcript", {
+          method: "POST",
+          credentials: "include", // ✅ ensures cookie/session goes through
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch transcript");
+        }
+
+        const data = await response.json();
+
+        if (data.presigned_url) {
+          // Trigger file download
+          const link = document.createElement("a");
+          link.href = data.presigned_url;
+          link.download = "session-transcript.txt"; // suggest filename
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (err) {
+        console.error("Error downloading transcript:", err);
+        alert("Could not download transcript. Please try again.");
+      }
+    });
+
   // Toggle buttons for language selection
   document
     .getElementById("english-button")
@@ -51,6 +83,25 @@ $(document).ready(function () {
       // Navigate to Spanish version
       window.location.href = "Spanish_Translation_2.0.1.html"; // Adjust the URL as needed when spanish version is developed
     });
+
+  // JavaScript to animate open/close on hover
+  const navContainer = document.querySelector(".top-right-icon");
+  const navItems = document.getElementById("nav-items");
+
+  // height value equals icon height + margins and gaps (64*3 + 8*4)
+  const openHeight = "240px";
+
+  navContainer.addEventListener("mouseenter", () => {
+    navItems.style.height = openHeight;
+    navItems.style.opacity = "1";
+    console.log("mouseenter");
+  });
+
+  navContainer.addEventListener("mouseleave", () => {
+    navItems.style.height = "0";
+    navItems.style.opacity = "0";
+    console.log("mouseleave");
+  });
 
   function showReactions(message) {
     $(message).find(".reactions").show();
@@ -381,10 +432,10 @@ $(document).ready(function () {
           <div class="card-body">
             <div class="row">
             <div
-                    class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-center justify-content-center">
+                    class="col-auto flex-wrap align-items-center justify-content-center">
                     <img class="waterdrop2" />
                   </div>
-                  <div class="col-md-10 align-items-center" style="display:inline-flex;">
+                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-8 align-items-center" style="display:inline-flex;">
                     <div class="loader"></div> &nbsp; <span class="text-primary">Generating response...</span>
                   </div>
             </div>
@@ -518,14 +569,7 @@ $(document).ready(function () {
     fetch(apiUrl, {
       method: "POST",
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((errorMessage) => {
-            throw new Error(errorMessage);
-          });
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((botResponse) => {
         displayBotMessage(botResponse.resp, botResponse.msgID);
         removeLoadingAnimation();
@@ -534,7 +578,7 @@ $(document).ready(function () {
         scrollToBottom();
       })
       .catch((error) => {
-        console.error("Error:", error.message);
+        console.error("Error:", error);
         removeLoadingAnimation();
         $("#user_query").prop("disabled", false);
         $("#submit-button").prop("disabled", false);
@@ -656,19 +700,15 @@ function displayBotMessage(botResponse, messageID) {
   );
   botMessage.innerHTML = `
       <div class="card-body welcome-message pb-0" data-messageid=${messageID}>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap align-items-top justify-content-center">
+      <div class="row justify-content-start">
+        <div class="col-auto d-flex flex-wrap align-items-end justify-content-center">
           <img class="waterdrop1" />
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 bot-message-body">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-9 bot-message-body">
           <p class="m-0" id="botmessage-${messageID}"></p>
-        </div>
-        </div>
-      </div>
-      <div class="card-footer pt-0 p-8" style="padding:8px; border:0;">
-      <div class="row mb-4">
-        <div class="col-2"></div>
-        <div class="col-10" style="padding-top: 0.5rem;">
+           <div class="card-footer pt-0 p-8 footer-no-gap " style="padding:8px; border:0;">
+      <div class="row mb-0">
+        <div class="col-12" style="padding-top: 0.5rem;">
        
         <a class="reaction" title="I like the response" data-messageid=${messageID} data-reaction="1"><i class="bi bi-hand-thumbs-up fa-0.75x"></i></a> 
         <a class="reaction" data-toggle="tooltip" data-placement="top" title="Could be better" data-messageid=${messageID} data-reaction="0"><i class="bi bi-hand-thumbs-down fa-0.75x"></i></a>
@@ -689,6 +729,9 @@ function displayBotMessage(botResponse, messageID) {
         <!-- <a type="button" class = "btn btn-sm followup-buttons" id="actionItemsButton">
           <div>Things you can do</div> -->
         </a>
+        </div>
+      </div>
+        </div>
         </div>
       </div>
       <div id="feedback-${messageID}" class="row" style="display:none;">
