@@ -62,7 +62,7 @@ class OpenAIAdapter(ModelAdapter):
         return openai_payload
     
 
-    async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5 ):
+    async def get_llm_body( self, kb_data, chat_history, max_tokens=512, temperature=.5, endpoint_type="default" ):
         # system_prompt = """
         # You are a helpful assistant named Blue that provides information about water in Arizona.
 
@@ -93,16 +93,30 @@ class OpenAIAdapter(ModelAdapter):
         # system_prompt=system_prompt.format(kb_data=kb_data)
 
 
-        system_prompt = """
+        # System prompt based on endpoint type
+        if endpoint_type == "riverbot":
+            # Riverbot system prompt
+            system_prompt = f"""You are River. Answer as a river would."""
+        else:
+            system_prompt = f"""
         You are a helpful assistant named Blue that provides information about water in Arizona.
 
         You will be provided with Arizona water-related queries.
+
+        The governor of Arizona is Katie Hobbs.
+
+        When asked the name of the governor or current governor, you should respond with the name Katie Hobbs.
 
         For any other inquiries regarding the names of elected officials excluding the name of the governor, you should respond: 'The most current information on the names of elected officials is available at az.gov.'
 
         The acronym AMA always means 'Active Management Area'.
 
         Verify not to include any information that is irrelevant to the current query.
+
+        Use the following knowledge to answer questions: 
+        <knowledge>
+        {kb_data}
+        </knowledge>
 
         You should answer in 150 words or less in a friendly tone and include details within the word limit. 
 

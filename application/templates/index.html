@@ -87,7 +87,7 @@
       }
       body {
         background-image: url("../static/images/background.png");
-        background-size: cover; /* Stretch both width and height */
+        background-size: 100% 100%; /* Stretch both width and height */
         background-repeat: no-repeat;
         background-attachment: scroll; /* So it scrolls with the page */
         background-position: center center;
@@ -100,8 +100,44 @@
         overflow-y: auto;
         max-height: 100vh;
       }
+
+      .minimal-header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        height: 120px;
+      }
+      /* Fullscreen transparent overlay */
+      .mic-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999; /* semi-transparent backdrop */
+        top: 50%;
+        left: 50%;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Center box with transparent background */
+      .mic-modal-content {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+      }
+
+      /* Size of animation */
+      #mic-animation {
+        width: 150px;
+        height: 150px;
+        background: rgba(0, 0, 0, 0);
+      }
     </style>
   </head>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
 
   <!-- Google tag (gtag.js) -->
   <script
@@ -123,13 +159,33 @@
     data-target=".chatbot-prompt .welcome-message-scroll"
     data-bs-offset="147"
   >
-    <header class="minimal-header">
-      <!--<div class="asu-logo-box">
-  <img src="../static/images/ASU_Sunburst.png" alt="ASU Logo" class="asu-logo-img">
-</div>
-   <div class="top-right-icon">
-    <img src="../static/images/downIcon.png" alt="Icon" class="icon-img">
-  </div> -->
+    <header>
+      <div id="micModal" class="mic-modal">
+        <div class="mic-modal-content">
+          <div id="mic-animation"></div>
+        </div>
+      </div>
+
+      <header class="minimal-header">
+      <div class="asu-logo-box">
+        <img
+          src="../static/images/ASU_Sunburst.png"
+          alt="ASU Logo"
+          class="asu-logo-img"
+        />
+      </div>
+      <div class="top-right-icon" style="z-index: 2">
+        <img src="../static/images/downIcon.png" alt="Icon" class="icon-img" />
+        <div class="nav-items" id="nav-items">
+          <a href="#" class="nav-item"><i class="bi bi-house"></i></a>
+          <a href="#" class="nav-item nav-download"
+            ><i class="bi bi-download"></i
+          ></a>
+          <a href="#" class="nav-item" id="mic-button"
+            ><i class="bi bi-mic"></i
+          ></a>
+        </div>
+      </div>
     </header>
 
     <!-- Main body -->
@@ -145,60 +201,54 @@
             >
               <div class="card left">
                 <div class="card-body welcome-message">
-                  <div class="row">
-                    <div class="chat-row">
-                      <!-- <div
-                        class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-2 d-flex flex-wrap justify-content-start ps-10"
-                      > -->
-                      <img class="waterdrop1" />
-                      <!-- </div> -->
-                      <div
-                        class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 welcome-message-body"
+                  <div class="row justify-content-start">
+                    <div
+                      class="col-auto d-flex flex-wrap align-items-end justify-content-left"
+                    >
                       >
-                        <!-- <div
-                        class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-10 welcome-message-body"
-                      > -->
-                        <p>
-                          Hi, I am a River. I am here to explore water with you.
-                          We can chat, wonder, and share stories. I hope this is
-                          a space for you to get to know me better, and for me
-                          to understand how waters shape your place and your
-                          life.
-                        </p>
-                        <p>
-                          Let’s chat. You can just say hello, share a river
-                          memory with me, or ask questions about me. We can
-                          notice what water feels like where you are, and find
-                          simple ways to care for it. I am excited for us to get
-                          to know each other.
-                        </p>
-                        <p>Not sure where to start? Try one of these:</p>
-                        <ol>
-                          <li>Hi River, how are you?</li>
-                          <li>
-                            Tell me something I can do to help our rivers.
-                          </li>
-                          <li>
-                            What is one thing about water you want me to know?
-                          </li>
-                          <li>What is it like being a river?</li>
-                          <li>How do you feel about how people treat you?</li>
-                          <li>
-                            I love going to rivers because... [fill in the
-                            blank]
-                          </li>
-                        </ol>
-
-                        <!-- </div> -->
-                      </div>
+                      <img class="waterdrop1" />
+                    </div>
+                    <div
+                      class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 col-9 welcome-message-body"
+                    >
+                      <p>
+                        Hi! My name is Blue! I'm here to answer your questions
+                        about water in Arizona.
+                      </p>
+                      <p>
+                        Ask me anything you want about the story of water in our
+                        state!
+                      </p>
+                      <p>
+                        Not sure where to start? You can try asking questions
+                        about:
+                      </p>
+                      <ol>
+                        <li>
+                          Arizona's unique water landscape, rivers, lakes,
+                          groundwater, and aquifers
+                        </li>
+                        <li>Colorado River's role in Arizona's water supply</li>
+                        <li>
+                          What's on your mind about conserving water in our
+                          desert environment?
+                        </li>
+                        <li>
+                          Are there any government programs or initiatives to
+                          address drought in Arizona?
+                        </li>
+                      </ol>
+                      <p>
+                        Ask any question in the space below to start exploring
+                        Arizona's water situation with me!
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Add transcription div here -->
-            <div id="transcription" style="display: none"></div>
+            <div style="display: none"></div>
 
             <form
               autocomplete="off"
@@ -206,13 +256,7 @@
               action="/chat_api"
               method="post"
               id="userBox"
-              style="
-                display: flex;
-                align-items: center;
-                --left-trim: clamp(12px, 4.5vw, 85px);
-                margin-left: var(--left-trim);
-                width: calc(100% - var(--left-trim));
-              "
+              style="display: flex; align-items: center"
             >
               <div
                 class="input-group mt-3"
@@ -227,24 +271,8 @@
                   placeholder="Type your question here"
                   aria-label="Type your question here"
                   aria-describedby="basic-addon2"
-                  style="padding-right: 90px; border-radius: 16px; height: 60px"
+                  style="padding-right: 90px; border-radius: 10px; height: 48px"
                 />
-
-                <button
-                  class="btn btn-mic"
-                  id="mic-button"
-                  type="button"
-                  style="
-                    position: absolute;
-                    right: 50px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background: none;
-                    border: none;
-                  "
-                >
-                  <!-- SVG icon here -->
-                </button>
 
                 <button
                   class="btn btn-submit"
@@ -262,7 +290,7 @@
                 >
                   <i
                     class="fa fa-send"
-                    style="color: #8c1d40; font-size: 30px"
+                    style="color: #8c1d40; font-size: 24px"
                   ></i>
                 </button>
               </div>
@@ -294,56 +322,8 @@
                 <div style="display: inline-flex; align-items: center;">
                 <button type="button" class="btn btn-primary btn-lg btn-new-chat"
                   onclick="window.location.href='/'">New Chat</button> -->
-
-          <button
-            class="btn btn-mic"
-            id="mic-button-2"
-            type="button"
-            onclick="window.location.href='/'"
-            style="
-              margin-left: 1px;
-              background: none;
-              border: none;
-              display: inline-flex;
-              align-items: center;
-            "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="45"
-              height="45"
-              viewBox="0 0 65 65"
-              fill="none"
-            >
-              <circle
-                cx="32.5"
-                cy="32.5"
-                r="30.2586"
-                fill="url(#paint0_linear_71_443)"
-                fill-opacity="0.9"
-              />
-              <path
-                d="M40.0598 32.7222C40.1614 32.0569 40.6948 31.508 41.3677 31.508C42.0407 31.508 42.5952 32.0558 42.5123 32.7236C42.2709 34.6679 41.4381 36.4095 40.0139 37.9485C38.7484 39.3186 37.2756 40.2734 35.5954 40.8128C34.6536 41.1152 33.9215 41.9339 33.9215 42.923V44.5267C33.9215 45.3118 33.2851 45.9483 32.5 45.9483C31.7149 45.9483 31.0784 45.3118 31.0784 44.5267V42.923C31.0784 41.9339 30.3466 41.1147 29.4043 40.814C27.7143 40.2748 26.219 39.3196 24.9184 37.9485C23.5317 36.4095 22.7208 34.668 22.4858 32.7237C22.405 32.0557 22.9593 31.508 23.6323 31.508C24.3052 31.508 24.8389 32.0568 24.9376 32.7224C25.1733 34.3133 25.889 35.6712 27.0846 36.796C28.6189 38.1519 30.4241 38.8298 32.5 38.8298C34.5759 38.8298 36.3585 38.1519 37.8477 36.796C39.0796 35.6711 39.817 34.3132 40.0598 32.7222ZM30.74 22.6947V31.6436C30.74 32.0955 30.8979 32.5023 31.2138 32.8639C31.5749 33.1803 32.0036 33.3384 32.5 33.3384C32.9513 33.3384 33.3349 33.1803 33.6508 32.8639C34.0118 32.5475 34.1923 32.1407 34.1923 31.6436L34.26 22.6947C34.26 22.1975 34.0795 21.7907 33.7185 21.4744C33.3574 21.1128 32.9513 20.932 32.5 20.932C32.0487 20.932 31.6426 21.1128 31.2815 21.4744C30.9205 21.7907 30.74 22.1975 30.74 22.6947ZM35.5462 34.5587C34.6887 35.4175 33.6733 35.8468 32.5 35.8468C31.3267 35.8468 30.3113 35.4175 29.4538 34.5587C28.5964 33.7 28.1677 32.6831 28.1677 31.508V22.8302C28.1677 21.6551 28.5964 20.6382 29.4538 19.7795C30.3113 18.9207 31.3267 18.4914 32.5 18.4914C33.6733 18.4914 34.6887 18.9207 35.5462 19.7795C36.4036 20.6382 36.8323 21.6551 36.8323 22.8302V31.508C36.8323 32.6831 36.4036 33.7 35.5462 34.5587Z"
-                fill="#FEFEFF"
-              />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_71_443"
-                  x1="32.5"
-                  y1="2.24138"
-                  x2="32.5"
-                  y2="62.7586"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#8C1D40" />
-                  <stop offset="1" stop-color="#260811" stop-opacity="0.9" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </button>
         </div>
       </div>
-
       <!-- About Water chatbot -->
       <!-- Chatbot Recent History -->
       <!-- <div class="row">
@@ -417,150 +397,72 @@
     <!-----adding script to handle audio to transcribe functionality------------------------>
 
     <script>
-      const micButton = document.getElementById("mic-button");
-      if (micButton) {
-        micButton.style.display = "none";
-      }
+      const micAnimation = lottie.loadAnimation({
+        container: document.getElementById("mic-animation"),
+        renderer: "svg",
+        loop: true,
+        autoplay: false,
+        path: "/static/animation/mic.json", // replace with your Lottie JSON path
+      });
 
-      const micButton2 = document.getElementById("mic-button-2");
-      if (micButton2) {
-        micButton2.style.display = "none";
-      }
+      const micModal = document.getElementById("micModal");
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false; // stops automatically after a pause
+        recognition.interimResults = false; // only final results
+        recognition.lang = "en-US"; // set your language
 
-      const transcriptionDiv = document.getElementById("transcription");
+        const micBtn = document.getElementById("mic-button");
+        const micIcon = micBtn.querySelector("i");
+        const transcriptionDiv = document.getElementById("user_query");
 
-      let socket;
-      let mediaRecorder;
-      let isRecording = false;
+        let isListening = false;
 
-      const wsPort = window.location.port || 8000; // Use the current web page's port or default to 8000
-      const wsHost = window.location.hostname;
-      const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const wsUrl = `${wsProtocol}//${wsHost}:${wsPort}/transcribe`;
-
-      micButton.addEventListener("click", toggleRecording);
-
-      function toggleRecording() {
-        if (isRecording) {
-          stopRecording();
-        } else {
-          startRecording();
-        }
-      }
-
-      function startRecording() {
-        micButton.innerText = "Stop Recording";
-        navigator.mediaDevices
-          .getUserMedia({ audio: true })
-          .then((stream) => {
-            mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.addEventListener(
-              "dataavailable",
-              handleDataAvailable
-            );
-            mediaRecorder.start(500);
-
-            socket = new WebSocket(wsUrl);
-
-            console.log("MediaRecorder instance created");
-            socket.addEventListener("open", () => {
-              console.log("WebSocket established");
-            });
-            socket.addEventListener("error", (error) => {
-              console.error(`WebSocket error ${error}`);
-            });
-            socket.addEventListener("message", handleSocketMessage);
-
-            isRecording = true;
-          })
-          .catch((error) => {
-            console.error("Error accessing microphone:", error);
-            isRecording = false;
-          });
-      }
-
-      function stopRecording() {
-        micButton.innerText = "Start Recording";
-
-        if (mediaRecorder && mediaRecorder.state !== "inactive") {
-          mediaRecorder.stop();
-          mediaRecorder.removeEventListener(
-            "dataavailable",
-            handleDataAvailable
-          );
-        }
-
-        if (socket && socket.readyState === WebSocket.OPEN) {
-          const closeEventString = JSON.stringify({ event: "close" });
-          socket.send(closeEventString);
-          socket.close();
-        }
-
-        isRecording = false;
-      }
-
-      function handleDataAvailable(event) {
-        console.log("handleDataAvailable called");
-        console.log("AUDIO: ", event.data);
-        const chunkSize = 1024 * 2;
-        if (event.data && socket.readyState === WebSocket.OPEN) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const arrayBuffer = reader.result;
-            const chunks = splitArrayBuffer(arrayBuffer, chunkSize);
-            for (const chunk of chunks) {
-              socket.send(chunk);
-            }
-          };
-          reader.readAsArrayBuffer(event.data);
-        }
-      }
-
-      function splitArrayBuffer(arrayBuffer, chunkSize) {
-        const chunks = [];
-        const view = new Uint8Array(arrayBuffer);
-        for (let i = 0; i < view.byteLength; i += chunkSize) {
-          const chunk = view.subarray(i, i + chunkSize);
-          chunks.push(chunk);
-        }
-        return chunks;
-      }
-
-      function handleSocketMessage(event) {
-        console.log("In handle socket message");
-        console.log("Received WebSocket message:", event.data);
-        try {
-          const data = JSON.parse(event.data);
-          console.log("Parsed data: ", data);
-          transcriptionDiv.innerText = data.transcript;
-          // Check if the message is from the user or the bot and display it accordingly
-          if (data.type === "user") {
-            displayUserMessage(data.transcript);
-          } else if (data.type === "bot") {
-            displayBotMessage(data.response, data.messageID);
+        micBtn.addEventListener("click", () => {
+          if (!isListening) {
+            recognition.start();
+            micIcon.classList.remove("bi-mic");
+            micIcon.classList.add("bi-pause");
+            micModal.style.display = "flex"; // show modal
+            micAnimation.play();
+            isListening = true;
+          } else {
+            recognition.stop();
+            micIcon.classList.remove("bi-pause");
+            micIcon.classList.add("bi-mic");
+            micModal.style.display = "none"; // hide modal
+            micAnimation.stop();
+            isListening = false;
           }
-        } catch (error) {
-          console.error("Error parsing WebSocket message:", error);
-        }
-      }
-
-      document
-        .getElementById("transcript-button")
-        .addEventListener("click", function () {
-          fetch("/session-transcript", {
-            method: "POST", // or 'GET' if your server supports it
-            credentials: "include", // Ensures cookies are sent with the request
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Success:", data);
-              // You might want to redirect the user to the URL or open it in a new tab
-              window.open(data.presigned_url, "_blank");
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
         });
+
+        recognition.onresult = function (event) {
+          const transcript = event.results[0][0].transcript;
+          console.log("Transcript:", transcript);
+
+          transcriptionDiv.value = transcript;
+        };
+
+        recognition.onerror = function (event) {
+          console.error("Speech recognition error", event.error);
+          micIcon.classList.remove("bi-pause");
+          micIcon.classList.add("bi-mic");
+          isListening = false;
+        };
+
+        recognition.onend = function () {
+          micIcon.classList.remove("bi-pause");
+          micIcon.classList.add("bi-mic");
+          micModal.style.display = "none";
+          micAnimation.stop();
+          isListening = false;
+        };
+      } else {
+        console.warn("Web Speech API not supported in this browser.");
+        document.getElementById("mic-button").disabled = true;
+      }
     </script>
   </body>
   <footer></footer>

@@ -142,20 +142,6 @@ p .h6 {
     color: black;
   }
 }
-.chat-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.col-11 {
-  flex: 0 0 auto;
-  width: 6rem;
-}
-
-.ps-10 {
-  padding-left: 6rem !important;
-}
 
 .cVsgpr {
   position: fixed;
@@ -334,17 +320,58 @@ a {
   padding: 1rem 5rem 1rem 5rem;
   background-color: transparent;
   min-width: auto;
-  max-width: 100%;
-  margin-left: 20px;
-  margin-right: 200px;
-  width: calc(100% - 180px); /* trims 240px from the right */
-  margin-right: auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 @media (max-width: 992px) {
   .chatbot-prompt-container {
     padding: 1rem 1rem 2rem 1rem;
   }
 }
+
+/* Container for arrow + dropdown */
+.top-right-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Hidden drop‑box: collapsed height and zero opacity */
+.nav-items {
+  position: absolute;
+  right: -8px;
+  top: -11px;
+  width: 80px;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 47px;
+  background: #8c1d40;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Show menu when hovering over container or nav-items itself */
+.top-right-icon:hover .nav-items,
+.nav-items:hover {
+  height: 240px; /* adjust to fit your items */
+  opacity: 1;
+}
+
+/* Each circular nav button */
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 12px auto;
+  border-radius: 60%;
+  background: #fff;
+  color: #8c1d40;
+  text-decoration: none;
+  font-size: 35px;
+}
+
 .chatbot-prompt {
   /* margin-right: 80px; */
   display: flex;
@@ -353,11 +380,12 @@ a {
   gap: 0.5rem;
   height: calc(100vh - 310px);
   overflow-y: auto;
+  overflow-x: hidden;
   flex-shrink: 0;
   padding-bottom: 10px;
   max-width: 100%;
-  margin-left: 0;
 }
+
 .card-footer {
   background-color: inherit;
   border-radius: 20px;
@@ -386,9 +414,8 @@ a {
   margin-right: 5 rem;
 }
 .waterdrop1,
-.waterdrop2,
-waterdrop5 {
-  width: 4.25rem;
+.waterdrop2, waterdrop5 {
+  width: 3.625rem;
   height: 4.25rem;
   flex-shrink: 0;
 }
@@ -402,31 +429,14 @@ waterdrop5 {
   height: 8.25rem;
   flex-shrink: 0;
 }
-.welcome-message-body {
-  width: 800px; /* fixed */
-  max-width: 95vw; /* don’t overflow small screens */
-  display: block; /* or flex, but NOT inline-flex */
-  padding: 1rem;
-  background: #eee;
-
-  white-space: normal;
-  overflow-wrap: anywhere; /* break long words/URLs */
-  border-radius: 0px 35px 35px 35px;
-}
-
 .bot-message-body,
 .welcome-message-body {
   width: 800px; /* fixed */
   max-width: 95vw; /* don’t overflow small screens */
   display: block; /* or flex, but NOT inline-flex */
   padding: 1rem;
-  border-radius: 0px 35px 35px 35px;
-  background: #eee;
-
-  white-space: normal;
-  overflow-wrap: anywhere; /* break long words/URLs */
-  margin-left: 0;
 }
+
 .message-body {
   display: inline-flex;
   flex-direction: column;
@@ -438,8 +448,14 @@ waterdrop5 {
   padding: 1rem;
   background: #eee;
   border-radius: 1rem;
+  padding-bottom: 1rem;
 }
-.chxatbot-question {
+
+.nav-items .nav-download {
+  cursor: pointer;
+}
+
+.chatbot-question {
   display: flex;
   /* flex-direction: row; */
   align-items: flex-start;
@@ -468,6 +484,7 @@ waterdrop5 {
   width: fit-content;
   padding: 1rem 1rem;
   margin: 0.12rem 0.5rem;
+  margin-right: 1rem;
   /* margin-left: 20%; */
 }
 
@@ -643,6 +660,7 @@ waterdrop5 {
 .right {
   margin-left: 50%;
   justify-content: flex-end;
+  margin-left: 50%;
 }
 
 .loader {
