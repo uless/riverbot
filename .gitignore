@@ -1,6 +1,6 @@
 #local util
 ecr_auth.sh
-
+.idea
 # Database
 application/docs/
 application/newData
