@@ -1,32 +1,31 @@
 import os
 import re
 import uuid
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
 
-def add_document_with_metadata(db, text_splitter, file_path):
+def add_document_with_metadata(db, text_splitter, file_path, splits):
     file_name = os.path.basename(file_path)
 
-    # Load the document using PyPDFLoader
+    # Check if it's a PDF file
     if bool(re.match(r".*\.pdf$", file_path, re.IGNORECASE)):
         loader = PyPDFLoader(file_path)
     else:
-        print("Only PDFs are supported in this example.")
+        print(f"Unsupported file type: {file_path}")
         return
 
-    # Load the data
+    # Load the document
     data = loader.load()
-    print("data length:", len(data))
+    print("Data length:", len(data))
 
-    splits = []
+    # Process each document in the loaded data (PDFs can contain multiple documents)
     for doc in data:
-        print("Adding : ", file_path)
-        # Adding metadata
+        print("Adding: ", file_path)
         doc.metadata['id'] = str(uuid.uuid4())  # Adding unique ID
-        doc.metadata['source'] = file_path  # adding path name
-        doc.metadata['name'] = file_name  # Adding file name
+        doc.metadata['source'] = file_path      # Adding file path
+        doc.metadata['name'] = file_name        # Adding file name
 
         # Split the document into chunks
         chunks = text_splitter.split_documents([doc])
@@ -36,24 +35,32 @@ def add_document_with_metadata(db, text_splitter, file_path):
             chunk.metadata = doc.metadata.copy()  # Ensure each chunk gets a copy of the metadata
             splits.append(chunk)
 
-    # Add documents to the Chroma database
-    try:
-        db.add_documents(documents=splits)
-        print(f"Successfully added {len(splits)} documents to ChromaDB.")
-    except Exception as e:
-        print(f"Failed to add documents to ChromaDB: {e}")
-
 def main():
     # Initialize components
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=150)
     embeddings = OpenAIEmbeddings()
-    db = Chroma(persist_directory='docs/chroma/', embedding_function=embeddings)
+    db = Chroma(persist_directory='../docs/chroma/', embedding_function=embeddings)
 
-    # Path to your single PDF file
-    file_path = "newData/Where does our water come from_ _ Arizona Environment.pdf"  # Update this path to your PDF
+    # Specify the PDF file path to process
+    file_path = "../newData/2023-23127.pdf"  # Replace with the path to your PDF file
 
-    # Add the document
-    add_document_with_metadata(db, text_splitter, file_path)
+    # Validate the file exists
+    if not os.path.exists(file_path):
+        print(f"File not found: {file_path}")
+        return
+
+    # Prepare to store document splits
+    splits = []
+    
+    # Process the PDF file
+    add_document_with_metadata(db, text_splitter, file_path, splits)
+
+    # Add the processed documents (splits) to the database
+    try:
+        db.add_documents(documents=splits)
+        print(f"Successfully added {len(splits)} document chunks to ChromaDB.")
+    except Exception as e:
+        print(f"Failed to add documents to ChromaDB: {e}")
 
 if __name__ == "__main__":
     main()
